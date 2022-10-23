@@ -3,16 +3,17 @@
 # 3) Kurze Bedienungsanleitung
 # 4) User Stories inkl. Akzeptanzkriterium, Aufwandschätzung in Story-Points und Priorisierung
 # 5) Releaseplan mit den Ausbaustufen
-Sprint 1       | Sprint 2                                         
----------------|--------------------------------------------------
- User - Story 1: Eingabe Datum | User - Story 7: Blutungszeit ermitteln
- User - Story 2: Daten Speichern | User - Story 8: Fruchtare Zeit ermitteln
- User - Story 3: Daten einlesen | User - Story 9: Schwangerschafts vs. Verhütungsmodus
- User - Story 4: Zyklusdauer ermitteln | User - Story 10: Passwortschutz
- User - Story 5: Vorhersage nächster Zyklus | User - Story 11: Temperatur erfassen und auswerten
-User - Story 6: Zyklusdauer Durchschnitt | User - Story 12: Schleim erfassen und auswerten
-- | User - Story 13: Easter Egg
-- | User - Story 14: Graphische Ausgabe
+| test                                        | Sprint 1 (7.11.2022)                 | Sprint 2  (18.11.2022)                                       
+|-------------------------------------------|--------------------------------------|--------------------------------------------------
+ 1                                         |User - Story 1: Eingabe Datum         | User - Story 7: Blutungszeit ermitteln
+2 |User - Story 2: Daten Speichern       | User - Story 8: Fruchtare Zeit ermitteln
+3 |User - Story 3: Daten einlesen        | User - Story 9: Schwangerschafts vs. Verhütungsmodus
+ 4 |User - Story 4: Zyklusdauer ermitteln | User - Story 10: Passwortschutz
+ 5 |User - Story 5: Vorhersage nächster Zyklus | User - Story 11: Temperatur erfassen und auswerten
+ 6 |User - Story 6: Zyklusdauer Durchschnitt | User - Story 12: Schleim erfassen und auswerten
+ 7 |                                      | User - Story 13: Easter Egg
+ 8 |                                      | User - Story 14: Graphische Ausgabe
+9 | Velocitiy 34 | Veloscity |
 
 # 6) Dokumentation Sprint 1
 ### a. Taskliste für die Umsetzung der User Story (Schätzung in Stunden) b. Anreicherung der User Stories für die Umsetzung
