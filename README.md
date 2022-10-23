@@ -1,6 +1,32 @@
 # 1) Einleitung, Ziele, Randbedingungen
+---
 # 2) Build-Anleitung (checkout, mvn ...., java -jar xxxxx.jar)
+1) Install Java
+2) Set java environment variables
+   1) It’s recommended to set an environment variable called JAVA_HOME that stores the path to where Java is installed on your machine.
+   2) For Mac users: <pre><code>export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk-18.jdk/Contents/Home"</code></pre>
+3) Verify Java is installed:
+   <pre><code>java -version</code></pre>
+4) Install Maven
+5) Set Maven environment variables
+   1) Add the executable for Maven to your PATH variable so that your machine can execute Maven commands successfully.
+   2) For Mac users:
+   <pre><code>export MAVEN_ROOT="$HOME/path/to/maven/apache-maven-3.8.5"
+   export PATH="$MAVEN_ROOT/bin:$PATH"</code></pre>
+6) Verify Maven is installed
+   1) For Mac users: <pre><code>mvn --version</code></pre>
+7) Create a new directory and change into it
+8) Generate project using an archetype
+   <pre><code>mvn archetype:generate -DgroupId=ch.trinat.gauss -DartifactId=menstrualender -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false</code></pre>
+9) Specify source and target of Java that is to be used. To do this, add the following properties to the pom.xml file: <pre><code>\<properties>
+   <maven.compiler.source>18</maven.compiler.source>
+   <maven.compiler.target>18</maven.compiler.target>
+\</properties></code></pre>
+10) To build and test the app, run the following command from the project root directory: <pre><code>mvn clean package</code></pre>
+11) Run the app, by running the following command from the project root directory: <pre><code>java -cp target/classes ch.trinat.gauss.menstrualender</code></pre>
+---
 # 3) Kurze Bedienungsanleitung
+---
 # 4) User Stories inkl. Akzeptanzkriterium, Aufwandschätzung in Story-Points und Priorisierung
 |User Stories|Namen|Beschreibung|Priorität|Story Points|Akzeptanzkriterien|
 |----------|----------|----------|----------|----------|----------|
@@ -18,7 +44,7 @@
 |12|Schleim Erfassen und Auswerten|Als Frau möchte ich die Konsistenz meines Schleims angeben können um noch sicherer im verhüten bzw. schwanger werden zu sein.|3|8|Dropdown menu zur beschreibung vom Schleim. Die daten werden gespeichert, können eingelesen werden und bearbeitet|
 |13|Easteregg|Als Nutzer möchte ich überrascht werden mit einem Easter Egg, um das Interesse an der Applikation aufrecht zu erhalten.|3|13|Ein Kunde wird überrascht.|
 |14|Graphische Ausgabe|Als Frau möchte ich die Resultate graphisch ausgegeben bekommen, um möglichst schnell einen geordneten Überblick über meine Gesundheit zu erhalten.|3|20|Alle Informationen werden Ansprechend und Übersichtlich angegeben. Die Benutzung verläuft intuitiv und wird simpel gehalten|
-
+---
 # 5) Releaseplan mit den Ausbaustufen
 | test                                        | Sprint 1 (7.11.2022)                 | Sprint 2  (18.11.2022)                                       
 |-------------------------------------------|--------------------------------------|--------------------------------------------------
@@ -31,12 +57,13 @@
  7 |                                      | User - Story 13: Easter Egg
  8 |                                      | User - Story 14: Graphische Ausgabe
 9 | Velocitiy 34 | Veloscity |
-
+---
 # 6) Dokumentation Sprint 1
 ### a. Taskliste für die Umsetzung der User Story (Schätzung in Stunden) b. Anreicherung der User Stories für die Umsetzung
 ### c. UML Package, Klassen- und Sequenzdiagramm
 ### d. Dokumentation wichtiger Code Snippets
 ### e. Herleitung der Testfälle aus den Akzeptanzkriterien der User Stories
+---
 # 7) Dokumentation Sprint 2 (inkl. Punkte a-e
 ### a. Taskliste für die Umsetzung der User Story (Schätzung in Stunden) b. Anreicherung der User Stories für die Umsetzung
 ### c. UML Package, Klassen- und Sequenzdiagramm
