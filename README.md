@@ -1,9 +1,15 @@
 # 1) Einleitung, Ziele, Randbedingungen
 ## 1.1) Einleitung
-
+Wenn sie eine einfacheren Weg suchen ihre Menstruationsdaten aufzuschreiben dann werden wir das perfekte Tool für sie erfinden. Einen Online Kalender der ihnen basierend auf früeheren Ergebnissen eine Vorhersage für ihren nächsten Zyklus machen wird.
 ## 1.2) Ziele
-
+Das Ziel wird es sein ein Tool zu schaffen, das einfach von Gebrauch ist, aber das Ihnen auch im Alltag helfen. Keine Probleme mit dem vergessen von den vorherigen Zyklen. Andererseits auch ein Tool das ihre Daten geschützt behaltet und sie nach einer vorgegebenen Zeit löscht. 
 ## 1.3) Randbedingungen
+Die Programmierung der Anwendung erfolgt in Java.
+Das Projekt ist auf GitHub öffentlich einsehbar.
+Das Projekt wurde getestet.
+Das Projekt wurde mit dem Git-Workflow Vincent Driessen erstellt.
+Die Build-Automatisierung erfolgt mittels Gradle.
+Das Projekt wurde mit der SCRUM Methode durchgeführt. Dies beinhaltet Userstories und einen Releaseplan.
 ---
 # 2) Build-Anleitung (checkout, mvn ...., java -jar xxxxx.jar)
 1) Install Java
