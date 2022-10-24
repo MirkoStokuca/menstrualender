@@ -1,4 +1,9 @@
 # 1) Einleitung, Ziele, Randbedingungen
+## 1.1) Einleitung
+
+## 1.2) Ziele
+
+## 1.3) Randbedingungen
 ---
 # 2) Build-Anleitung (checkout, mvn ...., java -jar xxxxx.jar)
 1) Install Java
