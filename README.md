@@ -37,6 +37,10 @@ Das Ziel wird es sein ein Tool zu schaffen, das einfach von Gebrauch ist, aber d
 \</properties></code></pre>
 10) To build and test the app, run the following command from the project root directory: <pre><code>mvn clean package</code></pre>
 11) Run the app, by running the following command from the project root directory: <pre><code>java -cp target/classes ch.trinat.gauss.menstrualender</code></pre>
+
+### Run JAR file
+1) Download menstrualender.jar
+2) Run program by changing into the folder containing the .jar file and running the following command: <pre><code>java -jar ~/"path to your folder"/menstrualender.jar</code></pre>
 ---
 # 3) Kurze Bedienungsanleitung
 ---
