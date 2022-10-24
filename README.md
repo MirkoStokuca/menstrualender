@@ -28,7 +28,7 @@ Das Ziel wird es sein ein Tool zu schaffen, das einfach von Gebrauch ist, aber d
    export PATH="$MAVEN_ROOT/bin:$PATH"</code></pre>
 6) Verify Maven is installed
    1) For Mac users: <pre><code>mvn --version</code></pre>
-7) Create a new directory and change into it
+7) Create a new directory, change into it and clone the remote repository with the folllowing command: <code><pre>git clone https://github.com/MirkoStokuca/menstrualender</code></pre>
 8) Generate project using an archetype
    <pre><code>mvn archetype:generate -DgroupId=ch.trinat.gauss -DartifactId=menstrualender -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false</code></pre>
 9) Specify source and target of Java that is to be used. To do this, add the following properties to the pom.xml file: <pre><code>\<properties>
