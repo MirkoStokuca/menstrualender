@@ -1,18 +1,20 @@
 package mvp;
 
-public class Data {
-    // Attribute
-    String date;
+import java.util.GregorianCalendar;
 
-    public Data(String date) {
+public class Cycle {
+    // Attribute
+    GregorianCalendar date;
+
+    public Cycle(GregorianCalendar date) {
         this.date = date;
     }
 
-    public Data() {
+    public Cycle() {
 
     }
 
     public void printDate(){
-        System.out.println("Eingabe Datum Tag der ersten Blutung: " + date);
+        System.out.println("Datum der ersten Blutung: " + Helper.gregorianToString(date));
     }
 }
