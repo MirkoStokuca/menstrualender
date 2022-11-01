@@ -8,6 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import mvp.Cycle;
 
 import java.io.IOException;
 
@@ -64,5 +65,6 @@ public class MensApplication extends Application {
     public static void main(String[] args) {
         System.setProperty("prism.lcdtext", "false");
         launch(args);
+
     }
 }

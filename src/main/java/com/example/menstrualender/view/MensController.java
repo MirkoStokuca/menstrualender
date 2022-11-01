@@ -10,11 +10,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import mvp.Cycle;
 import mvp.Helper;
 
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+import static mvp.Helper.parseToGregorian;
 
 
 public class MensController {
@@ -25,7 +28,12 @@ public class MensController {
     @FXML
     private MensApplication mensApp;
 
-    public MensController(){
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
+
+
+    public MensController() {
     }
 
     public void gedrueckt(ActionEvent e) {
@@ -35,8 +43,9 @@ public class MensController {
 
     public void getDate(ActionEvent event) {
         LocalDate myDate = datePicker.getValue();
-        String myFormattedDate = myDate.format(DateTimeFormatter.ofPattern("MMM-dd-yyyy"));
-        kalenderAusgabe.setText(myFormattedDate);
+        String myFormattedDate = myDate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+        //kalenderAusgabe.setText(myFormattedDate);
+        //cycle.add(new Cycle(parseToGregorian(myFormattedDate)));
 
     }
 
@@ -44,15 +53,16 @@ public class MensController {
 
         this.mensApp = mensApp;
     }
+
+    @FXML
+    public void switchToLogin(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("view/login.fxml"));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
         /*
-        @FXML
-        public void switchToLogin (ActionEvent event) throws IOException {
-            root = FXMLLoader.load(getClass().getResource("view/login.fxml"));
-            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-        }
         @FXML
         public void switchToHello (ActionEvent event) throws IOException {
             Parent root = FXMLLoader.load(getClass().getResource("view/hello-view.fxml"));
