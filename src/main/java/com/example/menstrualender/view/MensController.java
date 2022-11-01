@@ -1,9 +1,9 @@
-package com.example.menstrualender;
+package com.example.menstrualender.view;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
-public class HelloController {
+public class MensController {
     @FXML
     private Label welcomeText;
 
