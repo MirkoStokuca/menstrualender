@@ -1,6 +1,7 @@
 package com.example.menstrualender.view;
 
 import javafx.event.ActionEvent;
+import com.example.menstrualender.MensApplication;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -21,8 +22,13 @@ public class MensController {
     private Label kalenderAusgabe;
     @FXML
     private DatePicker datePicker;
+    @FXML
+    private MensApplication mensApp;
 
-    public void gedrueckt(ActionEvent e){
+    public MensController(){
+    }
+
+    public void gedrueckt(ActionEvent e) {
         //System.out.println("ye");
         kalenderAusgabe.setText("ye");
     }
@@ -33,23 +39,28 @@ public class MensController {
         kalenderAusgabe.setText(myFormattedDate);
 
     }
-    @FXML
-    public void switchToLogin(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("view/login.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
-    @FXML
-    public void switchToHello(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("view/hello-view.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
 
+    public void setMainApp(MensApplication mensApp) {
 
+        this.mensApp = mensApp;
+    }
+        /*
+        @FXML
+        public void switchToLogin (ActionEvent event) throws IOException {
+            root = FXMLLoader.load(getClass().getResource("view/login.fxml"));
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        }
+        @FXML
+        public void switchToHello (ActionEvent event) throws IOException {
+            Parent root = FXMLLoader.load(getClass().getResource("view/hello-view.fxml"));
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        }
+         */
 
 }
