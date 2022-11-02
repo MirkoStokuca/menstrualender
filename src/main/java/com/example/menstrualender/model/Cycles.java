@@ -29,11 +29,11 @@ public class Cycles {
             for(String valueLine : Files.readAllLines(path)){
                 String[] val = valueLine.split(";");
                 for (int i = 0; i < val.length; i++) {
-                    var tempStringArray = val[i].split("\\.");
+                    var tempStringArray = val[i].split("\\-");
                     for (int j = 0; j < tempStringArray.length; j++) {
-                        int day = Integer.parseInt(tempStringArray[0]);
-                        int month = Integer.parseInt(tempStringArray[1])+1;
-                        int year = Integer.parseInt(tempStringArray[2]);
+                        int day = Integer.parseInt(tempStringArray[2]);
+                        int month = Integer.parseInt(tempStringArray[1])-1;
+                        int year = Integer.parseInt(tempStringArray[0]);
                         readDates.add(LocalDate.of(year,month,day));
                     }
 
@@ -44,7 +44,7 @@ public class Cycles {
             System.err.println(e.getMessage());
         }
         System.out.println();
-        System.out.println("Es wurden " + readDates.size() + " Einträge generiert");
+        System.out.println("Es wurden " + readDates.size()/3 + " Einträge generiert");
         System.out.println();
         cycles = readDates;
     }

@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 
 public class MensController {
@@ -46,7 +47,7 @@ public class MensController {
 
     public void getDate(ActionEvent event) {
         LocalDate myDate = datePicker.getValue();
-        //String myFormattedDate = myDate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+        myDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         zyklus.addDate(myDate);
     }
 
