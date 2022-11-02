@@ -51,6 +51,8 @@ public class MensApplication extends Application {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MensApplication.class.getResource("view/rootLayout.fxml"));
             rootLayout = (BorderPane) loader.load();
+            Scene scene = new Scene(rootLayout);
+            defaultStage.setScene(scene);
 
             defaultStage.show();
 
