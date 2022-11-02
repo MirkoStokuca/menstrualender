@@ -8,12 +8,12 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import mvp.Cycle;
 
 import java.io.IOException;
 
 public class MensApplication extends Application {
 
+    public final static String PATH_TO_FILE = "src/artificialData.csv";
     private Stage defaultStage;
     private BorderPane rootLayout;
 
@@ -52,8 +52,6 @@ public class MensApplication extends Application {
             loader.setLocation(MensApplication.class.getResource("view/rootLayout.fxml"));
             rootLayout = (BorderPane) loader.load();
 
-            Scene scene = new Scene(rootLayout);
-            defaultStage.setScene(scene);
             defaultStage.show();
 
         } catch (IOException e) {
