@@ -28,18 +28,21 @@
                           <items>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                                  <children>
-                                    <Label layoutX="14.0" layoutY="5.0" prefHeight="18.0" prefWidth="342.0" text="Calender Output" />
+                                    <Label layoutX="14.0" layoutY="5.0" prefHeight="18.0" prefWidth="342.0" text="Calender Output">
+                                       <font>
+                                          <Font name="System Italic" size="14.0" />
+                                       </font></Label>
                                     <Separator layoutX="46.0" layoutY="95.0" prefHeight="0.0" prefWidth="340.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0" />
                                     <ScrollPane layoutY="30.0" prefHeight="194.0" prefWidth="340.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
                                       <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="365.0" prefWidth="324.0">
                                              <children>
-                                                <Label fx:id="kalenderAusgabe" alignment="CENTER" graphicTextGap="0.0" text="Calender Output" textAlignment="JUSTIFY" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                <Label fx:id="kalenderAusgabe" alignment="TOP_LEFT" graphicTextGap="0.0" textAlignment="JUSTIFY" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                    <padding>
                                                       <Insets bottom="10.0" />
                                                    </padding>
                                                    <font>
-                                                      <Font size="22.0" />
+                                                      <Font name="System Italic" size="24.0" />
                                                    </font>
                                                 </Label>
                                              </children>
@@ -50,17 +53,29 @@
                               </AnchorPane>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                                  <children>
-                                    <Label layoutX="14.0" layoutY="22.0" text="Average Interval:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="30.0" />
-                                    <Label fx:id="averageInterval" layoutX="118.0" layoutY="17.0" text="Average Interval" AnchorPane.leftAnchor="115.0" AnchorPane.topAnchor="30.0">
+                                    <Label layoutX="14.0" layoutY="22.0" text="Average Interval:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="50.0">
+                                       <font>
+                                          <Font name="System Bold Italic" size="18.0" />
+                                       </font></Label>
+                                    <Label fx:id="averageInterval" layoutX="118.0" layoutY="17.0" text="Average Interval" AnchorPane.leftAnchor="170.0" AnchorPane.topAnchor="50.0">
                                        <padding>
                                           <Insets bottom="10.0" />
                                        </padding>
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
                                     </Label>
-                                    <Label layoutX="25.0" layoutY="119.0" text="Next Cycle start:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="100.0" />
-                                    <Label fx:id="nextCycleStart" layoutX="116.0" layoutY="114.0" text="Next Cycle start" AnchorPane.leftAnchor="115.0" AnchorPane.topAnchor="100.0">
+                                    <Label layoutX="25.0" layoutY="119.0" text="Next Cycle start:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="120.0">
+                                       <font>
+                                          <Font name="System Bold Italic" size="18.0" />
+                                       </font></Label>
+                                    <Label fx:id="nextCycleStart" layoutX="116.0" layoutY="114.0" text="Next Cycle start" AnchorPane.leftAnchor="170.0" AnchorPane.topAnchor="120.0">
                                        <padding>
                                           <Insets bottom="10.0" />
                                        </padding>
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
                                     </Label>
                                  </children>
                               </AnchorPane>
@@ -96,8 +111,14 @@
                                               <Button alignment="CENTER" mnemonicParsing="false" onAction="#setDate" text="Start new Cycle" VBox.vgrow="ALWAYS">
                                                    <VBox.margin>
                                                       <Insets bottom="10.0" />
-                                                   </VBox.margin></Button>
-                                                <Label fx:id="buttonConf" textFill="#62be00" />
+                                                   </VBox.margin>
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font></Button>
+                                                <Label fx:id="buttonConf" textFill="#62be00">
+                                                   <font>
+                                                      <Font name="System Bold" size="18.0" />
+                                                   </font></Label>
                                              </children>
                                           </VBox>
                                        </children>
@@ -109,7 +130,16 @@
                               <Button mnemonicParsing="false" onAction="#switchToLogin" text="Logout" BorderPane.alignment="CENTER" />
                            </bottom>
                            <center>
-                              <Button mnemonicParsing="false" onAction="#showInfos" text="show Infos" BorderPane.alignment="CENTER" />
+                              <Button mnemonicParsing="false" onAction="#showInfos" text="Show Infos" BorderPane.alignment="TOP_CENTER">
+                                 <BorderPane.margin>
+                                    <Insets top="20.0" />
+                                 </BorderPane.margin>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font></Button>
                            </center>
                         </BorderPane>
                      </children>

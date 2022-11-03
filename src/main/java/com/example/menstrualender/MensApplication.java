@@ -52,7 +52,7 @@ public class MensApplication extends Application {
     public void showDefaultWindow() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MensApplication.class.getResource("view/hello-view.fxml"));
+            loader.setLocation(MensApplication.class.getResource("view/mensView.fxml"));
             AnchorPane defaultView = (AnchorPane) loader.load();Scene defaultScene = new Scene(defaultView);
             defaultStage.setScene(defaultScene);
 
