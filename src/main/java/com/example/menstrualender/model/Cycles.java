@@ -1,6 +1,7 @@
 package com.example.menstrualender.model;
 
 import com.example.menstrualender.MensApplication;
+import com.example.menstrualender.util.DateUtil;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -103,12 +104,15 @@ public class Cycles {
      * Calculates the date of the start of the next cycle
      * @return LocalDate with averageInterval added
      */
-    public LocalDate calculateNextCycleStart() {
+    public String calculateNextCycleStart() {
 
         int averageInterval = getAverageInterval();
 
-        LocalDate lastEntry = this.cycles.get(cycles.size() - 1);
-
-        return lastEntry.plusDays(averageInterval);
+        try {
+            LocalDate lastEntry = this.cycles.get(cycles.size() - 1);
+            return lastEntry.plusDays(averageInterval).format(DateUtil.formatter);
+        } catch (IndexOutOfBoundsException e) {
+            return "";
+        }
     }
 }

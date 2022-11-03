@@ -72,6 +72,8 @@ public class MensController implements Initializable {
     @FXML
     private void deleteData(){
         zyklus.deleteData();
+        mensApp.showDefaultWindow();
+
     }
 
     private void showButton(String labelText, boolean color) {
@@ -123,19 +125,25 @@ public class MensController implements Initializable {
          * Changes Label nextCycleStart in hello-view to nextCycleStart from Cycles
          * takes int "averageInterval"
          */
-        LocalDate nCycleStart = zyklus.calculateNextCycleStart();
-        String formattedString = nCycleStart.format(DateUtil.formatter);
-        nextCycleStart.setText(formattedString);
+        /*LocalDate nCycleStart = zyklus.calculateNextCycleStart();
+        String formattedString = nCycleStart.format(DateUtil.formatter);*/
+        nextCycleStart.setText(zyklus.calculateNextCycleStart());
     }
 
     public void printCalender() {
         /**
          * Sets Text of Label kalenderAusgabe to the Calender Infos
          */
-        String message = "Previously saved dates:\n\n";
-        var tempArray = zyklus.getCycles();
-        for (int i = 0; i < (tempArray.size() - 0); i++) {
-            message += tempArray.get(i).format(DateUtil.formatter) + "\n";
+        String message = "Saved dates:\n\n";
+
+        if (zyklus.getCycles().size() != 0) {
+            var tempArray = zyklus.getCycles();
+            for (int i = 0; i < (tempArray.size() - 0); i++) {
+                message += tempArray.get(i).format(DateUtil.formatter) + "\n";
+            }
+        } else {
+            message += "None Found!\n\nHow to Add New Cycle:\n1. Choose Date\n2.\"Start new Cycle\"" +
+                    "\n\nAdd at least two dates\nto calulate the start\nof the next cycle.";
         }
 
         kalenderAusgabe.setText(message);
