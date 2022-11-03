@@ -1,6 +1,7 @@
 package com.example.menstrualender.view;
 
 import com.example.menstrualender.model.Cycles;
+import com.example.menstrualender.util.DateUtil;
 import javafx.animation.FadeTransition;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -10,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import java.net.URL;
@@ -113,7 +115,7 @@ public class MensController implements Initializable {
          * returns Int averageInterval
          */
         int averInterval = zyklus.getAverageInterval();
-        averageInterval.setText(Integer.toString(averInterval));
+        averageInterval.setText(Integer.toString(averInterval) + " days");
     }
 
     public void showNextCycleStart() {
@@ -122,8 +124,7 @@ public class MensController implements Initializable {
          * takes int "averageInterval"
          */
         LocalDate nCycleStart = zyklus.calculateNextCycleStart();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy");
-        String formattedString = nCycleStart.format(formatter);
+        String formattedString = nCycleStart.format(DateUtil.formatter);
         nextCycleStart.setText(formattedString);
     }
 
@@ -131,19 +132,13 @@ public class MensController implements Initializable {
         /**
          * Sets Text of Label kalenderAusgabe to the Calender Infos
          */
-        ArrayList<LocalDate> allInfosLocalDate = zyklus.getCycles();
-        String allInfosRawString = allInfosLocalDate.toString();
-        String[] allInfosString = allInfosRawString.split(",");
-
-        //Add Newline
-        String finalString = " ";
-        for (int i = 0; i<allInfosString.length; i++) {
-
-            finalString += "\n" + allInfosString[i];
+        String message = "Previously saved dates:\n\n";
+        var tempArray = zyklus.getCycles();
+        for (int i = 0; i < (tempArray.size() - 0); i++) {
+            message += tempArray.get(i).format(DateUtil.formatter) + "\n";
         }
 
-        //set Kalender Ausgabe
-        kalenderAusgabe.setText(finalString.replace("[","").replace("]",""));
+        kalenderAusgabe.setText(message);
     }
     
     @Override
