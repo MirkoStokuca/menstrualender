@@ -59,9 +59,6 @@ public class MensController {
         zyklus.saveData();
     }
 
-
-
-
     @FXML
     public void switchToLogin(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("view/login.fxml"));

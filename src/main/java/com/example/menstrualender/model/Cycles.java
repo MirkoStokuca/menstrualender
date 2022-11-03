@@ -8,18 +8,17 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.Scanner;
 
 public class Cycles {
 
-    public ArrayList<LocalDate> cycles;
+    public ArrayList<LocalDate> cycles = new ArrayList<>();
 
     /**
      * reads the .csv file and saves the found dates as
      * LocalDate objects in the cycles Arraylist
+     * returns cycles ArrayList of Cycle objects
      */
     public void readData() {
 
@@ -28,14 +27,13 @@ public class Cycles {
             Path path = Paths.get(MensApplication.PATH_TO_FILE);
             for(String valueLine : Files.readAllLines(path)){
                 String[] val = valueLine.split(";");
-                for (int i = 0; i < val.length; i++) {
-                    var tempStringArray = val[i].split("\\-");
-                    for (int j = 0; j < tempStringArray.length; j++) {
-                        int day = Integer.parseInt(tempStringArray[2]);
-                        int month = Integer.parseInt(tempStringArray[1])-1;
-                        int year = Integer.parseInt(tempStringArray[0]);
-                        readDates.add(LocalDate.of(year,month,day));
-                    }
+                for (String s : val) {
+
+                    var tempStringArray = s.split("-");
+                    int year = Integer.parseInt(tempStringArray[0]);
+                    int month = Integer.parseInt(tempStringArray[1]);
+                    int day = Integer.parseInt(tempStringArray[2]);
+                    readDates.add(LocalDate.of(year, month, day));
 
                 }
             }
@@ -44,8 +42,9 @@ public class Cycles {
             System.err.println(e.getMessage());
         }
         System.out.println();
-        System.out.println("Es wurden " + readDates.size()/3 + " Einträge generiert");
+        System.out.println("Es wurden " + readDates.size() + " Einträge generiert");
         System.out.println();
+        if (!cycles.isEmpty()) cycles.clear();
         cycles = readDates;
     }
     public void saveData() {
@@ -58,25 +57,49 @@ public class Cycles {
         }
     }
 
+    /**
+     * add a new date to the cycles Arraylist
+     * @param date LocalDate object
+     */
     public void addDate(LocalDate date) {
-        /**
-         * add a new date to the cycles vector, catch input errors
-         * format: dd.mm.yyyy or dd-mm-yyyy or dd/mm/yyyy
-         */
+
         cycles.add(date);
     }
-    public String getAndCheckInput (String message) {
-        Scanner value = new Scanner(System.in);
-        System.out.println(message);
 
-        while (true) {
-            try {
-                String input = value.next();
-                var inputArray = input.split("\\.|\\-|\\/");
-                return inputArray[0] + "." + inputArray[1] + "." + inputArray[2];
-            } catch (Exception e) {
-                System.out.println("Falsche Eingabe!");
-            }
+    /**
+     * calculates the average interval in between the dates in
+     * the cycles ArrayList
+     * @return average interval
+     */
+    public int getAverageInterval() {
+
+        long intervals = 0;
+
+        for (int i = 0; i < (cycles.size() - 1); i++) {
+            LocalDate start = cycles.get(i);
+            LocalDate end = cycles.get(i + 1);
+
+            // Calculate Number of Days Between two LocalDate objects
+            long numberOfDays = ChronoUnit.DAYS.between(start, end);
+            //System.out.println("Number of days :" + numberOfDays);
+            intervals += numberOfDays;
         }
+
+        double resultOfDivision = (double) intervals/cycles.size();
+
+        return (int) Math.round(resultOfDivision);
+    }
+
+    /**
+     * Calculates the date of the start of the next cycle
+     * @return LocalDate with averageInterval added
+     */
+    public LocalDate calculateNextCycleStart() {
+
+        int averageInterval = getAverageInterval();
+
+        LocalDate lastEntry = this.cycles.get(cycles.size() - 1);
+
+        return lastEntry.plusDays(averageInterval);
     }
 }
