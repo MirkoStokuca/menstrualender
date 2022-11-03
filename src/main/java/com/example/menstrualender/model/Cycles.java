@@ -47,6 +47,11 @@ public class Cycles {
         if (!cycles.isEmpty()) cycles.clear();
         cycles = readDates;
     }
+
+    public ArrayList<LocalDate> getCycles() {
+        return cycles;
+    }
+
     public void saveData() {
         try (var fileWriter = new FileWriter(MensApplication.PATH_TO_FILE)){
             for (var cycle : cycles) {
@@ -62,8 +67,12 @@ public class Cycles {
      * @param date LocalDate object
      */
     public void addDate(LocalDate date) {
-
         cycles.add(date);
+    }
+
+    public void deleteData(){
+        cycles.clear();
+        saveData();
     }
 
     /**
@@ -85,7 +94,7 @@ public class Cycles {
             intervals += numberOfDays;
         }
 
-        double resultOfDivision = (double) intervals/cycles.size();
+        double resultOfDivision = (double) intervals/(cycles.size()-1);
 
         return (int) Math.round(resultOfDivision);
     }

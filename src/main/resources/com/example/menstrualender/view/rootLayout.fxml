@@ -3,13 +3,11 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.layout.AnchorPane?>
-
-
 <?import javafx.scene.layout.BorderPane?>
-<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.menstrualender.view.MensController">
-   <children>
-      <MenuBar layoutX="36.0" layoutY="53.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.menstrualender.view.MensController">
+   <top>
+      <MenuBar BorderPane.alignment="TOP_LEFT">
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
@@ -28,5 +26,5 @@
           </Menu>
         </menus>
       </MenuBar>
-   </children>
+   </top>
 </BorderPane>

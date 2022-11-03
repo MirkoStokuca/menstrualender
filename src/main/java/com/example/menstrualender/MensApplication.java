@@ -1,12 +1,13 @@
 package com.example.menstrualender;
 
+import com.example.menstrualender.model.Cycles;
 import com.example.menstrualender.view.MensController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -15,7 +16,6 @@ public class MensApplication extends Application {
 
     public final static String PATH_TO_FILE = "src/artificialData.csv";
     private Stage defaultStage;
-    private BorderPane rootLayout;
 
     @Override
     public void start(Stage defaultStage) throws IOException {
@@ -23,38 +23,43 @@ public class MensApplication extends Application {
         this.defaultStage = defaultStage;
         this.defaultStage.setTitle("Menstrualender");
         this.defaultStage.getIcons().add(new Image(MensApplication.class.getResourceAsStream("images/icon.png")));
+        this.defaultStage.setResizable(true);
+        Group root = new Group();
+        Scene scene = new Scene(root);
+        defaultStage.setScene(scene);
+        defaultStage.show();
+        loginWindow();
 
-        initRootLayout();
-        showDefaultWindow();
     }
 
-    public void showDefaultWindow() {
-        try {
-            // Load person overview.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MensApplication.class.getResource("view/hello-view.fxml"));
-            AnchorPane defaultView = (AnchorPane) loader.load();
 
-            rootLayout.setCenter(defaultView);
+    public void loginWindow(){
+        try{
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MensApplication.class.getResource("view/login.fxml"));
+            AnchorPane loginView = (AnchorPane) loader.load();
+            Scene loginScene = new Scene(loginView);
+            defaultStage.setScene(loginScene);
 
             MensController controller = loader.getController();
             controller.setMainApp(this);
 
+
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
-
-    public void initRootLayout() {
+    public void showDefaultWindow() {
         try {
-            // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MensApplication.class.getResource("view/rootLayout.fxml"));
-            rootLayout = (BorderPane) loader.load();
-            Scene scene = new Scene(rootLayout);
-            defaultStage.setScene(scene);
+            loader.setLocation(MensApplication.class.getResource("view/hello-view.fxml"));
+            AnchorPane defaultView = (AnchorPane) loader.load();
+            Scene defaultScene = new Scene(defaultView);
+            defaultStage.setScene(defaultScene);
 
-            defaultStage.show();
+            MensController controller = loader.getController();
+            controller.setMainApp(this);
+
 
         } catch (IOException e) {
             e.printStackTrace();

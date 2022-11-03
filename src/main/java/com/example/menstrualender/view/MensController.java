@@ -1,56 +1,94 @@
 package com.example.menstrualender.view;
 
 import com.example.menstrualender.model.Cycles;
+import javafx.animation.FadeTransition;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import com.example.menstrualender.MensApplication;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.stage.Stage;
-
-import java.io.IOException;
+import javafx.scene.paint.Color;
+import javafx.util.Duration;
+import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 
-public class MensController {
+
+public class MensController implements Initializable {
+    //Deklarationen
     @FXML
     private Label kalenderAusgabe;
+    @FXML
+    private Label nextCycleStart;
+    @FXML
+    private Label averageInterval;
+    @FXML
+    private Label buttonConf;
     @FXML
     private DatePicker datePicker;
 
     @FXML
     private MensApplication mensApp;
+
+    @FXML
     Cycles zyklus = new Cycles();
-
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
-
 
     public MensController() {
     }
-
-    public void gedrueckt(ActionEvent e) {
-        //System.out.println("ye");
-        kalenderAusgabe.setText("");
+    @FXML
+    public void loginButton() {
+        mensApp.showDefaultWindow();
     }
-
-    public void loadData(ActionEvent event) {
+    @FXML
+    public void loadData() {
         zyklus.readData();
     }
 
-    public void getDate(ActionEvent event) {
-        LocalDate myDate = datePicker.getValue();
-        myDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        zyklus.addDate(myDate);
+    @FXML
+    public void setDate() {
+        try {
+            LocalDate myDate = datePicker.getValue();
+            myDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+            zyklus.addDate(myDate);
+            showButton("Cycle added",false);
+        }
+        catch(NullPointerException e) {
+
+            showButton("Pick a Date",true);
+        }
+
+
+
     }
 
+    @FXML
+    private void deleteData(){
+        zyklus.deleteData();
+    }
+
+    private void showButton(String labelText, boolean color) {
+        if (color == true) {
+            buttonConf.setTextFill(Color.RED);
+        } else {
+            buttonConf.setTextFill(Color.GREEN);
+        }
+            buttonConf.setText(labelText);
+            FadeTransition fader = createFader(buttonConf);
+            fader.play();
+    }
+    private FadeTransition createFader(Node node){
+        FadeTransition fade = new FadeTransition(Duration.seconds(2), node);
+        fade.setFromValue(100);
+        fade.setToValue(0);
+
+        return fade;
+    }
     public void setMainApp(MensApplication mensApp) {
         this.mensApp = mensApp;
     }
@@ -59,23 +97,65 @@ public class MensController {
         zyklus.saveData();
     }
 
+//Output on Screen
     @FXML
-    public void switchToLogin(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("view/login.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
-        /*
-        @FXML
-        public void switchToHello (ActionEvent event) throws IOException {
-            Parent root = FXMLLoader.load(getClass().getResource("view/hello-view.fxml"));
-            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-        }
+    public void showInfos(ActionEvent event) {
+        /**
+         * Shows Average Interval and Next Cycle Start
          */
+        showAverageInterval();
+        printCalender();
+        showNextCycleStart();
+    }
+    public void showAverageInterval() {
+        /**
+         * Changes Label averageInterval in hello-view to averageInterval from Cycles
+         * returns Int averageInterval
+         */
+        int averInterval = zyklus.getAverageInterval();
+        averageInterval.setText(Integer.toString(averInterval));
+    }
 
+    public void showNextCycleStart() {
+        /**
+         * Changes Label nextCycleStart in hello-view to nextCycleStart from Cycles
+         * takes int "averageInterval"
+         */
+        LocalDate nCycleStart = zyklus.calculateNextCycleStart();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy");
+        String formattedString = nCycleStart.format(formatter);
+        nextCycleStart.setText(formattedString);
+    }
+
+    public void printCalender() {
+        /**
+         * Sets Text of Label kalenderAusgabe to the Calender Infos
+         */
+        ArrayList<LocalDate> allInfosLocalDate = zyklus.getCycles();
+        String allInfosRawString = allInfosLocalDate.toString();
+        String[] allInfosString = allInfosRawString.split(",");
+
+        //Add Newline
+        String finalString = " ";
+        for (int i = 0; i<allInfosString.length; i++) {
+
+            finalString += "\n" + allInfosString[i];
+        }
+
+        //set Kalender Ausgabe
+        kalenderAusgabe.setText(finalString.replace("[","").replace("]",""));
+    }
+    
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    }
+
+    public void switchToLogin(ActionEvent event) {
+        mensApp.loginWindow();
+        zyklus.readData();
+        showAverageInterval();
+        printCalender();
+        showNextCycleStart();
+    }
 }
