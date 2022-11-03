@@ -79,17 +79,17 @@ Das Ziel wird es sein ein Tool zu schaffen, das einfach von Gebrauch ist, aber d
 ---
 # 5) Releaseplan mit den Ausbaustufen <a name="paragraph4"></a>
 
-| test                                        | Sprint 1 (7.11.2022)                | Sprint 2  (18.11.2022)                                      
-|-------------------------------------------|-------------------------------------|-------------------------------------------------
- 1                                         |User - Story 1: Eingabe Datum        | User - Story 7: Blutungszeit ermitteln
-2 |User - Story 2: Daten Speichern      | User - Story 8: Fruchtare Zeit ermitteln
-3 |User - Story 3: Daten einlesen       | User - Story 9: Schwangerschafts vs. Verhütungsmodus
- 4 |User - Story 4: Zyklusdauer ermitteln | User - Story 10: Passwortschutz
- 5 |User - Story 5: Vorhersage nächster Zyklus | User - Story 11: Temperatur erfassen und auswerten
- 6 |User - Story 6: Zyklusdauer Durchschnitt | User - Story 12: Schleim erfassen und auswerten
- 7 |                                     | User - Story 13: Easter Egg
- 8 |                                     | User - Story 14: Graphische Ausgabe
-9 | Velocity 34 | Velocity |
+| -   | Sprint 1 (7.11.2022)    | Sprint 2  (18.11.2022)                               |                                     
+|-----|-------------------------------------|------------------------------------------------------|
+| 1   |User - Story 1: Eingabe Datum        | User - Story 7: Blutungszeit ermitteln               |
+| 2   |User - Story 2: Daten Speichern      | User - Story 8: Fruchtare Zeit ermitteln             |
+| 3   |User - Story 3: Daten einlesen       | User - Story 9: Schwangerschafts vs. Verhütungsmodus |
+| 4   |User - Story 4: Zyklusdauer ermitteln | User - Story 10: Passwortschutz                      |
+| 5   |User - Story 5: Vorhersage nächster Zyklus | User - Story 11: Temperatur erfassen und auswerten   |
+| 6   |User - Story 6: Zyklusdauer Durchschnitt | User - Story 12: Schleim erfassen und auswerten      |
+| 7   |                                     | User - Story 13: Easter Egg                          |
+| 8   |                                     | User - Story 14: Graphische Ausgabe                  |
+| 9   | Velocity 34 | Velocity 80                                          |
 
 ---
 # 6) Dokumentation Sprint 1 <a name="paragraph5"></a>
@@ -104,8 +104,13 @@ Das Ziel wird es sein ein Tool zu schaffen, das einfach von Gebrauch ist, aber d
 
 ### a. Taskliste für die Umsetzung der User Story (Schätzung in Stunden) b. Anreicherung der User Stories für die Umsetzung
 ### c. UML Package, Klassen- und Sequenzdiagramm
+
+Klassendiagramm
+![FlowchartMenstrualender](imagesReadme/FlowchartMenstrualender.jpg)
+
+
 ### d. Dokumentation wichtiger Code Snippets
 ### e. Herleitung der Testfälle aus den Akzeptanzkriterien der User Stories
 
 
----
+--- 
