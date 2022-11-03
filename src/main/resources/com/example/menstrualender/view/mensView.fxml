@@ -57,7 +57,7 @@
                                        <font>
                                           <Font name="System Bold Italic" size="18.0" />
                                        </font></Label>
-                                    <Label fx:id="averageInterval" layoutX="118.0" layoutY="17.0" text="Average Interval" AnchorPane.leftAnchor="170.0" AnchorPane.topAnchor="50.0">
+                                    <Label fx:id="averageInterval" layoutX="118.0" layoutY="17.0" text="" AnchorPane.leftAnchor="170.0" AnchorPane.topAnchor="50.0">
                                        <padding>
                                           <Insets bottom="10.0" />
                                        </padding>
@@ -69,7 +69,7 @@
                                        <font>
                                           <Font name="System Bold Italic" size="18.0" />
                                        </font></Label>
-                                    <Label fx:id="nextCycleStart" layoutX="116.0" layoutY="114.0" text="Next Cycle start" AnchorPane.leftAnchor="170.0" AnchorPane.topAnchor="120.0">
+                                    <Label fx:id="nextCycleStart" layoutX="116.0" layoutY="114.0" text="" AnchorPane.leftAnchor="170.0" AnchorPane.topAnchor="120.0">
                                        <padding>
                                           <Insets bottom="10.0" />
                                        </padding>
