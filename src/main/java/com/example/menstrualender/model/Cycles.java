@@ -1,6 +1,7 @@
 package com.example.menstrualender.model;
 
 import com.example.menstrualender.MensApplication;
+import com.example.menstrualender.util.DateUtil;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -47,6 +48,11 @@ public class Cycles {
         if (!cycles.isEmpty()) cycles.clear();
         cycles = readDates;
     }
+
+    public ArrayList<LocalDate> getCycles() {
+        return cycles;
+    }
+
     public void saveData() {
         try (var fileWriter = new FileWriter(MensApplication.PATH_TO_FILE)){
             for (var cycle : cycles) {
@@ -62,8 +68,12 @@ public class Cycles {
      * @param date LocalDate object
      */
     public void addDate(LocalDate date) {
-
         cycles.add(date);
+    }
+
+    public void deleteData(){
+        cycles.clear();
+        saveData();
     }
 
     /**
@@ -85,7 +95,7 @@ public class Cycles {
             intervals += numberOfDays;
         }
 
-        double resultOfDivision = (double) intervals/cycles.size();
+        double resultOfDivision = (double) intervals/(cycles.size()-1);
 
         return (int) Math.round(resultOfDivision);
     }
@@ -94,12 +104,15 @@ public class Cycles {
      * Calculates the date of the start of the next cycle
      * @return LocalDate with averageInterval added
      */
-    public LocalDate calculateNextCycleStart() {
+    public String calculateNextCycleStart() {
 
         int averageInterval = getAverageInterval();
 
-        LocalDate lastEntry = this.cycles.get(cycles.size() - 1);
-
-        return lastEntry.plusDays(averageInterval);
+        try {
+            LocalDate lastEntry = this.cycles.get(cycles.size() - 1);
+            return lastEntry.plusDays(averageInterval).format(DateUtil.formatter);
+        } catch (IndexOutOfBoundsException e) {
+            return "";
+        }
     }
 }
