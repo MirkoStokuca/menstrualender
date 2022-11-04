@@ -20,6 +20,7 @@ public class MensApplication extends Application {
     @Override
     public void start(Stage defaultStage) throws IOException {
 
+        //Setup Stage
         this.defaultStage = defaultStage;
         this.defaultStage.setTitle("Menstrualender");
         this.defaultStage.getIcons().add(new Image(MensApplication.class.getResourceAsStream("images/icon.png")));
@@ -28,11 +29,14 @@ public class MensApplication extends Application {
         Scene scene = new Scene(root);
         defaultStage.setScene(scene);
         defaultStage.show();
+        //Loads login Window
         loginWindow();
 
     }
 
-
+    /**
+     * sets up login Window Scene
+     */
     public void loginWindow(){
         try{
             FXMLLoader loader = new FXMLLoader();
@@ -49,6 +53,10 @@ public class MensApplication extends Application {
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * sets up Default Scene
+     */
     public void showDefaultWindow() {
         try {
             FXMLLoader loader = new FXMLLoader();
