@@ -5,6 +5,6 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.menstrualender.view.MensController">
    <children>
-      <Button layoutX="274.0" layoutY="188.0" mnemonicParsing="false" onAction="#loginButton" text="Login" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="100.0" />
+      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="274.0" layoutY="188.0" maxHeight="30.0" maxWidth="50.0" minHeight="30.0" minWidth="50.0" mnemonicParsing="false" onAction="#loginButton" prefHeight="30.0" prefWidth="50.0" text="Login" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="100.0" />
    </children>
 </AnchorPane>

@@ -3,7 +3,6 @@ package com.example.menstrualender.view;
 import com.example.menstrualender.model.Cycles;
 import com.example.menstrualender.util.DateUtil;
 import javafx.animation.FadeTransition;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import com.example.menstrualender.MensApplication;
 import javafx.fxml.FXML;
@@ -11,14 +10,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
-
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 
@@ -69,10 +65,10 @@ public class MensController implements Initializable {
             LocalDate myDate = datePicker.getValue();
             myDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
             zyklus.addDate(myDate);
-            showButton("Cycle added", false);
+            showButton("Cycle added", Color.GREEN);
         } catch (NullPointerException e) {
 
-            showButton("Pick a Date", true);
+            showButton("Pick a Date", Color.RED);
         }
     }
 
@@ -88,15 +84,11 @@ public class MensController implements Initializable {
 
     /**
      * Makes Text appear and Disappear. Takes label String and color (true = red, false = green)
-     * @param labelText
+     * @param labelText is the output text
      * @param color
      */
-    private void showButton(String labelText, boolean color) {
-        if (color == true) {
-            buttonConf.setTextFill(Color.RED);
-        } else {
-            buttonConf.setTextFill(Color.GREEN);
-        }
+    private void showButton(String labelText, Color color) {
+        buttonConf.setTextFill(color);
         buttonConf.setText(labelText);
         FadeTransition fader = createFader(buttonConf);
         fader.play();
@@ -153,10 +145,6 @@ public class MensController implements Initializable {
      * takes int "averageInterval"
      */
     public void showNextCycleStart() {
-
-        
-        LocalDate nCycleStart = zyklus.calculateNextCycleStart();
-        String formattedString = nCycleStart.format(DateUtil.formatter);*/
         nextCycleStart.setText(zyklus.calculateNextCycleStart());
     }
 
