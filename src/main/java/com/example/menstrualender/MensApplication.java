@@ -60,13 +60,14 @@ public class MensApplication extends Application {
     public void showDefaultWindow() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MensApplication.class.getResource("view/hello-view.fxml"));
-            AnchorPane defaultView = (AnchorPane) loader.load();
-            Scene defaultScene = new Scene(defaultView);
+            loader.setLocation(MensApplication.class.getResource("view/mensView.fxml"));
+            AnchorPane defaultView = (AnchorPane) loader.load();Scene defaultScene = new Scene(defaultView);
             defaultStage.setScene(defaultScene);
 
             MensController controller = loader.getController();
             controller.setMainApp(this);
+
+            controller.loadData();
 
 
         } catch (IOException e) {

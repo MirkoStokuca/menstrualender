@@ -1,8 +1,8 @@
 package com.example.menstrualender.view;
 
 import com.example.menstrualender.model.Cycles;
+import com.example.menstrualender.util.DateUtil;
 import javafx.animation.FadeTransition;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import com.example.menstrualender.MensApplication;
 import javafx.fxml.FXML;
@@ -12,11 +12,9 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
-
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 
@@ -67,10 +65,10 @@ public class MensController implements Initializable {
             LocalDate myDate = datePicker.getValue();
             myDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
             zyklus.addDate(myDate);
-            showButton("Cycle added", false);
+            showButton("Cycle added", Color.GREEN);
         } catch (NullPointerException e) {
 
-            showButton("Pick a Date", true);
+            showButton("Pick a Date", Color.RED);
         }
     }
 
@@ -80,19 +78,17 @@ public class MensController implements Initializable {
     @FXML
     private void deleteData() {
         zyklus.deleteData();
+        mensApp.showDefaultWindow();
+
     }
 
     /**
      * Makes Text appear and Disappear. Takes label String and color (true = red, false = green)
-     * @param labelText
+     * @param labelText is the output text
      * @param color
      */
-    private void showButton(String labelText, boolean color) {
-        if (color == true) {
-            buttonConf.setTextFill(Color.RED);
-        } else {
-            buttonConf.setTextFill(Color.GREEN);
-        }
+    private void showButton(String labelText, Color color) {
+        buttonConf.setTextFill(color);
         buttonConf.setText(labelText);
         FadeTransition fader = createFader(buttonConf);
         fader.play();
@@ -141,7 +137,7 @@ public class MensController implements Initializable {
     public void showAverageInterval() {
 
         int averInterval = zyklus.getAverageInterval();
-        averageInterval.setText(Integer.toString(averInterval));
+        averageInterval.setText(Integer.toString(averInterval) + " days");
     }
 
     /**
@@ -149,11 +145,7 @@ public class MensController implements Initializable {
      * takes int "averageInterval"
      */
     public void showNextCycleStart() {
-
-        LocalDate nCycleStart = zyklus.calculateNextCycleStart();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy");
-        String formattedString = nCycleStart.format(formatter);
-        nextCycleStart.setText(formattedString);
+        nextCycleStart.setText(zyklus.calculateNextCycleStart());
     }
 
     /**
@@ -161,19 +153,20 @@ public class MensController implements Initializable {
      */
     public void printCalender() {
 
-        ArrayList<LocalDate> allInfosLocalDate = zyklus.getCycles();
-        String allInfosRawString = allInfosLocalDate.toString();
-        String[] allInfosString = allInfosRawString.split(",");
+        String message = "Saved dates:\n\n";
 
-        //Add Newline
-        String finalString = " ";
-        for (int i = 0; i < allInfosString.length; i++) {
-
-            finalString += "\n" + allInfosString[i];
+        if (zyklus.getCycles().size() != 0) {
+            var tempArray = zyklus.getCycles();
+            for (int i = 0; i < (tempArray.size() - 0); i++) {
+                message += tempArray.get(i).format(DateUtil.formatter) + "\n";
+            }
+        } else {
+            message += "None Found!\n\nHow to Add New Cycle:\n1. Choose Date\n2.\"Start new Cycle\"" +
+                    "\n\nAdd at least two dates\nto calulate the start\nof the next cycle.";
         }
 
-        //set Kalender Ausgabe
-        kalenderAusgabe.setText(finalString.replace("[", "").replace("]", ""));
+        kalenderAusgabe.setText(message);
+
     }
 
     @Override
