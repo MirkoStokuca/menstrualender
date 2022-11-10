@@ -1,6 +1,7 @@
 package com.example.menstrualender;
 
 import com.example.menstrualender.model.Cycles;
+import com.example.menstrualender.model.Db;
 import com.example.menstrualender.view.MensController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -61,14 +62,14 @@ public class MensApplication extends Application {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MensApplication.class.getResource("view/mensView.fxml"));
-            AnchorPane defaultView = (AnchorPane) loader.load();Scene defaultScene = new Scene(defaultView);
+            AnchorPane defaultView = (AnchorPane) loader.load();
+            Scene defaultScene = new Scene(defaultView);
             defaultStage.setScene(defaultScene);
 
             MensController controller = loader.getController();
             controller.setMainApp(this);
 
             controller.loadData();
-
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -79,6 +80,5 @@ public class MensApplication extends Application {
     public static void main(String[] args) {
         System.setProperty("prism.lcdtext", "false");
         launch(args);
-
     }
 }
