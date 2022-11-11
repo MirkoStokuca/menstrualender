@@ -7,15 +7,18 @@
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.chart.StackedBarChart?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="1000.0" maxWidth="1500.0" minHeight="600.0" minWidth="1000.0" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.menstrualender.view.MensController">
@@ -98,16 +101,23 @@
                </children></VBox>
          </center>
          <right>
-            <AnchorPane prefWidth="100.0" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="675.0" prefWidth="161.0" BorderPane.alignment="CENTER">
                <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f821ff66" height="109.0" layoutY="-6.0" stroke="TRANSPARENT" strokeType="INSIDE" width="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f821ff66" height="95.0" layoutX="-6.0" layoutY="479.0" stroke="TRANSPARENT" strokeType="INSIDE" width="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f821ff66" height="129.0" layoutX="5.0" layoutY="146.0" stroke="TRANSPARENT" strokeType="INSIDE" width="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="150.0" />
                   <Button alignment="CENTER" contentDisplay="CENTER" layoutX="9.0" layoutY="628.0" maxHeight="30.0" maxWidth="80.0" minHeight="25.0" minWidth="75.0" mnemonicParsing="false" onAction="#switchToLogin" prefHeight="30.0" prefWidth="80.0" text="Logout" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
                   </Button>
-                  <Button fx:id="monthlyButton" contentDisplay="CENTER" layoutX="8.0" layoutY="18.0" maxHeight="30.0" maxWidth="80.0" minHeight="25.0" minWidth="75.0" mnemonicParsing="false" onAction="#switchToMonthly" prefHeight="30.0" prefWidth="80.0" text="Monthly" textAlignment="CENTER" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
                   <Button contentDisplay="CENTER" layoutX="8.0" layoutY="18.0" maxHeight="30.0" maxWidth="80.0" minHeight="25.0" minWidth="75.0" mnemonicParsing="false" onAction="#switchToDaily" prefHeight="30.0" prefWidth="80.0" text="Daily" textAlignment="CENTER" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0" />
                   <Button contentDisplay="CENTER" layoutX="10.0" layoutY="204.0" maxHeight="30.0" maxWidth="80.0" minHeight="25.0" minWidth="75.0" mnemonicParsing="false" onAction="#switchToSettings" prefHeight="30.0" prefWidth="80.0" text="Set mode" textAlignment="CENTER" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                  <Label alignment="CENTER" layoutX="48.0" layoutY="5.0" prefHeight="32.0" prefWidth="141.0" text="Enter you daily infos here:" textAlignment="CENTER" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                  <DatePicker fx:id="datePicker" layoutX="-19.0" layoutY="145.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="200.0" />
+                  <Button layoutX="33.0" layoutY="219.0" mnemonicParsing="false" text="Button" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="230.0" />
+                  <Label alignment="CENTER" layoutX="21.0" layoutY="155.0" prefHeight="32.0" prefWidth="141.0" text="Enter the start of your cycle here:" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="160.0" />
+                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="1.0" layoutY="346.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="346.0" />
                </children>
             </AnchorPane>
          </right>

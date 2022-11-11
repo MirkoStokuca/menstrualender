@@ -27,7 +27,7 @@ public class MensApplication extends Application {
         //Setup defaultStage
         this.defaultStage = defaultStage;
         this.defaultStage.setTitle("Menstrualender");
-        this.defaultStage.getIcons().add(new Image(MensApplication.class.getResourceAsStream("images/icon.png")));
+        this.defaultStage.getIcons().add(new Image(MensApplication.class.getResourceAsStream("images/mensicon.png")));
         this.defaultStage.setResizable(false);
         Group root = new Group();
         Scene scene = new Scene(root);

@@ -38,6 +38,8 @@ public class MensController implements Initializable {
     private LineChart tempGraph;
     @FXML
     private StackedBarChart generalGraph;
+    @FXML
+    private DatePicker datePicker;
 
 
     @FXML
