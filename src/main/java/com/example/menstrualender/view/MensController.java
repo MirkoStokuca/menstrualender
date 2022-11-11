@@ -119,8 +119,8 @@ public class MensController implements Initializable {
      */
 
     public void showAverageInterval() {
-        int averInterval = zyklus.getAverageInterval();
-        averageInterval.setText(Integer.toString(averInterval) + " days");
+        //int averInterval = (zyklus.getAverageInterval());
+        //averageInterval.setText(Integer.toString(averInterval) + " days");
     }
 
     /**

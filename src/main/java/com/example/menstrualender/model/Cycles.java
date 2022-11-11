@@ -23,6 +23,9 @@ public class Cycles {
         this.db = db;
     }
 
+    public Cycles() {
+    }
+
     /**
      * reads the .csv file and saves the found dates as
      * LocalDate objects in the cycles Arraylist
@@ -56,8 +59,8 @@ public class Cycles {
         cycles = readDates;*/
     }
 
-    public void getAverageInterval() {
-        this.db.getAvg();
+    public ResultSet getAverageInterval() {
+        return this.db.getAvg();
     }
 
     public ResultSet getCycles() {
