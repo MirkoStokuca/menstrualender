@@ -1,161 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.chart.StackedBarChart?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.menstrualender.view.MensController">
+<AnchorPane maxHeight="1000.0" maxWidth="1500.0" minHeight="600.0" minWidth="1000.0" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.menstrualender.view.MensController">
    <children>
-      <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <center>
-            <SplitPane dividerPositions="0.578125" prefHeight="400.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-              <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                     <children>
-                        <VBox prefHeight="397.3333333333333" prefWidth="342.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                        <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="397.3333333333333" prefWidth="342.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                          <items>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-                                 <children>
-                                    <Label layoutX="14.0" layoutY="5.0" prefHeight="18.0" prefWidth="342.0" text="Calender Output">
-                                       <font>
-                                          <Font name="System Italic" size="14.0" />
-                                       </font></Label>
-                                    <Separator layoutX="46.0" layoutY="95.0" prefHeight="0.0" prefWidth="340.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0" />
-                                    <ScrollPane layoutY="30.0" prefHeight="194.0" prefWidth="340.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
-                                      <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="365.0" prefWidth="324.0">
-                                             <children>
-                                                <Label fx:id="kalenderAusgabe" alignment="TOP_LEFT" graphicTextGap="0.0" stylesheets="@../css/light.css" textAlignment="JUSTIFY" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                   <padding>
-                                                      <Insets bottom="10.0" />
-                                                   </padding>
-                                                   <font>
-                                                      <Font name="System Italic" size="18.0" />
-                                                   </font>
-                                                </Label>
-                                             </children>
-                                          </AnchorPane>
-                                      </content>
-                                    </ScrollPane>
-                                 </children>
-                              </AnchorPane>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-                                 <children>
-                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff45da41" height="28.0" layoutX="15.0" layoutY="50.0" stroke="#000000a2" strokeLineCap="ROUND" strokeLineJoin="ROUND" width="300.0" AnchorPane.bottomAnchor="117.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="50.0" />
-                                    <Label layoutX="14.0" layoutY="22.0" stylesheets="@../css/light.css" text="Average Interval:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="50.0">
-                                       <font>
-                                          <Font name="System Bold" size="18.0" />
-                                       </font></Label>
-                                    <Label fx:id="averageInterval" layoutX="118.0" layoutY="17.0" text="" AnchorPane.leftAnchor="170.0" AnchorPane.topAnchor="50.0">
-                                       <padding>
-                                          <Insets bottom="10.0" />
-                                       </padding>
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                    </Label>
-                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff45da41" height="28.0" layoutX="15.0" layoutY="120.0" stroke="#000000a2" strokeLineCap="ROUND" strokeLineJoin="ROUND" width="300.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="120.0" />
-                                    <Label layoutX="25.0" layoutY="119.0" stylesheets="@../css/light.css" text="Next Cycle start:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="120.0">
-                                       <font>
-                                          <Font name="System Bold" size="18.0" />
-                                       </font></Label>
-                                    <Label fx:id="nextCycleStart" layoutX="116.0" layoutY="114.0" text="" AnchorPane.leftAnchor="170.0" AnchorPane.topAnchor="120.0">
-                                       <padding>
-                                          <Insets bottom="10.0" />
-                                       </padding>
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </AnchorPane>
-                          </items>
-                        </SplitPane>
-                     </children>
-                  </AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                     <children>
-                        <BorderPane prefHeight="397.3333333333333" prefWidth="353.0" stylesheets="@../css/light.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <top>
-                              <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="173.0" prefWidth="249.0" BorderPane.alignment="CENTER">
-                                <items>
-                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-                                       <children>
-                                          <DatePicker fx:id="datePicker" maxWidth="1.7976931348623157E308" prefHeight="36.0" prefWidth="247.0" styleClass="date-picker" stylesheets="@../css/light.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                             <padding>
-                                                <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
-                                             </padding>
-                                             <opaqueInsets>
-                                                <Insets />
-                                             </opaqueInsets>
-                                          </DatePicker>
-                                       </children>
-                                       <padding>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </padding>
-                                    </AnchorPane>
-                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-                                       <children>
-                                          <VBox alignment="CENTER" prefHeight="47.0" prefWidth="243.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                             <children>
-                                              <Button alignment="CENTER" mnemonicParsing="false" onAction="#setDate" text="Start new Cycle" VBox.vgrow="ALWAYS">
-                                                   <VBox.margin>
-                                                      <Insets bottom="10.0" top="10.0" />
-                                                   </VBox.margin>
-                                                   <font>
-                                                      <Font size="14.0" />
-                                                   </font></Button>
-                                                <Label fx:id="buttonConf" textFill="#62be00">
-                                                   <font>
-                                                      <Font name="System Bold" size="18.0" />
-                                                   </font>
-                                                   <VBox.margin>
-                                                      <Insets bottom="5.0" />
-                                                   </VBox.margin></Label>
-                                             </children>
-                                          </VBox>
-                                       </children>
-                                    </AnchorPane>
-                                </items>
-                              </SplitPane>
-                           </top>
-                           <bottom>
-                              <Button mnemonicParsing="false" onAction="#switchToLogin" text="Logout" BorderPane.alignment="CENTER">
-                                 <BorderPane.margin>
-                                    <Insets bottom="10.0" />
-                                 </BorderPane.margin></Button>
-                           </bottom>
-                           <center>
-                              <Button mnemonicParsing="false" onAction="#showInfos" text="Show Infos" BorderPane.alignment="TOP_CENTER">
-                                 <BorderPane.margin>
-                                    <Insets top="20.0" />
-                                 </BorderPane.margin>
-                                 <padding>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                 </padding>
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font></Button>
-                           </center>
-                        </BorderPane>
-                     </children>
-                  </AnchorPane>
-              </items>
-            </SplitPane>
-         </center>
+      <BorderPane prefHeight="800.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
             <MenuBar BorderPane.alignment="CENTER">
               <menus>
@@ -169,6 +34,83 @@
               </menus>
             </MenuBar>
          </top>
+         <center>
+            <VBox prefHeight="397.3333333333333" prefWidth="342.0" spacing="20.0" BorderPane.alignment="CENTER">
+               <children>
+                  <AnchorPane prefHeight="259.0" prefWidth="900.0">
+                     <children>
+                        <StackPane layoutX="74.0" layoutY="51.0" prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="500.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <PieChart fx:id="cycleGraph" labelsVisible="false" legendVisible="false" prefHeight="600.0" prefWidth="600.0" StackPane.alignment="CENTER" />
+                              <Circle fill="WHITE" radius="62.0" stroke="TRANSPARENT" strokeType="INSIDE">
+                                 <StackPane.margin>
+                                    <Insets />
+                                 </StackPane.margin>
+                              </Circle>
+                           </children>
+                        </StackPane>
+                        <Label layoutX="475.0" layoutY="34.0" prefHeight="27.0" prefWidth="102.0" text="Next Cycle:" AnchorPane.bottomAnchor="50.0" AnchorPane.rightAnchor="230.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="476.0" layoutY="65.0" prefHeight="27.0" prefWidth="182.0" text="Average Cylce lenght:" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="230.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="nextCycleStart" layoutX="577.0" layoutY="35.0" prefHeight="27.0" prefWidth="190.0" AnchorPane.bottomAnchor="50.0" AnchorPane.rightAnchor="10.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="averageInterval" layoutX="702.0" layoutY="79.0" prefHeight="27.0" prefWidth="190.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <LineChart fx:id="tempGraph" alternativeColumnFillVisible="true" layoutX="-47.0" layoutY="-85.0" prefHeight="315.3333333333333" prefWidth="900.0" title="Temperature" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <xAxis>
+                            <CategoryAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                        </LineChart>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <StackedBarChart fx:id="generalGraph" alternativeRowFillVisible="false" animated="false" horizontalGridLinesVisible="false" horizontalZeroLineVisible="false" layoutX="-251.0" layoutY="-10.0" legendVisible="false" opacity="0.49" prefHeight="192.0" prefWidth="900.0" titleSide="BOTTOM" verticalGridLinesVisible="false" verticalZeroLineVisible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <xAxis>
+                            <CategoryAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                        </StackedBarChart>
+                     </children>
+                  </AnchorPane>
+               </children></VBox>
+         </center>
+         <right>
+            <AnchorPane prefWidth="100.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button alignment="CENTER" contentDisplay="CENTER" layoutX="9.0" layoutY="628.0" maxHeight="30.0" maxWidth="80.0" minHeight="25.0" minWidth="75.0" mnemonicParsing="false" onAction="#switchToLogin" prefHeight="30.0" prefWidth="80.0" text="Logout" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </Button>
+                  <Button fx:id="monthlyButton" contentDisplay="CENTER" layoutX="8.0" layoutY="18.0" maxHeight="30.0" maxWidth="80.0" minHeight="25.0" minWidth="75.0" mnemonicParsing="false" onAction="#switchToMonthly" prefHeight="30.0" prefWidth="80.0" text="Monthly" textAlignment="CENTER" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                  <Button contentDisplay="CENTER" layoutX="8.0" layoutY="18.0" maxHeight="30.0" maxWidth="80.0" minHeight="25.0" minWidth="75.0" mnemonicParsing="false" onAction="#switchToDaily" prefHeight="30.0" prefWidth="80.0" text="Daily" textAlignment="CENTER" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0" />
+                  <Button contentDisplay="CENTER" layoutX="10.0" layoutY="204.0" maxHeight="30.0" maxWidth="80.0" minHeight="25.0" minWidth="75.0" mnemonicParsing="false" onAction="#switchToSettings" prefHeight="30.0" prefWidth="80.0" text="Set mode" textAlignment="CENTER" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+               </children>
+            </AnchorPane>
+         </right>
       </BorderPane>
    </children>
 </AnchorPane>
