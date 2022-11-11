@@ -1,6 +1,6 @@
 package com.example.menstrualender;
-
 import com.example.menstrualender.model.Cycles;
+import com.example.menstrualender.model.Db;
 import com.example.menstrualender.util.DateUtil;
 import com.example.menstrualender.view.DailyController;
 import com.example.menstrualender.view.LoginController;
@@ -65,7 +65,8 @@ public class MensApplication extends Application {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MensApplication.class.getResource("view/mensView.fxml"));
-            AnchorPane defaultView = (AnchorPane) loader.load();Scene defaultScene = new Scene(defaultView);
+            AnchorPane defaultView = (AnchorPane) loader.load();
+            Scene defaultScene = new Scene(defaultView);
             defaultStage.setScene(defaultScene);
 
 
@@ -89,7 +90,7 @@ public class MensApplication extends Application {
             Scene defaultScene = new Scene(defaultView);
             Stage dayStage = new Stage();
             dayStage.setScene(defaultScene);
-
+            
             DailyController controller = loader.getController();
             controller.setMainApp(this);
             dayStage.show();

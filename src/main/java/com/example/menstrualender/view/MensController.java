@@ -1,6 +1,7 @@
 package com.example.menstrualender.view;
 
 import com.example.menstrualender.model.Cycles;
+import com.example.menstrualender.model.Db;
 import com.example.menstrualender.util.DateUtil;
 import javafx.animation.FadeTransition;
 import javafx.beans.Observable;
@@ -19,6 +20,8 @@ import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
@@ -45,7 +48,11 @@ public class MensController implements Initializable {
     @FXML
     private MensApplication mensApp;
     @FXML
-    Cycles zyklus = new Cycles();
+    Db db = new Db();
+    @FXML
+    Cycles zyklus = new Cycles(db);
+
+
 
     /**
      * Constructor
@@ -80,19 +87,20 @@ public class MensController implements Initializable {
 
     /**
      * Deletes the Data in the File
+     * Naja, möchte vielleicht nicht immer alle Daten auf einmal löschen.
+     * direkt auf Datenbank anpassen.
      */
     @FXML
     private void deleteData() {
         zyklus.deleteData();
         mensApp.showDefaultWindow();
-
     }
 
     /**
      * saves Data into File
      */
     public void saveData() {
-        zyklus.saveData();
+
     }
 
     /**
@@ -102,13 +110,14 @@ public class MensController implements Initializable {
     public void showInfos() {
         showAverageInterval();
         printCalender();
-        showNextCycleStart();
+        showAverageInterval();
     }
 
     /**
      * Changes Label averageInterval in hello-view to averageInterval from Cycles
      * returns Int averageInterval
      */
+
     public void showAverageInterval() {
         int averInterval = zyklus.getAverageInterval();
         averageInterval.setText(Integer.toString(averInterval) + " days");
@@ -117,41 +126,38 @@ public class MensController implements Initializable {
     /**
      * Changes Label nextCycleStart in hello-view to nextCycleStart from Cycles
      * takes int "averageInterval"
-     */
+     *//*
     public void showNextCycleStart() {
         nextCycleStart.setText(zyklus.calculateNextCycleStart());
     }
 
-    /**
+    *//**
      * Sets Text of Label kalenderAusgabe to the Calender Infos
      */
     public void printCalender() {
-
         String message = "Saved dates:\n\n";
-
-        if (zyklus.getCycles().size() != 0) {
-            var tempArray = zyklus.getCycles();
-            for (int i = 0; i < (tempArray.size() - 0); i++) {
-                message += tempArray.get(i).format(DateUtil.formatter) + "\n";
+        ResultSet rs = zyklus.getCycles();
+        try {
+            if(!rs.next()) { // false Check! rs.next() == false
+                message += "None Found!\n\nHow to Add New Cycle:\n1. Choose Date\n2.\"Start new Cycle\"" +
+                        "\n\nAdd at least two dates\nto calulate the start\nof the next cycle.";
+            } else {
+                do {
+                    message += LocalDate.parse(rs.getString("cyc_date_start")).format(DateUtil.formatter) + "\n";
+                } while (rs.next());
             }
-        } else {
-            message += "None Found!\n\nHow to Add New Cycle:\n1. Choose Date\n2.\"Start new Cycle\"" +
-                    "\n\nAdd at least two dates\nto calulate the start\nof the next cycle.";
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
-
         kalenderAusgabe.setText(message);
-
     }
 
-    /**
-     * Opens default scene
-     */
     public void switchToLogin() {
         mensApp.loginWindow();
-        zyklus.readData();
+        /*zyklus.readData();
         showAverageInterval();
         printCalender();
-        showNextCycleStart();
+        showNextCycleStart();*/
     }
 
     public void switchToDaily(){
