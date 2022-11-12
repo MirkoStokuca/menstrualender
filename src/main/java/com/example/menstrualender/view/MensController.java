@@ -2,6 +2,7 @@ package com.example.menstrualender.view;
 
 import com.example.menstrualender.model.Cycles;
 import com.example.menstrualender.model.Db;
+import com.example.menstrualender.setup.Database;
 import com.example.menstrualender.util.DateUtil;
 import javafx.animation.FadeTransition;
 import javafx.beans.Observable;
@@ -52,6 +53,8 @@ public class MensController implements Initializable {
     @FXML
     Cycles zyklus = new Cycles(db);
 
+    Database setupDb = new Database();
+
 
 
     /**
@@ -76,9 +79,6 @@ public class MensController implements Initializable {
         cycleGraph.setData(cycleChartData);
         cycleGraph.autosize();
         cycleGraph.setStartAngle(-100);
-
-
-
     }
     @FXML
     public void loadData() {
@@ -119,8 +119,8 @@ public class MensController implements Initializable {
      */
 
     public void showAverageInterval() {
-        int averInterval = zyklus.getAverageInterval();
-        averageInterval.setText(Integer.toString(averInterval) + " days");
+        //int averInterval = zyklus.getAverageInterval();
+        //averageInterval.setText(Integer.toString(averInterval) + " days");
     }
 
     /**
