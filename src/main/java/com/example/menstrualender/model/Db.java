@@ -38,40 +38,26 @@ with base as (
         }
         this.getConnection();
         if(noSetFile) {
-            this.setupCycleDate();
-            this.setupTemperatur();
+            this.setup();
         }
     }
 
-    /*
-    Macht eine neue Tabelle Cycle
-     */
-    public void setupCycleDate() {
-        // """ drei macht es zusammenhängend ohne +
-        // tabelle erstellen
-        // Tabelle braucht eine id "PRIMARY KEY", die soll automatisch erstellt werden:"AUTOINCREMENT"
-        // " " hier kann der name für eine neue Spalte erstellt werden, Datentyp, und andere Eigenschaften
+    public void setup() {
+        // """ drei macht es zusammenhängend ohne +, ganz vorne schreiben, damit es nicht unnötig zeichen verbraucht.
         this.update("""
-            CREATE TABLE "cycle" (                      
-            "cyc_id"	INTEGER NOT NULL,
-            "cyc_start"	TEXT NOT NULL UNIQUE,
-            "last_cycle" TEXT,
-            "cycle_length" INTEGER,
-            "cycle_avg_days" INTEGER,
-            PRIMARY KEY("cyc_id" AUTOINCREMENT)
-            );"""
+CREATE TABLE "cycle" (
+"cyc_id"	INTEGER NOT NULL,
+"cyc_start"	TEXT NOT NULL UNIQUE,
+PRIMARY KEY("cyc_id" AUTOINCREMENT)
+);"""
         );
-    }
-
-    public void setupTemperatur() {
-        this.update("""
-            CREATE TABLE "c_temperatur" (
-            "t_id" INTEGER NOT NULL,
-            "cyc_id" INTEGER NOT NULL,
-            "temperature" INTEGER NOT NULL,
-            PRIMARY KEY("t_id" AUTOINCREMENT)
-            );"""
-        );
+        /*ResultSet rs = this.query("select cyc_id, cyc_start from cycle");
+        while(rs.next())
+        {
+            // read the result set
+            System.out.println("StartDatum = " + rs.getString("cyc_start"));
+            System.out.println("id = " + rs.getInt("cyc_id"));
+        }*/
     }
 
 
@@ -111,8 +97,8 @@ with base as (
 
     public ResultSet getAvg() {
         return this.query(this.SQL_STATS + """
-        select cycle_avg as cycle_avg_days
-        from cycle
+        select cycle_avg_days 
+        from cycle_avg
         """);
     }
 
