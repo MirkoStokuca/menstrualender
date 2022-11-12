@@ -32,6 +32,8 @@ public class MensController implements Initializable {
     @FXML
     private Label kalenderAusgabe;
     @FXML
+    private Label buttonConf;
+    @FXML
     private Label nextCycleStart;
     @FXML
     private Label averageInterval;
@@ -172,4 +174,46 @@ public class MensController implements Initializable {
     public void switchToSettings(){
 
     }
+
+    /**
+     * Takes the input from the datePicker and saves it in cycle
+     */
+    @FXML
+    public void setDate() {
+        try {
+            LocalDate myDate = datePicker.getValue();
+            myDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+            zyklus.addDate(myDate);
+            showButton("Cycle added", Color.GREEN);
+        } catch (NullPointerException e) {
+
+            showButton("Pick a Date", Color.RED);
+        }
+    }
+
+    /**
+     * Makes Text appear and Disappear. Takes label String and color (true = red, false = green)
+     * @param labelText is the output text
+     * @param color
+     */
+    private void showButton(String labelText, Color color) {
+        buttonConf.setTextFill(color);
+        buttonConf.setText(labelText);
+        FadeTransition fader = createFader(buttonConf);
+        fader.play();
+    }
+
+    /**
+     * sets fade Parameter
+     * @param node
+     * @return fade
+     */
+    private FadeTransition createFader(Node node) {
+        FadeTransition fade = new FadeTransition(Duration.seconds(2), node);
+        fade.setFromValue(100);
+        fade.setToValue(0);
+
+        return fade;
+    }
+
 }
