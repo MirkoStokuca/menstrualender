@@ -97,14 +97,14 @@ PRIMARY KEY("cyc_id" AUTOINCREMENT)
 
     public ResultSet getAvg() {
         return this.query(this.SQL_STATS + """
-        select cycle_avg as cycle_avg_days 
+        select cycle_avg_days 
         from cycle_avg
         """);
     }
 
     public ResultSet getDiff() {
         return this.query(this.SQL_STATS + """
-        select this_cycle, last_cycle, cycle_length as cycle_avg_days 
+        select cycle_length 
         from diff
         """);
     }
