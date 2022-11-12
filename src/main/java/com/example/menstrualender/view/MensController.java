@@ -15,6 +15,7 @@ import javafx.scene.Node;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.StackedBarChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
@@ -43,6 +44,8 @@ public class MensController implements Initializable {
     private StackedBarChart generalGraph;
     @FXML
     private DatePicker datePicker;
+    @FXML
+    private StackedBarChart stackedBarChart;
 
 
     @FXML
@@ -65,10 +68,11 @@ public class MensController implements Initializable {
     }
 
     /**
-     * Pie chart initilize
+     * Init
      */
     @Override
     public void initialize(URL url, ResourceBundle rb){
+        //Init pie chart
         ObservableList<PieChart.Data>cycleChartData =
                 FXCollections.observableArrayList(
                         new PieChart.Data("", 15),
@@ -77,6 +81,40 @@ public class MensController implements Initializable {
         cycleGraph.autosize();
         cycleGraph.setStartAngle(-100);
 
+        //Init stacked bar chart
+        XYChart.Series series1= new XYChart.Series(); //create Series Instance
+        series1.setName("Vor Blutung"); //display as legend
+        series1.getData().add(new XYChart.Data(10, "01.11.2022"));
+        series1.getData().add(new XYChart.Data(11, "01.12.2022"));
+        series1.getData().add(new XYChart.Data(12, "01.01.2023"));
+        series1.getData().add(new XYChart.Data(8, "01.02.2023"));
+        series1.getData().add(new XYChart.Data(9, "01.03.2023"));
+        series1.getData().add(new XYChart.Data(10, "01.04.2023"));
+        series1.getData().add(new XYChart.Data(13, "01.05.2023"));
+
+        XYChart.Series series2= new XYChart.Series(); //create Series Instance
+        series2.setName("Blutung"); //display as legend
+        series2.getData().add(new XYChart.Data(4, "01.11.2022"));
+        series2.getData().add(new XYChart.Data(5, "01.12.2022"));
+        series2.getData().add(new XYChart.Data(4, "01.01.2023"));
+        series2.getData().add(new XYChart.Data(6, "01.02.2023"));
+        series2.getData().add(new XYChart.Data(4, "01.03.2023"));
+        series2.getData().add(new XYChart.Data(4, "01.04.2023"));
+        series2.getData().add(new XYChart.Data(6, "01.05.2023"));
+
+        XYChart.Series series3= new XYChart.Series(); //create Series Instance
+        series3.setName("Nach Blutung"); //display as legend
+        series3.getData().add(new XYChart.Data(10,"01.11.2022"));
+        series3.getData().add(new XYChart.Data(11, "01.12.2022"));
+        series3.getData().add(new XYChart.Data(12, "01.01.2023"));
+        series3.getData().add(new XYChart.Data(8, "01.02.2023"));
+        series3.getData().add(new XYChart.Data(9, "01.03.2023"));
+        series3.getData().add(new XYChart.Data(10, "01.04.2023"));
+        series3.getData().add(new XYChart.Data(12, "01.05.2023"));
+
+
+
+        stackedBarChart.getData().addAll(series1, series2, series3);
 
 
     }
@@ -149,7 +187,7 @@ public class MensController implements Initializable {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        kalenderAusgabe.setText(message);
+        //kalenderAusgabe.setText(message);
     }
 
     public void switchToLogin() {
