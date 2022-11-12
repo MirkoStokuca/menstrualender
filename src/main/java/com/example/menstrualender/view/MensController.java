@@ -137,7 +137,7 @@ public class MensController implements Initializable {
     @FXML
     public void showInfos(ActionEvent event) {
         printCalender();
-        showAverageInterval();
+        //showAverageInterval();
     }
 
     /**
@@ -145,7 +145,7 @@ public class MensController implements Initializable {
      * returns Int averageInterval
      */
    public void showAverageInterval() {
-       zyklus.getAverageInterval();
+       //zyklus.getAverageInterval();
     }
 
     /**

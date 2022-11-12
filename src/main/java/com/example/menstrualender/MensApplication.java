@@ -48,8 +48,6 @@ public class MensApplication extends Application {
 
             MensController controller = loader.getController();
             controller.setMainApp(this);
-
-
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

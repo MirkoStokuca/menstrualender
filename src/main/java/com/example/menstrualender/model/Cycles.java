@@ -1,17 +1,13 @@
 package com.example.menstrualender.model;
 
 import com.example.menstrualender.MensApplication;
-import com.example.menstrualender.util.DateUtil;
 
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 public class Cycles {
