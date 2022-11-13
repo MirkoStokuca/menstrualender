@@ -13,7 +13,6 @@ import java.net.URL;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.GregorianCalendar;
 import java.util.ResourceBundle;
 
 
@@ -37,7 +36,7 @@ public class DailyController implements Initializable {
     @FXML
     Cycles zyklus = new Cycles(db);
 
-    private String[] slime = {"Trocken","Pampig","Durchsichtig"};
+    private String[] outflow = {"Trocken","Pampig","Durchsichtig"};
     private String[] mood = {"ängstlich","provozierend","aufgestellt","niedergeschlagen","motiviert","lustlos"};
     public void setMainApp(MensApplication mensApp) {
         this.mensApp = mensApp;
@@ -51,18 +50,18 @@ public class DailyController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        chooseSlime.getItems().addAll(slime);
+        chooseSlime.getItems().addAll(outflow);
         chooseMood.getItems().addAll(mood);
     }
 
     public void dailySave(ActionEvent actionEvent) {
-        String slimeChoice = chooseSlime.getValue();
+        String outflowChoice = chooseSlime.getValue();
         String moodChoice = chooseMood.getValue();
         String dailyTemp = dailyTemperature.getText();
         LocalDate dailyDate = dailyDatePicker.getValue(); // für was ist das?
         String commentsDaily = dailyComments.getText();
 
-        int slimeChoiceInt = Arrays.asList(slime).indexOf(slimeChoice)+1; //Trocken = 1, Pampig = 2, Durchsichtig = 3
+        int outflowChoiceInt = Arrays.asList(outflow).indexOf(outflowChoice)+1; //Trocken = 1, Pampig = 2, Durchsichtig = 3
         int moodChoiceInt = Arrays.asList(mood).indexOf(moodChoice)+1;  //ängstlich = 1, provozierend = 2, aufgestellt = 3, niedergeschlagen = 4, motiviert = 5, lustlos = 6
         double dailyTempDouble = Double.parseDouble(dailyTemp);        // returns double primitive
         // ToDo: dailyTemDouble, soll auch leer abgeschickt werden können. (12.11.22)
@@ -71,8 +70,8 @@ public class DailyController implements Initializable {
         // Todo: AddBleeding
         // Todo: AddOvulation (Eisprung) Datum
 
-        if(slimeChoiceInt != 0) {
-            zyklus.addSlime(slimeChoiceInt);
+        if(outflowChoiceInt != 0) {
+            zyklus.addOutflow(outflowChoiceInt);
         }
         if(moodChoiceInt != 0) {
             zyklus.addMood(moodChoiceInt);
@@ -95,7 +94,7 @@ public class DailyController implements Initializable {
         }*/
 
 
-        System.out.println(slimeChoiceInt);
+        System.out.println(outflowChoiceInt);
         System.out.println(moodChoiceInt);
         System.out.println("Ausgabe Temperatur: " + df.format(dailyTempDouble));
         System.out.println("Ausgabe Temperatur, unverändert: " + dailyTemp);

@@ -55,38 +55,14 @@ public class Cycles {
         cycles = readDates;*/
     }
 
-    public ResultSet getAverageInterval() {
-        return this.db.getAvg();
-    }
-
     public ResultSet getCycles() {
         ResultSet rs = this.db.getCycles();
         return rs;
-        /*try {
-            while(rs.next()) {
-                // read the result set
-                System.out.println("StartDatum = " + rs.getDate("cyc_date_start"));
-                System.out.println("id = " + rs.getInt("cyc_id"));
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }*/
-
     }
-
-    /*public ArrayList<LocalDate> getCycles() {
-        return cycles;
-    }*/
-
-    /*public void saveData() {
-        try (var fileWriter = new FileWriter(MensApplication.PATH_TO_FILE)){
-            for (var cycle : cycles) {
-                fileWriter.write(cycle + ";");
-            }
-        } catch (IOException e) {
-            System.out.println("Error: " + e);
-        }
-    }*/
+    public ResultSet getCyclesIntervals() {
+        ResultSet rs = this.db.getCyclesInterval();
+        return rs;
+    }
 
     /**
      * add a new date to the cycles Database
@@ -95,7 +71,7 @@ public class Cycles {
     public void addDate(LocalDate date) {
         this.db.insertCycle(date);
     }
-    public void addSlime(int value) {
+    public void addOutflow(int value) {
         this.db.insertOutflow(value);
     }
     public void addMood(int value) {
@@ -125,9 +101,13 @@ public class Cycles {
 
     /**
      * calculates the average interval in between the dates in
-     * the cycles ArrayList
+     * the cycles Datenbank
      * @return average interval
      */
+    public ResultSet getAverageLength() {
+        return this.db.getAvg();
+    }
+
     /*public int getAverageInterval() {
 
         long intervals = 0;

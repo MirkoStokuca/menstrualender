@@ -147,7 +147,33 @@ public class MensController implements Initializable {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        // ToDo: Kalenderausgabe macht fehler, deshalb wird die Funktion nicht aufgerufen
         kalenderAusgabe.setText(message);
+    }
+
+
+
+    public void cyclesDetailLength() {
+        String message = "";
+        int bleeding_days, second_interval, fertility_days, fourth_interval;
+        LocalDate start_date;
+        ResultSet rs = zyklus.getCyclesIntervals();
+        try {
+            if(!rs.next()) { // false Check! rs.next() == false
+                message += "None Found!\n\nHow to Add New Cycle:\n1. Choose Date\n2.\"Start new Cycle\"" +
+                        "\n\nAdd at least two dates\nto calulate the start\nof the next cycle.";
+            } else {
+                do {
+                    bleeding_days = rs.getInt("first_interval");
+                    second_interval = rs.getInt("second_interval");
+                    fertility_days = 7;
+                    fourth_interval = rs.getInt("fourt_interval");
+                    start_date = LocalDate.parse(rs.getString("start_cycle"));
+                } while (rs.next());
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void switchToLogin() {
