@@ -1,18 +1,25 @@
 package com.example.menstrualender.view;
 
 import com.example.menstrualender.model.Cycles;
+import com.example.menstrualender.model.Db;
 import com.example.menstrualender.util.DateUtil;
 import javafx.animation.FadeTransition;
-import javafx.event.ActionEvent;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import com.example.menstrualender.MensApplication;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.PieChart;
+import javafx.scene.chart.StackedBarChart;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
@@ -23,19 +30,28 @@ public class MensController implements Initializable {
     @FXML
     private Label kalenderAusgabe;
     @FXML
+    private Label buttonConf;
+    @FXML
     private Label nextCycleStart;
     @FXML
     private Label averageInterval;
     @FXML
-    private Label buttonConf;
+    private PieChart cycleGraph;
+    @FXML
+    private LineChart tempGraph;
+    @FXML
+    private StackedBarChart generalGraph;
     @FXML
     private DatePicker datePicker;
-
     @FXML
     private MensApplication mensApp;
-
     @FXML
-    Cycles zyklus = new Cycles();
+    Db db = new Db();
+    @FXML
+    Cycles zyklus = new Cycles(db);
+
+
+
 
     /**
      * Constructor
@@ -43,17 +59,142 @@ public class MensController implements Initializable {
     public MensController() {
     }
 
-    /**
-     *Action Handling from login Screen
-     */
-    @FXML
-    public void loginButton() {
-        mensApp.showDefaultWindow();
+    public void setMainApp(MensApplication mensApp) {
+        this.mensApp = mensApp;
     }
 
+    /**
+     * Pie chart initilize
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle rb){
+        ObservableList<PieChart.Data>cycleChartData =
+                FXCollections.observableArrayList(
+                        new PieChart.Data("", 15),
+                        new  PieChart.Data("", 8));
+        cycleGraph.setData(cycleChartData);
+        cycleGraph.autosize();
+        cycleGraph.setStartAngle(-100);
+    }
     @FXML
     public void loadData() {
         zyklus.readData();
+    }
+
+    /**
+     * Deletes the Data in the File
+     * Naja, möchte vielleicht nicht immer alle Daten auf einmal löschen.
+     * direkt auf Datenbank anpassen.
+     */
+    @FXML
+    private void deleteData() {
+        zyklus.deleteData();
+        mensApp.showDefaultWindow();
+    }
+
+    /**
+     * saves Data into File
+     */
+    public void saveData() {
+
+    }
+
+    /**
+     * Shows Average Interval and Next Cycle Start
+     */
+    @FXML
+    public void showInfos() {
+        showAverageInterval();
+        // Todo: printCalender macht noch Fehler, deshalb ist der auskommentiert
+        //printCalender();
+        //showAverageInterval();
+    }
+
+    /**
+     * Changes Label averageInterval in hello-view to averageInterval from Cycles
+     * returns Int averageInterval
+     */
+
+    public void showAverageInterval() {
+        //int averInterval = zyklus.getAverageInterval();
+        //int averInterval = (zyklus.getAverageInterval());
+        //averageInterval.setText(Integer.toString(averInterval) + " days");
+    }
+
+    /**
+     * Changes Label nextCycleStart in hello-view to nextCycleStart from Cycles
+     * takes int "averageInterval"
+     *//*
+    public void showNextCycleStart() {
+        nextCycleStart.setText(zyklus.calculateNextCycleStart());
+    }
+
+    *//**
+     * Sets Text of Label kalenderAusgabe to the Calender Infos
+     */
+    public void printCalender() {
+        String message = "Saved dates:\n\n";
+        ResultSet rs = zyklus.getCycles();
+        try {
+            if(!rs.next()) { // false Check! rs.next() == false
+                message += "None Found!\n\nHow to Add New Cycle:\n1. Choose Date\n2.\"Start new Cycle\"" +
+                        "\n\nAdd at least two dates\nto calulate the start\nof the next cycle.";
+            } else {
+                do {
+                    message += LocalDate.parse(rs.getString("cyc_date_start")).format(DateUtil.formatter) + "\n";
+                } while (rs.next());
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        // ToDo: Kalenderausgabe macht fehler, deshalb wird die Funktion nicht aufgerufen
+        kalenderAusgabe.setText(message);
+    }
+
+
+
+    public void cyclesDetailLength() {
+        String message = "";
+        int bleeding_days, second_interval, fertility_days, fourth_interval;
+        LocalDate start_date;
+        ResultSet rs = zyklus.getCyclesIntervals();
+        try {
+            if(!rs.next()) { // false Check! rs.next() == false
+                message += "None Found!\n\nHow to Add New Cycle:\n1. Choose Date\n2.\"Start new Cycle\"" +
+                        "\n\nAdd at least two dates\nto calulate the start\nof the next cycle.";
+            } else {
+                do {
+                    bleeding_days = rs.getInt("first_interval");
+                    second_interval = rs.getInt("second_interval");
+                    fertility_days = 7;
+                    fourth_interval = rs.getInt("fourt_interval");
+                    start_date = LocalDate.parse(rs.getString("start_cycle"));
+                } while (rs.next());
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void switchToLogin() {
+        mensApp.loginWindow();
+        /*zyklus.readData();
+        showAverageInterval();
+        printCalender();
+        showNextCycleStart();*/
+    }
+
+    public void switchToDaily(){
+        mensApp.showDailyWindow();
+
+    }
+
+    public void switchToMonthly(){
+        mensApp.showMonthlyWindow();
+
+    }
+    public void switchToSettings(){
+
     }
 
     /**
@@ -70,16 +211,6 @@ public class MensController implements Initializable {
 
             showButton("Pick a Date", Color.RED);
         }
-    }
-
-    /**
-     * Deletes the Data in the File
-     */
-    @FXML
-    private void deleteData() {
-        zyklus.deleteData();
-        mensApp.showDefaultWindow();
-
     }
 
     /**
@@ -107,82 +238,4 @@ public class MensController implements Initializable {
         return fade;
     }
 
-    public void setMainApp(MensApplication mensApp) {
-        this.mensApp = mensApp;
-    }
-
-    /**
-     * saves Data into File
-     */
-    public void saveData() {
-        zyklus.saveData();
-    }
-
-//Output on Screen
-    /**
-     * Shows Average Interval and Next Cycle Start
-     */
-    @FXML
-    public void showInfos(ActionEvent event) {
-
-        showAverageInterval();
-        printCalender();
-        showNextCycleStart();
-    }
-
-    /**
-     * Changes Label averageInterval in hello-view to averageInterval from Cycles
-     * returns Int averageInterval
-     */
-    public void showAverageInterval() {
-
-        int averInterval = zyklus.getAverageInterval();
-        averageInterval.setText(Integer.toString(averInterval) + " days");
-    }
-
-    /**
-     * Changes Label nextCycleStart in hello-view to nextCycleStart from Cycles
-     * takes int "averageInterval"
-     */
-    public void showNextCycleStart() {
-        nextCycleStart.setText(zyklus.calculateNextCycleStart());
-    }
-
-    /**
-     * Sets Text of Label kalenderAusgabe to the Calender Infos
-     */
-    public void printCalender() {
-
-        String message = "Saved dates:\n\n";
-
-        if (zyklus.getCycles().size() != 0) {
-            var tempArray = zyklus.getCycles();
-            for (int i = 0; i < (tempArray.size() - 0); i++) {
-                message += tempArray.get(i).format(DateUtil.formatter) + "\n";
-            }
-        } else {
-            message += "None Found!\n\nHow to Add New Cycle:\n1. Choose Date\n2.\"Start new Cycle\"" +
-                    "\n\nAdd at least two dates\nto calulate the start\nof the next cycle.";
-        }
-
-        kalenderAusgabe.setText(message);
-
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-    }
-
-    /**
-     * Opens default scene
-     *
-     * @param event
-     */
-    public void switchToLogin(ActionEvent event) {
-        mensApp.loginWindow();
-        zyklus.readData();
-        showAverageInterval();
-        printCalender();
-        showNextCycleStart();
-    }
 }
