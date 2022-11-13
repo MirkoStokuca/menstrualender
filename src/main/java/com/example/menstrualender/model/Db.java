@@ -48,32 +48,32 @@ public class Db {
     }
 
     public int insertMood(int value) {
-        this.util.update("insert into c_mood (cyc_id, mood) values('" + SQL_GET_CYC_ID + "','" + value + "')");
+        this.util.update("insert into c_mood (cyc_id, mood) values((" + SQL_GET_CYC_ID + "),'" + value + "')");
         return 1;
     }
 
     public int insertOutflow(int value) {
-        this.util.update("insert into c_outflow (cyc_id, outflow) values('" + SQL_GET_CYC_ID + "','" + value + "')");
+        this.util.update("insert into c_outflow (cyc_id, outflow) values((" + SQL_GET_CYC_ID + "),'" + value + "')");
         return 1;
     }
 
     public int insertTemperature(double value) {
-        this.util.update("insert into c_temperature (cyc_id, temperature_value) values('" + SQL_GET_CYC_ID + "','" + value + "')");
+        this.util.update("insert into c_temperature (cyc_id, temperature_value) values((" + SQL_GET_CYC_ID + "),'" + value + "')");
         return 1;
     }
 
     public int insertComment(String comment) {
-        this.util.update("insert into c_comment (cyc_id, comment) values('" + SQL_GET_CYC_ID + "','" + comment + "')");
+        this.util.update("insert into c_comment (cyc_id, comment) values((" + SQL_GET_CYC_ID + "),'" + comment + "')");
         return 1;
     }
 
     public int insertBleeding(int value) {
-        this.util.update("insert into c_bleeding (cyc_id, bleeding) values('" + SQL_GET_CYC_ID + "','" + value + "')");
+        this.util.update("insert into c_bleeding (cyc_id, bleeding) values((" + SQL_GET_CYC_ID + "),'" + value + "')");
         return 1;
     }
 
     public int insertOvulation(LocalDate date) {
-        this.util.update("insert into c_ovulation (cyc_id, ovulation_date) values('" + SQL_GET_CYC_ID + "','" + date + "')");
+        this.util.update("insert into c_ovulation (cyc_id, ovulation_date) values((" + SQL_GET_CYC_ID + "),'" + date + "')");
         return 1;
     }
 
@@ -128,7 +128,7 @@ public class Db {
 
     public ResultSet getAvg() {
         return this.util.query(this.SQL_STATS + """
-        select cycle_avg_days 
+        select cycle_avg_days
         from cycle_avg
         """);
     }
@@ -142,7 +142,7 @@ public class Db {
 
     public ResultSet getDiff() {
         return this.util.query(this.SQL_STATS + """
-        select this_cycle, last_cycle, cycle_length as cycle_avg_days 
+        select this_cycle, last_cycle, cycle_length as cycle_avg_days
         from diff
         """);
     }
