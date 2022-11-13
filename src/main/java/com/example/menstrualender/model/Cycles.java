@@ -89,12 +89,35 @@ public class Cycles {
     }*/
 
     /**
-     * add a new date to the cycles Arraylist
+     * add a new date to the cycles Database
      * @param date LocalDate object
      */
     public void addDate(LocalDate date) {
         this.db.insertCycle(date);
     }
+    public void addSlime(int value) {
+        this.db.insertOutflow(value);
+    }
+    public void addMood(int value) {
+        this.db.insertMood(value);
+    }
+    public void addTemp(double value) {
+        this.db.insertTemperature(value);
+    }
+    public void addComments(String comment) {
+        this.db.insertComment(comment);
+    }
+    public void addBleeding(int value) {
+        this.db.insertBleeding(value);
+    }
+    public void addOvulation(LocalDate date) {
+        this.db.insertOvulation(date);
+    }
+
+
+
+
+
 
     public void deleteData(){
         this.db.deleteCycle();        // in der Klammer könnte die id_cyc mit gegeben werden, um ein bestimmten Eintrag zu löschen

@@ -2,13 +2,10 @@ package com.example.menstrualender.view;
 
 import com.example.menstrualender.model.Cycles;
 import com.example.menstrualender.model.Db;
-import com.example.menstrualender.setup.Database;
 import com.example.menstrualender.util.DateUtil;
 import javafx.animation.FadeTransition;
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import com.example.menstrualender.MensApplication;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -46,8 +43,6 @@ public class MensController implements Initializable {
     private StackedBarChart generalGraph;
     @FXML
     private DatePicker datePicker;
-
-
     @FXML
     private MensApplication mensApp;
     @FXML
@@ -55,7 +50,6 @@ public class MensController implements Initializable {
     @FXML
     Cycles zyklus = new Cycles(db);
 
-    Database setupDb = new Database();
 
 
 
@@ -111,7 +105,8 @@ public class MensController implements Initializable {
     @FXML
     public void showInfos() {
         showAverageInterval();
-        printCalender();
+        // Todo: printCalender macht noch Fehler, deshalb ist der auskommentiert
+        //printCalender();
         //showAverageInterval();
     }
 

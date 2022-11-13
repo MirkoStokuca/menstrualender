@@ -59,25 +59,46 @@ public class DailyController implements Initializable {
         String slimeChoice = chooseSlime.getValue();
         String moodChoice = chooseMood.getValue();
         String dailyTemp = dailyTemperature.getText();
-        LocalDate dailyDate = dailyDatePicker.getValue();
+        LocalDate dailyDate = dailyDatePicker.getValue(); // für was ist das?
         String commentsDaily = dailyComments.getText();
 
         int slimeChoiceInt = Arrays.asList(slime).indexOf(slimeChoice)+1; //Trocken = 1, Pampig = 2, Durchsichtig = 3
         int moodChoiceInt = Arrays.asList(mood).indexOf(moodChoice)+1;  //ängstlich = 1, provozierend = 2, aufgestellt = 3, niedergeschlagen = 4, motiviert = 5, lustlos = 6
         double dailyTempDouble = Double.parseDouble(dailyTemp);        // returns double primitive
-
+        // ToDo: dailyTemDouble, soll auch leer abgeschickt werden können. (12.11.22)
         DecimalFormat df = new DecimalFormat("#.00");
 
+        // Todo: AddBleeding
+        // Todo: AddOvulation (Eisprung) Datum
+
+        if(slimeChoiceInt != 0) {
+            zyklus.addSlime(slimeChoiceInt);
+        }
+        if(moodChoiceInt != 0) {
+            zyklus.addMood(moodChoiceInt);
+        }
+        if(dailyTempDouble != 0) {
+            zyklus.addTemp(Double.parseDouble(df.format(dailyTempDouble)));
+        }
+        if(commentsDaily != null) {
+            zyklus.addComments(commentsDaily);
+        }
+        if(moodChoiceInt != 0) {
+            zyklus.addDate(dailyDate);
+        }
         /*
-        zyklus.addSlime(slimeChoiceInt);
-        zyklus.addMood(moodChoiceInt);
-        zyklus.addTemp(df.format(dailyTempDouble));
-        zyklus.addComments(commentsDaily);
-        zyklus.addDate(dailyDate);
-        */
+        if(XXXX != 0) {
+            //zyklus.addBleeding();
+        }
+        if(XXXX != 0) {
+            //zyklus.addOvulation();
+        }*/
+
+
         System.out.println(slimeChoiceInt);
         System.out.println(moodChoiceInt);
-        System.out.println(df.format(dailyTempDouble));
+        System.out.println("Ausgabe Temperatur: " + df.format(dailyTempDouble));
+        System.out.println("Ausgabe Temperatur, unverändert: " + dailyTemp);
         System.out.println(commentsDaily);
         System.out.println(dailyDate);
 
