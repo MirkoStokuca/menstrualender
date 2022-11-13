@@ -1,17 +1,13 @@
 package com.example.menstrualender.model;
 
 import com.example.menstrualender.MensApplication;
-import com.example.menstrualender.util.DateUtil;
 
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 public class Cycles {
@@ -59,46 +55,45 @@ public class Cycles {
         cycles = readDates;*/
     }
 
-    public ResultSet getAverageInterval() {
-        return this.db.getAvg();
-    }
-
     public ResultSet getCycles() {
         ResultSet rs = this.db.getCycles();
         return rs;
-        /*try {
-            while(rs.next()) {
-                // read the result set
-                System.out.println("StartDatum = " + rs.getDate("cyc_date_start"));
-                System.out.println("id = " + rs.getInt("cyc_id"));
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }*/
-
+    }
+    public ResultSet getCyclesIntervals() {
+        ResultSet rs = this.db.getCyclesInterval();
+        return rs;
     }
 
-    /*public ArrayList<LocalDate> getCycles() {
-        return cycles;
-    }*/
-
-    /*public void saveData() {
-        try (var fileWriter = new FileWriter(MensApplication.PATH_TO_FILE)){
-            for (var cycle : cycles) {
-                fileWriter.write(cycle + ";");
-            }
-        } catch (IOException e) {
-            System.out.println("Error: " + e);
-        }
-    }*/
-
     /**
-     * add a new date to the cycles Arraylist
+     * add a new date to the cycles Database
      * @param date LocalDate object
      */
     public void addDate(LocalDate date) {
         this.db.insertCycle(date);
     }
+    public void addOutflow(int value) {
+        this.db.insertOutflow(value);
+    }
+    public void addMood(int value) {
+        this.db.insertMood(value);
+    }
+    public void addTemp(double value) {
+        this.db.insertTemperature(value);
+    }
+    public void addComments(String comment) {
+        this.db.insertComment(comment);
+    }
+    public void addBleeding(int value) {
+        this.db.insertBleeding(value);
+    }
+    public void addOvulation(LocalDate date) {
+        this.db.insertOvulation(date);
+    }
+
+
+
+
+
 
     public void deleteData(){
         this.db.deleteCycle();        // in der Klammer könnte die id_cyc mit gegeben werden, um ein bestimmten Eintrag zu löschen
@@ -106,9 +101,13 @@ public class Cycles {
 
     /**
      * calculates the average interval in between the dates in
-     * the cycles ArrayList
+     * the cycles Datenbank
      * @return average interval
      */
+    public ResultSet getAverageLength() {
+        return this.db.getAvg();
+    }
+
     /*public int getAverageInterval() {
 
         long intervals = 0;

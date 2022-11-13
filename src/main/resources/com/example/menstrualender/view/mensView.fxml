@@ -115,7 +115,7 @@
                   <Button contentDisplay="CENTER" layoutX="10.0" layoutY="204.0" maxHeight="30.0" maxWidth="80.0" minHeight="25.0" minWidth="75.0" mnemonicParsing="false" onAction="#switchToSettings" prefHeight="30.0" prefWidth="80.0" text="Set mode" textAlignment="CENTER" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                   <Label alignment="CENTER" layoutX="48.0" layoutY="5.0" prefHeight="32.0" prefWidth="141.0" text="Enter you daily infos here:" textAlignment="CENTER" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
                   <DatePicker fx:id="datePicker" layoutX="-19.0" layoutY="145.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="200.0" />
-                  <Button layoutX="33.0" layoutY="219.0" mnemonicParsing="false" text="Button" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="230.0" />
+                  <Button layoutX="33.0" layoutY="219.0" mnemonicParsing="false" onAction="#setDate" text="Button" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="230.0" />
                   <Label alignment="CENTER" layoutX="21.0" layoutY="155.0" prefHeight="32.0" prefWidth="141.0" text="Enter the start of your cycle here:" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="160.0" />
                   <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="1.0" layoutY="346.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="346.0" />
                </children>

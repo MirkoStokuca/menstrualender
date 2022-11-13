@@ -1,147 +1,150 @@
 package com.example.menstrualender.model;
-import java.io.File;
+
+import com.example.menstrualender.model.db.Util;
 import java.sql.*;
 import java.time.LocalDate;
 
 public class Db {
-    Connection connection;
-    Statement statement;
+    Util util;
 
     protected String SQL_STATS = """
-with base as (
-    select
-        cyc_id
-        , date(cyc_start) as this_cycle
-        , lag(cyc_start) over (order by date(cyc_start)) as last_cycle
-    from cycle
-    order by date(cyc_start)
-), diff as (
-    select
-        this_cycle
-         , last_cycle
-         , julianday(this_cycle) - julianday(last_cycle) as cycle_length
-    from base
-    where last_cycle is not null
-), cycle_avg as (
-    select avg(cycle_length) as cycle_avg_days
-    from diff
-)
-""";
+            with base as (
+                select
+                    cyc_id
+                    , date(cyc_start) as this_cycle
+                    , lag(cyc_start) over (order by date(cyc_start)) as last_cycle
+                from cycle
+                order by date(cyc_start)
+            ), diff as (
+                select
+                    this_cycle
+                     , last_cycle
+                     , julianday(this_cycle) - julianday(last_cycle) as cycle_length
+                from base
+                where last_cycle is not null
+            ), cycle_avg as (
+                select avg(cycle_length) as cycle_avg_days
+                from diff
+            )
+            """
+    ;
+
+    protected String SQL_GET_CYC_ID = """
+            select cyc_id
+            from cycle
+            order by cyc_start desc
+            limit 1
+            """
+    ;
 
     public Db() {
-        boolean noSetFile = false;
-        File f = new File("sample.sqlite");
-        if (!f.exists()) {          // wenn es die Datenbank noch nicht gibt --> setup
-            // noch keine Datenvorhanden, macht Datenbank mit Tabelle verfügbar.
-            System.out.println("noch keine Datenvorhanden, macht Datenbank mit Tabelle verfügbar.");
-            noSetFile = true;
-        }
-        this.getConnection();
-        if(noSetFile) {
-            this.setup();
-        }
-    }
-
-    public void setup() {
-        // """ drei macht es zusammenhängend ohne +, ganz vorne schreiben, damit es nicht unnötig zeichen verbraucht.
-        this.update("""
-CREATE TABLE "cycle" (
-"cyc_id"	INTEGER NOT NULL,
-"cyc_start"	TEXT NOT NULL UNIQUE,
-PRIMARY KEY("cyc_id" AUTOINCREMENT)
-);"""
-        );
-        /*ResultSet rs = this.query("select cyc_id, cyc_start from cycle");
-        while(rs.next())
-        {
-            // read the result set
-            System.out.println("StartDatum = " + rs.getString("cyc_start"));
-            System.out.println("id = " + rs.getInt("cyc_id"));
-        }*/
+        this.util = new Util();
     }
 
 
     public int insertCycle(LocalDate date) {
-        // statement.executeUpdate("Befehl für datenbank"); Ansprechzeile
-        this.update("insert into cycle (cyc_start) values('" + date + "')");
+        this.util.update("insert into cycle (cyc_start) values('" + date + "')");
+        return 1;
+    }
+
+    public int insertMood(int value) {
+        this.util.update("insert into c_mood (cyc_id, mood) values((" + SQL_GET_CYC_ID + "),'" + value + "')");
+        return 1;
+    }
+
+    public int insertOutflow(int value) {
+        this.util.update("insert into c_outflow (cyc_id, outflow) values((" + SQL_GET_CYC_ID + "),'" + value + "')");
+        return 1;
+    }
+
+    public int insertTemperature(double value) {
+        this.util.update("insert into c_temperature (cyc_id, temperature_value) values((" + SQL_GET_CYC_ID + "),'" + value + "')");
+        return 1;
+    }
+
+    public int insertComment(String comment) {
+        this.util.update("insert into c_comment (cyc_id, comment) values((" + SQL_GET_CYC_ID + "),'" + comment + "')");
+        return 1;
+    }
+
+    public int insertBleeding(int value) {
+        this.util.update("insert into c_bleeding (cyc_id, bleeding) values((" + SQL_GET_CYC_ID + "),'" + value + "')");
+        return 1;
+    }
+
+    public int insertOvulation(LocalDate date) {
+        this.util.update("insert into c_ovulation (cyc_id, ovulation_date) values((" + SQL_GET_CYC_ID + "),'" + date + "')");
         return 1;
     }
 
     public void deleteCycle() {
-        this.update("delete from cycle");
-
-    }
-
-    private void update(String sql) {
-        try {
-            this.statement.executeUpdate(sql);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private ResultSet query(String sql) {
-        try {
-            return this.statement.executeQuery(sql);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        this.util.update("delete from cycle");
     }
 
     public ResultSet getCycles() {
-        return this.query("""
+        return this.util.query(this.SQL_STATS + """
         select cyc_id, date(cyc_start) as cyc_date_start
         from cycle
         """);
     }
 
+    public ResultSet getCyclesInterval() {
+        return this.util.query("""
+                with base as (
+                     select
+                         cyc_id
+                         , date(cyc_start) as start_cycle
+                         , lag(cyc_start) over (order by date(cyc_start)) as last_cycle
+                     from cycle
+                     order by date(cyc_start)
+                 ), length as (
+                     select cyc_id
+                          , start_cycle
+                          , last_cycle
+                          , julianday(start_cycle) - julianday(last_cycle) as cycle_length
+                     from base
+                     where last_cycle is not null
+                 ), bleeding_days as (
+                    select cyc_id, count(*) as first_interval
+                    from c_bleeding
+                    group by cyc_id
+                 ), interval as (
+                     select length.cyc_id
+                          , start_cycle
+                          , cycle_length
+                          , first_interval
+                          , round(cycle_length/2 - first_interval -4) as second_interval
+                          , cycle_length - first_interval - round(cycle_length/2 - first_interval -4) -7 as fourth_interval
+                     from length
+                     inner join bleeding_days
+                     on bleeding_days.cyc_id = length.cyc_id
+                     group by length.cyc_id
+                 )
+                 select *
+                 from interval;
+                 """);
+    }
+
+
     public ResultSet getAvg() {
-        return this.query(this.SQL_STATS + """
-        select cycle_avg as cycle_avg_days 
+        return this.util.query(this.SQL_STATS + """
+        select cycle_avg_days
         from cycle_avg
         """);
     }
 
+    public ResultSet getLength() {
+        return this.util.query(this.SQL_STATS + """
+                select cycle_length
+                from diff
+                """);
+    }
+
     public ResultSet getDiff() {
-        return this.query(this.SQL_STATS + """
-        select this_cycle, last_cycle, cycle_length as cycle_avg_days 
+        return this.util.query(this.SQL_STATS + """
+        select this_cycle, last_cycle, cycle_length as cycle_avg_days
         from diff
         """);
-    }
-
-    private void getConnection() {
-        try {
-            // create a database connection
-            // todo: set password as third argument, to encrypt this database
-            // for developing us empty password to easy inspect data with sqlite browser.
-            String password = null;
-            // String password = "test";
-            // wenn es die Datenbank noch nicht gibt, legt er sie mit folgender Zeile an. Sonst macht er damit die connection.
-            // Hier könnte der Path angegeben werden, wenn der irgenwo anders als im selben Projekt sein soll.
-            this.connection = DriverManager.getConnection("jdbc:sqlite:sample.sqlite", "", password);
-            this.statement = this.connection.createStatement();
-            this.statement.setQueryTimeout(30);  // set timeout to 30 sec.
-        }
-        catch(SQLException e)
-        {
-            // if the error message is "out of memory",
-            // it probably means no database file is found
-            System.err.println(e.getMessage());
-        }
-    }
-
-    // Brauchen wir vielleicht nicht einmal
-    private void closeConnection() {
-        try
-        {
-            if(this.connection != null)
-                this.connection.close();
-        }
-        catch(SQLException e)
-        {
-            // connection close failed.
-            System.err.println(e.getMessage());
-        }
     }
 }
 

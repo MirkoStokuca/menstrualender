@@ -4,10 +4,8 @@ import com.example.menstrualender.model.Cycles;
 import com.example.menstrualender.model.Db;
 import com.example.menstrualender.util.DateUtil;
 import javafx.animation.FadeTransition;
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import com.example.menstrualender.MensApplication;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -31,6 +29,8 @@ public class MensController implements Initializable {
     @FXML
     private Label kalenderAusgabe;
     @FXML
+    private Label buttonConf;
+    @FXML
     private Label nextCycleStart;
     @FXML
     private Label averageInterval;
@@ -52,6 +52,7 @@ public class MensController implements Initializable {
     Db db = new Db();
     @FXML
     Cycles zyklus = new Cycles(db);
+
 
 
 
@@ -147,7 +148,6 @@ public class MensController implements Initializable {
         cycleGraph.setStartAngle(-100);
     }
 
-
     @FXML
     public void loadData() {
         zyklus.readData();
@@ -177,8 +177,9 @@ public class MensController implements Initializable {
     @FXML
     public void showInfos() {
         showAverageInterval();
-        printCalender();
-        showAverageInterval();
+        // Todo: printCalender macht noch Fehler, deshalb ist der auskommentiert
+        //printCalender();
+        //showAverageInterval();
     }
 
     /**
@@ -187,6 +188,7 @@ public class MensController implements Initializable {
      */
 
     public void showAverageInterval() {
+        //int averInterval = zyklus.getAverageInterval();
         //int averInterval = (zyklus.getAverageInterval());
         //averageInterval.setText(Integer.toString(averInterval) + " days");
     }
@@ -217,7 +219,35 @@ public class MensController implements Initializable {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+        // ToDo: Kalenderausgabe macht fehler, deshalb wird die Funktion nicht aufgerufen
+
         //kalenderAusgabe.setText(message);
+    }
+
+
+
+    public void cyclesDetailLength() {
+        String message = "";
+        int bleeding_days, second_interval, fertility_days, fourth_interval;
+        LocalDate start_date;
+        ResultSet rs = zyklus.getCyclesIntervals();
+        try {
+            if(!rs.next()) { // false Check! rs.next() == false
+                message += "None Found!\n\nHow to Add New Cycle:\n1. Choose Date\n2.\"Start new Cycle\"" +
+                        "\n\nAdd at least two dates\nto calulate the start\nof the next cycle.";
+            } else {
+                do {
+                    bleeding_days = rs.getInt("first_interval");
+                    second_interval = rs.getInt("second_interval");
+                    fertility_days = 7;
+                    fourth_interval = rs.getInt("fourt_interval");
+                    start_date = LocalDate.parse(rs.getString("start_cycle"));
+                } while (rs.next());
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void switchToLogin() {
@@ -240,4 +270,46 @@ public class MensController implements Initializable {
     public void switchToSettings(){
 
     }
+
+    /**
+     * Takes the input from the datePicker and saves it in cycle
+     */
+    @FXML
+    public void setDate() {
+        try {
+            LocalDate myDate = datePicker.getValue();
+            myDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+            zyklus.addDate(myDate);
+            showButton("Cycle added", Color.GREEN);
+        } catch (NullPointerException e) {
+
+            showButton("Pick a Date", Color.RED);
+        }
+    }
+
+    /**
+     * Makes Text appear and Disappear. Takes label String and color (true = red, false = green)
+     * @param labelText is the output text
+     * @param color
+     */
+    private void showButton(String labelText, Color color) {
+        buttonConf.setTextFill(color);
+        buttonConf.setText(labelText);
+        FadeTransition fader = createFader(buttonConf);
+        fader.play();
+    }
+
+    /**
+     * sets fade Parameter
+     * @param node
+     * @return fade
+     */
+    private FadeTransition createFader(Node node) {
+        FadeTransition fade = new FadeTransition(Duration.seconds(2), node);
+        fade.setFromValue(100);
+        fade.setToValue(0);
+
+        return fade;
+    }
+
 }
