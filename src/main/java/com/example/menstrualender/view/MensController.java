@@ -45,7 +45,7 @@ public class MensController implements Initializable {
     private DatePicker datePicker;
     @FXML
     private MensApplication mensApp;
-    @FXML
+    
     Db db = new Db();
     @FXML
     Cycles zyklus = new Cycles(db);

@@ -57,7 +57,7 @@ public class Db {
         return 1;
     }
 
-    public int insertTemperature(double value) {
+    public int insertTemperature(String value) {
         this.util.update("insert into c_temperature (cyc_id, temperature_value) values((" + SQL_GET_CYC_ID + "),'" + value + "')");
         return 1;
     }

@@ -77,7 +77,7 @@ public class Cycles {
     public void addMood(int value) {
         this.db.insertMood(value);
     }
-    public void addTemp(double value) {
+    public void addTemp(String value) {
         this.db.insertTemperature(value);
     }
     public void addComments(String comment) {

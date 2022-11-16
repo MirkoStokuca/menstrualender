@@ -55,6 +55,7 @@ public class DailyController implements Initializable {
     }
 
     public void dailySave(ActionEvent actionEvent) {
+        //Try add und info check
         String outflowChoice = chooseSlime.getValue();
         String moodChoice = chooseMood.getValue();
         String dailyTemp = dailyTemperature.getText();
@@ -77,7 +78,7 @@ public class DailyController implements Initializable {
             zyklus.addMood(moodChoiceInt);
         }
         if(dailyTempDouble != 0) {
-            zyklus.addTemp(Double.parseDouble(df.format(dailyTempDouble)));
+            zyklus.addTemp(df.format(dailyTempDouble));
         }
         if(commentsDaily != null) {
             zyklus.addComments(commentsDaily);
