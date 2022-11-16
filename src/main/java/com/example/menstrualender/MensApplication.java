@@ -23,7 +23,7 @@ public class MensApplication extends Application {
 
     @Override
     public void start(Stage defaultStage) throws IOException {
-
+        Db db = new Db();
         //Setup defaultStage
         this.defaultStage = defaultStage;
         this.defaultStage.setTitle("Menstrualender");
