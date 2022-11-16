@@ -1,0 +1,12 @@
+.default-color0.chart-bar {
+    -fx-bar-fill: #d6d6ff;
+}
+.default-color1.chart-bar {
+    -fx-bar-fill: #ffa3ec;
+}
+.default-color2.chart-bar {
+    -fx-bar-fill: #d6d6ff;
+}
+.root{
+    -fx-background-color: rgb(211, 217, 238);
+}
