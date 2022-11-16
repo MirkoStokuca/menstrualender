@@ -1,7 +1,4 @@
 package com.example.menstrualender;
-import com.example.menstrualender.model.Cycles;
-import com.example.menstrualender.model.Db;
-import com.example.menstrualender.util.DateUtil;
 import com.example.menstrualender.view.DailyController;
 import com.example.menstrualender.view.LoginController;
 import com.example.menstrualender.view.MensController;
@@ -14,7 +11,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
 import java.io.IOException;
 
 public class MensApplication extends Application {
@@ -53,8 +49,6 @@ public class MensApplication extends Application {
 
             LoginController controller = loader.getController();
             controller.setMainApp(this);
-
-
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

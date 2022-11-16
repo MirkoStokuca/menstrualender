@@ -112,6 +112,7 @@
                                  </children>
                               </AnchorPane>
                            </children>
+
                         </AnchorPane>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0">
                            <children>
@@ -138,7 +139,7 @@
                            </children>
                         </AnchorPane>
                      </children>
-                  </VBox>
+                  </VBox>   
                </children>
             </AnchorPane>
          </center>
