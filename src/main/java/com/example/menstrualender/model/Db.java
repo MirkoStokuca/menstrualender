@@ -88,7 +88,10 @@ public class Db {
         """);
     }
 
-    public ResultSet getCyclesInterval() {
+    /**
+     * History Cycles:
+     */
+    public ResultSet getCyclesHistoryIntervals() {
         return this.util.query("""
                 with base as (
                      select
@@ -96,7 +99,8 @@ public class Db {
                          , date(cyc_start) as start_cycle
                          , lag(cyc_start) over (order by date(cyc_start)) as last_cycle
                      from cycle
-                     order by date(cyc_start)
+                     order by date(cyc_start) desc
+                     limit 12
                  ), length as (
                      select cyc_id
                           , start_cycle
@@ -130,20 +134,6 @@ public class Db {
         return this.util.query(this.SQL_STATS + """
         select cycle_avg_days
         from cycle_avg
-        """);
-    }
-
-    public ResultSet getLength() {
-        return this.util.query(this.SQL_STATS + """
-                select cycle_length
-                from diff
-                """);
-    }
-
-    public ResultSet getDiff() {
-        return this.util.query(this.SQL_STATS + """
-        select this_cycle, last_cycle, cycle_length as cycle_avg_days
-        from diff
         """);
     }
 }

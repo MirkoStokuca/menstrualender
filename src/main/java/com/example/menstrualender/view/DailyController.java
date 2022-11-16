@@ -82,7 +82,7 @@ public class DailyController implements Initializable {
         if(commentsDaily != null) {
             zyklus.addComments(commentsDaily);
         }
-        if(moodChoiceInt != 0) {
+        if(dailyDate != null) {
             zyklus.addDate(dailyDate);
         }
         /*

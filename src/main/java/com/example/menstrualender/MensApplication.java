@@ -113,6 +113,7 @@ public class MensApplication extends Application {
     }
 
     public static void main(String[] args) {
+
         System.setProperty("prism.lcdtext", "false");
         launch(args);
     }

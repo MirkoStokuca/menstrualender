@@ -59,8 +59,8 @@ public class Cycles {
         ResultSet rs = this.db.getCycles();
         return rs;
     }
-    public ResultSet getCyclesIntervals() {
-        ResultSet rs = this.db.getCyclesInterval();
+    public ResultSet getCyclesHitstoryIntervals() {
+        ResultSet rs = this.db.getCyclesHistoryIntervals();
         return rs;
     }
 

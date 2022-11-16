@@ -151,13 +151,16 @@ public class MensController implements Initializable {
         kalenderAusgabe.setText(message);
     }
 
+    public static void main(String[] args) {
+
+    }
 
 
     public void cyclesDetailLength() {
         String message = "";
-        int bleeding_days, second_interval, fertility_days, fourth_interval;
+        int bleeding_days, second_interval, fertility_days, fourth_interval, cycle_length, anzahl_cycles = 0;
         LocalDate start_date;
-        ResultSet rs = zyklus.getCyclesIntervals();
+        ResultSet rs = zyklus.getCyclesHitstoryIntervals();
         try {
             if(!rs.next()) { // false Check! rs.next() == false
                 message += "None Found!\n\nHow to Add New Cycle:\n1. Choose Date\n2.\"Start new Cycle\"" +
@@ -169,6 +172,8 @@ public class MensController implements Initializable {
                     fertility_days = 7;
                     fourth_interval = rs.getInt("fourt_interval");
                     start_date = LocalDate.parse(rs.getString("start_cycle"));
+                    cycle_length = rs.getInt("cycle_length");
+                    anzahl_cycles++;
                 } while (rs.next());
             }
         } catch (SQLException e) {
