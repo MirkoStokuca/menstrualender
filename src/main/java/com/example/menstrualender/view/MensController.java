@@ -4,15 +4,21 @@ import com.example.menstrualender.model.Cycles;
 import com.example.menstrualender.model.Db;
 import com.example.menstrualender.util.DateUtil;
 import javafx.animation.FadeTransition;
+import javafx.animation.TranslateTransition;
+import javafx.beans.Observable;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import com.example.menstrualender.MensApplication;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.chart.*;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import java.net.URL;
@@ -20,12 +26,11 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class MensController implements Initializable {
-    //Declarations
-    @FXML
-    private Label kalenderAusgabe;
+    //Declarations;
     @FXML
     private Label buttonConf;
     @FXML
@@ -44,13 +49,23 @@ public class MensController implements Initializable {
     private StackedBarChart stackedBarChart;
 
     @FXML
+
     private MensApplication mensApp;
 
     Db db = new Db();
+    private AnchorPane resize;
+
     @FXML
-    Cycles zyklus = new Cycles(db);
+    private Label Menu;
 
+    @FXML
+    private Label MenuBack;
 
+    @FXML
+    private AnchorPane slider;
+
+    @FXML
+    private MensApplication mensApp;
 
 
     /**
@@ -63,6 +78,9 @@ public class MensController implements Initializable {
         this.mensApp = mensApp;
     }
 
+
+    //Init and Charts
+
     /**
      * Init
      */
@@ -74,6 +92,8 @@ public class MensController implements Initializable {
         //Init stacked bar chart
         initStackedBarChart();
         loadStackedBarChart();
+        sliderSlide();
+
     }
 
     /**
@@ -101,6 +121,8 @@ public class MensController implements Initializable {
             throw new RuntimeException(e);
         }
         System.out.println(dbRows);
+
+
 
         //create Series Instances
         XYChart.Series series1= new XYChart.Series();
@@ -145,21 +167,44 @@ public class MensController implements Initializable {
     }
 
     /**
+     * Init Line Chart
+     */
+    private void initLineChart(){
+
+        final NumberAxis xAxis = new NumberAxis();
+        final NumberAxis yAxis = new NumberAxis();
+        xAxis.setLabel("Number of Month");
+        //creating the chart
+        final LineChart<Number,Number> lineChart =
+                new LineChart<Number,Number>(xAxis,yAxis);
+
+        lineChart.setTitle("Stock Monitoring, 2010");
+        //defining a series
+        XYChart.Series series = new XYChart.Series();
+        //DBHandler dbHandler = new DBHandler();
+
+        /*List<List<Integer>> dataHolder = dbHandler.getDataHolder();
+        for(int i = 0; i < dataHolder.size(); i++)
+        {
+            series.getData().add(new XYChart.Data(dataHolder.get(i).get(0), dataHolder.get(i).get(1)));
+        }*/
+    }
+
+    /**
      * Init pie chart
      */
     private void initPieChart(){
+        //@JULIA
+        int nextCycleStart; //Hier prediction datum des nächsten Zyklus (oder letzer Zyklus und avrg aus DB)
+        int timUntilNextCycle; // nextCycleStart - aktuelles Datum
+
         ObservableList<PieChart.Data>cycleChartData =
                 FXCollections.observableArrayList(
-                        new PieChart.Data("", 15),
-                        new  PieChart.Data("", 8));
-        cycleGraph.setData(cycleChartData);
-        cycleGraph.autosize();
-        cycleGraph.setStartAngle(-100);
-    }
-
-    @FXML
-    public void loadData() {
-        zyklus.readData();
+                        new PieChart.Data("", 10),
+                        new  PieChart.Data("", 18));
+        this.cycleGraph.setData(cycleChartData);
+        this.cycleGraph.autosize();
+        this.cycleGraph.setStartAngle(-100);
     }
 
     /**
@@ -169,27 +214,17 @@ public class MensController implements Initializable {
      */
     @FXML
     private void deleteData() {
-        zyklus.deleteData();
-        mensApp.showDefaultWindow();
+        this.mensApp.zyklus.deleteData();
+        this.mensApp.showDefaultWindow();
     }
 
-    /**
-     * saves Data into File
-     */
-    public void saveData() {
-
-    }
-
-    /**
-     * Shows Average Interval and Next Cycle Start
-     */
     @FXML
-    public void showInfos() {
+    public void upDateInfos(){
         showAverageInterval();
-        // Todo: printCalender macht noch Fehler, deshalb ist der auskommentiert
-        //printCalender();
-        //showAverageInterval();
+        showNextCycleStart();
+        loadStackedBarChart();
     }
+
 
     /**
      * Changes Label averageInterval in hello-view to averageInterval from Cycles
@@ -197,86 +232,30 @@ public class MensController implements Initializable {
      */
 
     public void showAverageInterval() {
-        //int averInterval = zyklus.getAverageInterval();
-        //int averInterval = (zyklus.getAverageInterval());
-        //averageInterval.setText(Integer.toString(averInterval) + " days");
+        //@JULIA hier bitte richtig (parsen?) wert muss averageInterval übergeben werden
+        //averageInterval = zyklus.getAverageLength();
     }
 
     /**
      * Changes Label nextCycleStart in hello-view to nextCycleStart from Cycles
      * takes int "averageInterval"
-     *//*
-    public void showNextCycleStart() {
-        nextCycleStart.setText(zyklus.calculateNextCycleStart());
-    }
-
-    *//**
-     * Sets Text of Label kalenderAusgabe to the Calender Infos
      */
-    public void printCalender() {
-        String message = "Saved dates:\n\n";
-        ResultSet rs = zyklus.getCycles();
-        try {
-            if(!rs.next()) { // false Check! rs.next() == false
-                message += "None Found!\n\nHow to Add New Cycle:\n1. Choose Date\n2.\"Start new Cycle\"" +
-                        "\n\nAdd at least two dates\nto calulate the start\nof the next cycle.";
-            } else {
-                do {
-                    message += LocalDate.parse(rs.getString("cyc_date_start")).format(DateUtil.formatterLong) + "\n";
-                } while (rs.next());
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
 
-        // ToDo: Kalenderausgabe macht fehler, deshalb wird die Funktion nicht aufgerufen
-
-        //kalenderAusgabe.setText(message);
+    public void showNextCycleStart() {
+        //@JULIA berechnung nächstes Zyklus start datum
+        //nextCycleStart =
     }
 
-    public void cyclesDetailLength() {
-        String message = "";
-        int bleeding_days, second_interval, fertility_days, fourth_interval;
-        LocalDate start_date;
-        ResultSet rs = zyklus.getCyclesIntervals();
-        try {
-            if(!rs.next()) { // false Check! rs.next() == false
-                message += "None Found!\n\nHow to Add New Cycle:\n1. Choose Date\n2.\"Start new Cycle\"" +
-                        "\n\nAdd at least two dates\nto calulate the start\nof the next cycle.";
-            } else {
-                do {
-                    bleeding_days = rs.getInt("first_interval");
-                    second_interval = rs.getInt("second_interval");
-                    fertility_days = 7;
-                    fourth_interval = rs.getInt("fourth_interval");
-                    start_date = LocalDate.parse(rs.getString("start_cycle"));
-                } while (rs.next());
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
+    //Scene/Stage Switches
     public void switchToLogin() {
         mensApp.loginWindow();
-        /*zyklus.readData();
-        showAverageInterval();
-        printCalender();
-        showNextCycleStart();*/
     }
 
     public void switchToDaily(){
         mensApp.showDailyWindow();
 
-    }
-
-    public void switchToMonthly(){
-        mensApp.showMonthlyWindow();
-    }
-
-    public void switchToSettings(){
-    }
-
+    // Action events
     /**
      * Takes the input from the datePicker and saves it in cycle
      */
@@ -285,12 +264,62 @@ public class MensController implements Initializable {
         try {
             LocalDate myDate = datePicker.getValue();
             myDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-            zyklus.addDate(myDate);
+            //@JULIA Hier myDate (gewähltes Datum) an DB weitergeben
             showButton("Cycle added", Color.GREEN);
         } catch (NullPointerException e) {
-
             showButton("Pick a Date", Color.RED);
         }
+    }
+
+    //Animations
+
+    private void sliderSlide(){
+        slider.setTranslateX(-300);
+        Menu.setOnMouseClicked(event -> {
+            TranslateTransition slide = new TranslateTransition();
+            slide.setDuration(Duration.seconds(0.4));
+            slide.setNode(slider);
+
+            slide.setToX(0);
+            slide.play();
+
+            slider.setTranslateX(-300);
+
+            slide.setOnFinished((ActionEvent e)-> {
+                Menu.setVisible(false);
+                MenuBack.setVisible(true);
+            });
+        });
+
+        MenuBack.setOnMouseClicked(event -> {
+            TranslateTransition slide = new TranslateTransition();
+            slide.setDuration(Duration.seconds(0.4));
+            slide.setNode(slider);
+
+            slide.setToX(-300);
+            slide.play();
+
+            slider.setTranslateX(0);
+
+            slide.setOnFinished((ActionEvent e)-> {
+                Menu.setVisible(true);
+                MenuBack.setVisible(false);
+
+            });
+        });
+    }
+
+    /**
+     * sets fade Parameter
+     * @param node
+     * @return fade
+     */
+    private FadeTransition createFader(Node node) {
+        FadeTransition fade = new FadeTransition(Duration.seconds(2), node);
+        fade.setFromValue(100);
+        fade.setToValue(0);
+
+        return fade;
     }
 
     /**
@@ -305,16 +334,28 @@ public class MensController implements Initializable {
         fader.play();
     }
 
-    /**
-     * sets fade Parameter
-     * @param node
-     * @return fade
-     */
-    private FadeTransition createFader(Node node) {
-        FadeTransition fade = new FadeTransition(Duration.seconds(2), node);
-        fade.setFromValue(100);
-        fade.setToValue(0);
 
-        return fade;
+    //Datenbank Beispiel
+    public void cyclesDetailLength() {
+        String message = "";
+        int bleeding_days, second_interval, fertility_days, fourth_interval;
+        LocalDate start_date;
+        ResultSet rs = mensApp.zyklus.getCyclesIntervals();
+        try {
+            if(!rs.next()) { // false Check! rs.next() == false
+                message += "None Found!\n\nHow to Add New Cycle:\n1. Choose Date\n2.\"Start new Cycle\"" +
+                        "\n\nAdd at least two dates\nto calulate the start\nof the next cycle.";
+            } else {
+                do {
+                    bleeding_days = rs.getInt("first_interval");
+                    second_interval = rs.getInt("second_interval");
+                    fertility_days = 7;
+                    fourth_interval = rs.getInt("fourt_interval");
+                    start_date = LocalDate.parse(rs.getString("start_cycle"));
+                } while (rs.next());
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

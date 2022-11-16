@@ -1,9 +1,9 @@
 package com.example.menstrualender;
+import com.example.menstrualender.model.Cycles;
 import com.example.menstrualender.model.Db;
 import com.example.menstrualender.view.DailyController;
 import com.example.menstrualender.view.LoginController;
 import com.example.menstrualender.view.MensController;
-import com.example.menstrualender.view.MonthlyController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
@@ -11,12 +11,15 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 
 public class MensApplication extends Application {
 
-    public final static String PATH_TO_FILE = "src/artificialData.csv";
     private Stage defaultStage;
+    public double x,y;
+    public Db db;
+    public Cycles zyklus;
 
     @Override
     public void start(Stage defaultStage) throws IOException {
@@ -30,8 +33,11 @@ public class MensApplication extends Application {
         Scene scene = new Scene(root);
         defaultStage.setScene(scene);
         defaultStage.show();
+        this.db = new Db();
+        this.zyklus = new Cycles(this.db);
         //Loads login Window
         loginWindow();
+
 
     }
 
@@ -46,8 +52,10 @@ public class MensApplication extends Application {
             Scene loginScene = new Scene(loginView);
             defaultStage.setScene(loginScene);
 
+
             LoginController controller = loader.getController();
             controller.setMainApp(this);
+            controller.displayLogin();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -64,12 +72,20 @@ public class MensApplication extends Application {
             Scene defaultScene = new Scene(defaultView);
             defaultStage.setScene(defaultScene);
 
+            defaultView.setOnMousePressed(event -> {
+                x = event.getSceneX();
+                y = event.getSceneY();
+            });
+
+            defaultView.setOnMouseDragged(event -> {
+                defaultStage.setX(event.getScreenX() - x);
+                defaultStage.setY(event.getScreenY() - y);
+            });
 
             MensController controller = loader.getController();
             controller.setMainApp(this);
 
-            controller.loadData();
-            controller.showInfos();
+            controller.upDateInfos();
 
 
         } catch (IOException e) {
@@ -89,24 +105,6 @@ public class MensApplication extends Application {
             DailyController controller = loader.getController();
             controller.setMainApp(this);
             dayStage.show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void showMonthlyWindow() {
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MensApplication.class.getResource("view/monthView.fxml"));
-            AnchorPane defaultView = (AnchorPane) loader.load();
-            Scene defaultScene = new Scene(defaultView);
-            Stage monthStage = new Stage();
-            monthStage.setScene(defaultScene);
-
-            MonthlyController controller = loader.getController();
-            controller.setMainApp(this);
-            monthStage.show();
 
         } catch (IOException e) {
             e.printStackTrace();

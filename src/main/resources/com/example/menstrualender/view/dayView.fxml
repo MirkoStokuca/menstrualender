@@ -1,30 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="525.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.menstrualender.view.DailyController">
+<AnchorPane maxHeight="600.0" maxWidth="600.0" minHeight="600.0" prefHeight="600.0" prefWidth="600.0" stylesheets="@../css/generalStyleSheet.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.menstrualender.view.DailyController">
    <children>
-      <DatePicker fx:id="dailyDatePicker" layoutX="47.0" layoutY="146.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="150.0" />
-      <TextField fx:id="dailyTemperature" layoutX="47.0" layoutY="311.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="375.0" />
-      <Label layoutY="27.0" prefHeight="18.0" prefWidth="602.0" text="Daily Picker" textAlignment="CENTER">
+      <Pane id="menuBar" prefHeight="59.0" prefWidth="686.0" />
+      <Button id="button" fx:id="dayReturn" mnemonicParsing="false" onAction="#dailyReturn" text="Return" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="10.0" />
+      <Button id="button" layoutX="496.0" layoutY="17.0" mnemonicParsing="false" onAction="#dailySave" text="Save" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+      <TextField id="dailyFields" fx:id="dailyComments" layoutX="391.0" layoutY="436.0" prefHeight="150.0" prefWidth="300.0" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+      <Label layoutX="366.0" layoutY="398.0" text="Comments" AnchorPane.leftAnchor="366.0" AnchorPane.topAnchor="398.0">
+         <padding>
+            <Insets bottom="3.0" />
+         </padding></Label>
+      <VBox layoutX="56.0" layoutY="24.0" prefHeight="577.0" prefWidth="387.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="24.0">
+         <children>
+            <AnchorPane maxHeight="150.0" minHeight="115.0" prefHeight="150.0" prefWidth="387.0">
+               <children>
+                  <Label layoutX="40.0" layoutY="68.0" text="Set todays date" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="68.0">
+                     <padding>
+                        <Insets bottom="3.0" />
+                     </padding>
+                  </Label>
+                  <DatePicker id="dailyFields" fx:id="dailyDatePicker" layoutX="40.0" layoutY="100.0" prefHeight="36.0" prefWidth="125.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="100.0" />
+               </children>
+            </AnchorPane>
+            <AnchorPane maxHeight="150.0" minHeight="150.0" prefHeight="150.0">
+               <children>
+                  <ChoiceBox id="dailyFields" fx:id="chooseSlime" layoutX="39.0" layoutY="96.0" prefHeight="40.0" prefWidth="125.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="200.0" />
+                  <Label layoutX="40.0" layoutY="64.0" text="Choose Slime (Schleimig = 1 / Flüssig = 6)" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="64.0">
+                     <padding>
+                        <Insets bottom="3.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <AnchorPane maxHeight="150.0" minHeight="150.0" prefHeight="150.0">
+               <children>
+                  <Label layoutX="40.0" layoutY="64.0" text="Choose Mood" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="64.0">
+                     <padding>
+                        <Insets bottom="3.0" />
+                     </padding>
+                  </Label>
+                  <ChoiceBox id="dailyFields" fx:id="chooseMood" layoutX="36.0" layoutY="96.0" prefHeight="40.0" prefWidth="119.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="96.0" />
+               </children>
+            </AnchorPane>
+            <AnchorPane maxHeight="150.0" minHeight="150.0" prefHeight="150.0">
+               <children>
+                  <Label layoutX="40.0" layoutY="64.0" text="Set Temperature (Use ##.##)" AnchorPane.leftAnchor="40.0">
+                     <padding>
+                        <Insets bottom="3.0" />
+                     </padding>
+                  </Label>
+                  <TextField id="dailyFields" fx:id="dailyTemperature" layoutX="36.0" layoutY="96.0" prefHeight="40.0" prefWidth="111.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="96.0" />
+               </children>
+            </AnchorPane>
+         </children>
+      </VBox>
+      <Label id="Titel" alignment="CENTER" contentDisplay="CENTER" prefHeight="47.0" prefWidth="488.0" text="Daily Picker" textAlignment="CENTER" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="4.0">
          <font>
             <Font size="23.0" />
-         </font></Label>
-      <Label layoutX="47.0" layoutY="181.0" text="Choose Slime (Schleimig = 1 / Flüssig = 6)" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="200.0" />
-      <Label layoutX="47.0" layoutY="237.0" text="Choose Mood" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="275.0" />
-      <Label layoutX="47.0" layoutY="302.0" text="Set Temperature (Use ##.##)" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="350.0" />
-      <Button layoutX="422.0" layoutY="309.0" mnemonicParsing="false" onAction="#dailySave" text="Save" AnchorPane.bottomAnchor="50.0" AnchorPane.rightAnchor="125.0" />
-      <Button fx:id="dayReturn" layoutX="498.0" layoutY="309.0" mnemonicParsing="false" onAction="#dailyReturn" text="Return" AnchorPane.bottomAnchor="50.0" AnchorPane.rightAnchor="50.0" />
-      <Label layoutX="47.0" layoutY="127.0" text="set Date" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="125.0" />
-      <ChoiceBox fx:id="chooseSlime" layoutX="47.0" layoutY="200.0" prefWidth="150.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="225.0" />
-      <ChoiceBox fx:id="chooseMood" layoutX="47.0" layoutY="256.0" prefWidth="150.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="300.0" />
-      <TextField fx:id="dailyComments" layoutX="44.0" layoutY="447.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="450.0" />
-      <Label layoutX="44.0" layoutY="421.0" text="Comments" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="425.0" />
+         </font>
+      </Label>
+      <Line endX="215.99993896484375" endY="-27.66666030883789" layoutX="470.0" layoutY="87.0" startX="-470.0" startY="-27.66666030883789" />
    </children>
 </AnchorPane>

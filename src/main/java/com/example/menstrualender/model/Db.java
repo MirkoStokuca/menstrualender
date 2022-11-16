@@ -7,6 +7,7 @@ import java.time.LocalDate;
 public class Db {
     Util util;
 
+
     protected String SQL_STATS = """
             with base as (
                 select
@@ -38,9 +39,11 @@ public class Db {
     ;
 
     public Db() {
-        this.util = new Util();
     }
-
+    public boolean setUp(String password){
+        this.util = new Util();
+        return this.util.setUp(password);
+    }
 
     public int insertCycle(LocalDate date) {
         this.util.update("insert into cycle (cyc_start) values('" + date + "')");

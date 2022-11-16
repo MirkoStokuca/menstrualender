@@ -7,27 +7,32 @@ public class Util {
     Statement statement;
     Connection connection;
 
-    public Util(){
-        boolean noSetFile = false;
+
+    public static boolean isDbExisting(){
         File f = new File("sample.sqlite");
         if (!f.exists()) {          // wenn es die Datenbank noch nicht gibt --> setup
             // noch keine Datenvorhanden, macht Datenbank mit Tabelle verfügbar.
-            System.out.println("noch keine Datenvorhanden, macht Datenbank mit Tabelle verfügbar.");
-            noSetFile = true;
+            System.out.println("Noch keine Datenvorhanden!");
+            return false;
         }
-        this.getConnection();
-        if(noSetFile) {
+        else return true;
+    }
+
+    public boolean setUp(String password){
+        boolean isDbExisting = Util.isDbExisting();
+        boolean succes = this.getConnection(password);
+        if(!isDbExisting) {
             Setup setup = new Setup(this);
             setup.createTables();
         }
+        return succes;
     }
 
-    private void getConnection() {
+    private boolean getConnection(String password) {
         try {
             // create a database connection
             // todo: set password as third argument, to encrypt this database
             // for developing us empty password to easy inspect data with sqlite browser.
-            String password = null;
             // String password = "test";
             // wenn es die Datenbank noch nicht gibt, legt er sie mit folgender Zeile an. Sonst macht er damit die connection.
             // Hier könnte der Path angegeben werden, wenn der irgenwo anders als im selben Projekt sein soll.
@@ -40,7 +45,9 @@ public class Util {
             // if the error message is "out of memory",
             // it probably means no database file is found
             System.err.println(e.getMessage());
+            return false;
         }
+        return true;
     }
 
     public void update(String sql) {
