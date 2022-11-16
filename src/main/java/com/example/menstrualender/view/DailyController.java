@@ -54,7 +54,7 @@ public class DailyController implements Initializable {
         chooseMood.getItems().addAll(mood);
     }
 
-    public void dailySave(ActionEvent actionEvent) {
+    public void dailySave() {
         String outflowChoice = chooseSlime.getValue();
         String moodChoice = chooseMood.getValue();
         String dailyTemp = dailyTemperature.getText();
@@ -63,7 +63,6 @@ public class DailyController implements Initializable {
 
         int outflowChoiceInt = Arrays.asList(outflow).indexOf(outflowChoice)+1; //Trocken = 1, Pampig = 2, Durchsichtig = 3
         int moodChoiceInt = Arrays.asList(mood).indexOf(moodChoice)+1;  //ängstlich = 1, provozierend = 2, aufgestellt = 3, niedergeschlagen = 4, motiviert = 5, lustlos = 6
-        double dailyTempDouble = Double.parseDouble(dailyTemp);        // returns double primitive
         // ToDo: dailyTemDouble, soll auch leer abgeschickt werden können. (12.11.22)
         DecimalFormat df = new DecimalFormat("#.00");
 
@@ -76,7 +75,8 @@ public class DailyController implements Initializable {
         if(moodChoiceInt != 0) {
             zyklus.addMood(moodChoiceInt);
         }
-        if(dailyTempDouble != 0) {
+        if(dailyTemp != null) {
+            double dailyTempDouble = Double.parseDouble(dailyTemp);
             zyklus.addTemp(Double.parseDouble(df.format(dailyTempDouble)));
         }
         if(commentsDaily != null) {
@@ -92,14 +92,6 @@ public class DailyController implements Initializable {
         if(XXXX != 0) {
             //zyklus.addOvulation();
         }*/
-
-
-        System.out.println(outflowChoiceInt);
-        System.out.println(moodChoiceInt);
-        System.out.println("Ausgabe Temperatur: " + df.format(dailyTempDouble));
-        System.out.println("Ausgabe Temperatur, unverändert: " + dailyTemp);
-        System.out.println(commentsDaily);
-        System.out.println(dailyDate);
 
     }
 

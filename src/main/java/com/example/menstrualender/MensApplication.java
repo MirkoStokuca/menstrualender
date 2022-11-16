@@ -1,4 +1,5 @@
 package com.example.menstrualender;
+import com.example.menstrualender.model.Db;
 import com.example.menstrualender.view.DailyController;
 import com.example.menstrualender.view.LoginController;
 import com.example.menstrualender.view.MensController;
@@ -19,7 +20,7 @@ public class MensApplication extends Application {
 
     @Override
     public void start(Stage defaultStage) throws IOException {
-
+        Db db = new Db();
         //Setup defaultStage
         this.defaultStage = defaultStage;
         this.defaultStage.setTitle("Menstrualender");
