@@ -10,7 +10,7 @@
 }
 
 #button{
-    -fx-font-size:16;
+    -fx-font-size:15;
     -fx-background-radius: 6;
     -fx-background-color: #b8dad9;
     -fx-border-color: #111;
@@ -50,3 +50,8 @@
     -fx-background-color: rgba(184, 218, 217, 0.42);
     -fx-border-color: #111;
     -fx-border-radius: 5;}
+
+#loginQuestion
+{
+    -fx-font-size: 15;
+}

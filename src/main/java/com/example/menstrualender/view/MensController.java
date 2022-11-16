@@ -64,19 +64,18 @@ public class MensController implements Initializable {
 
     @FXML
     private MensApplication mensApp;
-    @FXML
-    Db db = new Db();
-    @FXML
-    Cycles zyklus = new Cycles(db);
+
 
     /**
      * Constructor
      */
     public MensController() {
     }
+
     public void setMainApp(MensApplication mensApp) {
         this.mensApp = mensApp;
     }
+
 
     //Init and Charts
 
@@ -184,9 +183,9 @@ public class MensController implements Initializable {
                 FXCollections.observableArrayList(
                         new PieChart.Data("", 10),
                         new  PieChart.Data("", 18));
-        cycleGraph.setData(cycleChartData);
-        cycleGraph.autosize();
-        cycleGraph.setStartAngle(-100);
+        this.cycleGraph.setData(cycleChartData);
+        this.cycleGraph.autosize();
+        this.cycleGraph.setStartAngle(-100);
     }
 
     /**
@@ -196,8 +195,8 @@ public class MensController implements Initializable {
      */
     @FXML
     private void deleteData() {
-        zyklus.deleteData();
-        mensApp.showDefaultWindow();
+        this.mensApp.zyklus.deleteData();
+        this.mensApp.showDefaultWindow();
     }
 
     @FXML
@@ -249,7 +248,6 @@ public class MensController implements Initializable {
             LocalDate myDate = datePicker.getValue();
             myDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
             //@JULIA Hier myDate (gewähltes Datum) an DB weitergeben
-
             showButton("Cycle added", Color.GREEN);
         } catch (NullPointerException e) {
             showButton("Pick a Date", Color.RED);
@@ -324,7 +322,7 @@ public class MensController implements Initializable {
         String message = "";
         int bleeding_days, second_interval, fertility_days, fourth_interval;
         LocalDate start_date;
-        ResultSet rs = zyklus.getCyclesIntervals();
+        ResultSet rs = mensApp.zyklus.getCyclesIntervals();
         try {
             if(!rs.next()) { // false Check! rs.next() == false
                 message += "None Found!\n\nHow to Add New Cycle:\n1. Choose Date\n2.\"Start new Cycle\"" +
