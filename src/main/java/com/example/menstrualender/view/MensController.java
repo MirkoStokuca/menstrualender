@@ -152,6 +152,8 @@ public class MensController implements Initializable {
     }
 
     public static void main(String[] args) {
+        MensController m = new MensController();
+        m.cyclesDetailLength();
 
     }
 
@@ -170,10 +172,18 @@ public class MensController implements Initializable {
                     bleeding_days = rs.getInt("first_interval");
                     second_interval = rs.getInt("second_interval");
                     fertility_days = 7;
-                    fourth_interval = rs.getInt("fourt_interval");
+                    fourth_interval = rs.getInt("fourth_interval");
                     start_date = LocalDate.parse(rs.getString("start_cycle"));
                     cycle_length = rs.getInt("cycle_length");
                     anzahl_cycles++;
+                    System.out.println(bleeding_days);
+                    System.out.println(second_interval);
+                    System.out.println(fertility_days);
+                    System.out.println(fourth_interval);
+                    System.out.println(fourth_interval);
+                    System.out.println(start_date);
+                    System.out.println(cycle_length);
+                    System.out.println(anzahl_cycles);
                 } while (rs.next());
             }
         } catch (SQLException e) {
