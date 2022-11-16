@@ -1,0 +1,44 @@
+.root {
+    -fx-background-color: rgba(255, 229, 241, 0.55);
+}
+#Menu {
+    -fx-font-size: 20;
+    -fx-font-style: Bold italic;
+
+}
+
+
+#button{
+    -fx-font-size:15;
+    -fx-background-radius: 8;
+    -fx-background-color:  #FFD3D6;
+    -fx-border-color: #111;
+    -fx-border-radius: 8;
+}
+
+#Ausgabe {
+    -fx-font-size: 20;
+    -fx-background-radius: 3;
+    -fx-background-color:  #B8DAD9;
+    -fx-border-color: #111;
+    -fx-border-radius: 3;
+    -fx-padding: 2;
+}
+
+.rectangle{
+    -fx-border-color: #111;
+    -fx-background-color:#fcf1c0;
+    -fx-border-color: #111;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+}
+.button:hover {
+    -fx-background-color: rgba(209, 220, 255, 0.42);
+    -fx-color: white;
+
+}
+.label{
+    -fx-font-size: 17;
+    -fx-font-family: "";
+    -fx-alignment: left;
+}

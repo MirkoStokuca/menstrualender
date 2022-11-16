@@ -10,12 +10,14 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import java.io.IOException;
 
 public class MensApplication extends Application {
 
     public final static String PATH_TO_FILE = "src/artificialData.csv";
     private Stage defaultStage;
+    public double x,y;
 
     @Override
     public void start(Stage defaultStage) throws IOException {
@@ -62,7 +64,17 @@ public class MensApplication extends Application {
             AnchorPane defaultView = (AnchorPane) loader.load();
             Scene defaultScene = new Scene(defaultView);
             defaultStage.setScene(defaultScene);
+            defaultStage.initStyle(StageStyle.UNDECORATED);
 
+            defaultView.setOnMousePressed(event -> {
+                x = event.getSceneX();
+                y = event.getSceneY();
+            });
+
+            defaultView.setOnMouseDragged(event -> {
+                defaultStage.setX(event.getScreenX() - x);
+                defaultStage.setY(event.getScreenY() - y);
+            });
 
             MensController controller = loader.getController();
             controller.setMainApp(this);

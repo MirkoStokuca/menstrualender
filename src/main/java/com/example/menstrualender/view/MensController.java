@@ -4,6 +4,9 @@ import com.example.menstrualender.model.Cycles;
 import com.example.menstrualender.model.Db;
 import com.example.menstrualender.util.DateUtil;
 import javafx.animation.FadeTransition;
+import javafx.animation.TranslateTransition;
+import javafx.beans.Observable;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import com.example.menstrualender.MensApplication;
@@ -13,6 +16,8 @@ import javafx.scene.Node;
 import javafx.scene.chart.*;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import java.net.URL;
@@ -45,6 +50,17 @@ public class MensController implements Initializable {
     @FXML
     private StackedBarChart stackedBarChart;
 
+    @FXML
+    private AnchorPane resize;
+
+    @FXML
+    private Label Menu;
+
+    @FXML
+    private Label MenuBack;
+
+    @FXML
+    private AnchorPane slider;
 
     @FXML
     private MensApplication mensApp;
@@ -146,6 +162,41 @@ public class MensController implements Initializable {
         cycleGraph.setData(cycleChartData);
         cycleGraph.autosize();
         cycleGraph.setStartAngle(-100);
+        
+        slider.setTranslateX(-300);
+        Menu.setOnMouseClicked(event -> {
+            TranslateTransition slide = new TranslateTransition();
+            slide.setDuration(Duration.seconds(0.4));
+            slide.setNode(slider);
+
+            slide.setToX(0);
+            slide.play();
+
+            slider.setTranslateX(-300);
+
+            slide.setOnFinished((ActionEvent e)-> {
+                Menu.setVisible(false);
+                MenuBack.setVisible(true);
+            });
+        });
+
+        MenuBack.setOnMouseClicked(event -> {
+            TranslateTransition slide = new TranslateTransition();
+            slide.setDuration(Duration.seconds(0.4));
+            slide.setNode(slider);
+
+            slide.setToX(-300);
+            slide.play();
+
+            slider.setTranslateX(0);
+
+            slide.setOnFinished((ActionEvent e)-> {
+                Menu.setVisible(true);
+                MenuBack.setVisible(false);
+
+            });
+        });
+
     }
 
     @FXML
