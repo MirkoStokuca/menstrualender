@@ -24,6 +24,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class MensController implements Initializable {
+
     //Declarations;
     @FXML
     private Label buttonConf;
@@ -41,12 +42,10 @@ public class MensController implements Initializable {
     private DatePicker datePicker;
     @FXML
     private StackedBarChart stackedBarChart;
-
     @FXML
     private MensApplication mensApp;
     @FXML
     private Label Menu;
-
     @FXML
     private Label MenuBack;
     @FXML
@@ -63,6 +62,10 @@ public class MensController implements Initializable {
     public MensController() {
     }
 
+    /**
+     * Starts scene and calls visual output
+     * @param mensApp
+     */
     public void setMainApp(MensApplication mensApp) {
         this.mensApp = mensApp;
         //Init stacked bar chart
@@ -178,7 +181,6 @@ public class MensController implements Initializable {
     /**
      * Init pie chart
      */
-
     private void initPieChart() {
         // prediction:
         int preSecond_interval = 0;
@@ -231,6 +233,10 @@ public class MensController implements Initializable {
                 "MEDIUMPURPLE",
                 "teal");
     }
+
+    /**
+     * adapts Colors to fit different modes (get pregnant or not pregnant)
+     */
     @FXML
     private void getPregnantMode(){
         if(pregnantMode.isSelected()){
@@ -259,6 +265,9 @@ public class MensController implements Initializable {
         this.mensApp.showDefaultWindow();
     }
 
+    /**
+     * updates Grafik output
+     */
     @FXML
     public void upDateInfos() {
         showAverageInterval();
@@ -266,10 +275,16 @@ public class MensController implements Initializable {
         loadStackedBarChart();
     }
 
+    /**
+     * shows Average Interval on scene
+     */
     public void showAverageInterval() {
         averageInterval.setText(this.mensApp.zyklus.getAverageLength());
     }
 
+    /**
+     * shows next Cycle start on scene
+     */
     public void showNextCycleStart() {
         ResultSet rs = mensApp.zyklus.getPredictionCycle();
         String startNextCycle = null;
@@ -306,11 +321,16 @@ public class MensController implements Initializable {
     }
 
 
-    //Scene/Stage Switches
+    /**
+     * calls open LoginWindow
+     */
     public void switchToLogin() {
         mensApp.loginWindow();
     }
 
+    /**
+     * calls showDailyWindow
+     */
     public void switchToDaily() {
         mensApp.showDailyWindow();
     }

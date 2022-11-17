@@ -73,48 +73,96 @@ public class Db {
              from interval
             """
     ;
+
+    /**
+     * constructor
+     */
     public Db() {
     }
+
+    /**
+     * set Up password
+     * @param password
+     * @return
+     */
     public boolean setUp(String password){
         this.util = new Util();
         return this.util.setUp(password);
     }
 
+    /**
+     * adds new cyle to Db
+     * @param date
+     * @return
+     */
     public int insertCycle(LocalDate date) {
         this.util.update("insert into cycle (cyc_start) values('" + date + "')");
         return 1;
     }
 
+    /**
+     * Add new Mood Input to Db
+     * @param value
+     * @return
+     */
     public int insertMood(int value) {
         this.util.update("insert into c_mood (cyc_id, mood) values((" + SQL_GET_CYC_ID + "),'" + value + "')");
         return 1;
     }
 
+    /**
+     * Add new Flow Input to Db
+     * @param value
+     * @return
+     */
     public int insertOutflow(int value) {
         this.util.update("insert into c_outflow (cyc_id, outflow) values((" + SQL_GET_CYC_ID + "),'" + value + "')");
         return 1;
     }
 
+    /**
+     * Add new Temperature Input to Db
+     * @param value
+     * @return
+     */
     public int insertTemperature(String value) {
         this.util.update("insert into c_temperature (cyc_id, temperature_value) values((" + SQL_GET_CYC_ID + "),'" + value + "')");
         return 1;
     }
 
+    /**
+     * Add new Comment Input to Db
+     * @param comment
+     * @return
+     */
     public int insertComment(String comment) {
         this.util.update("insert into c_comment (cyc_id, comment) values((" + SQL_GET_CYC_ID + "),'" + comment + "')");
         return 1;
     }
 
+    /**
+     * Add new Bleeding Cycle Input to Db
+     * @param value
+     * @return
+     */
     public int insertBleeding(int value) {
         this.util.update("insert into c_bleeding (cyc_id, bleeding) values((" + SQL_GET_CYC_ID + "),'" + value + "')");
         return 1;
     }
 
+    /**
+     * Add new Ovulation Input to Db
+     * @param date
+     * @return
+     */
     public int insertOvulation(LocalDate date) {
         this.util.update("insert into c_ovulation (cyc_id, ovulation_date) values((" + SQL_GET_CYC_ID + "),'" + date + "')");
         return 1;
     }
 
+    /**
+     * erases all data from Db
+     */
     public void deleteCycle() {
         this.util.update("delete from cycle");
         this.util.update("delete from c_bleeding");
@@ -125,6 +173,10 @@ public class Db {
         this.util.update("delete from c_temperature");
     }
 
+    /**
+     * returns Date from all cycles
+     * @return
+     */
     public ResultSet getCycles() {
         return this.util.query("""
         select cyc_id, date(cyc_start) as cyc_date_start
@@ -140,6 +192,10 @@ public class Db {
                 this.SQL_GET_HISTORY);
     }
 
+    /**
+     * returns the last Cycle Date
+     * @return
+     */
     public ResultSet getCountHistoryCycles() {
         return this.util.query("""
                 select count(*) as counter
@@ -147,6 +203,10 @@ public class Db {
         );
     }
 
+    /**
+     * returns the Temperature from given Day
+     * @return
+     */
     public ResultSet getTemperatur() {
         return this.util.query("""
                 select temperature_value
@@ -231,6 +291,10 @@ public class Db {
                 limit 1""");
     }
 
+    /**
+     * returnes average cycle length
+     * @return
+     */
     public ResultSet getAvg() {
         return this.util.query(this.SQL_STATS + """
         select cycle_avg_days

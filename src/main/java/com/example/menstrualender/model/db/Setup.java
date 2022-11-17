@@ -1,12 +1,20 @@
 package com.example.menstrualender.model.db;
 
 public class Setup {
+    //deklaration
     Util util;
 
+    /**
+     * constructor
+     * @param util
+     */
     public Setup(Util util) {
         this.util = util;
     }
 
+    /**
+     * creation of the Tables for DataBase structure
+     */
     public void createTables() {
         // """ drei macht es zusammenhängend ohne +, ganz vorne schreiben, damit es nicht unnötig zeichen verbraucht.
         //Cycle tabelle erstellen:
