@@ -31,7 +31,7 @@ public class DailyController implements Initializable {
     private Button dayReturn;
     @FXML
     private TextField dailyComments;
-    @FXML
+
     Db db = new Db();
     @FXML
     Cycles zyklus = new Cycles(db);
