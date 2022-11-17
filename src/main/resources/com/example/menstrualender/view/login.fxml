@@ -9,7 +9,7 @@
    <children>
       <PasswordField id="dailyFields" fx:id="passwordField" layoutX="50.0" layoutY="115.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" />
       <Button id="button" alignment="CENTER" contentDisplay="CENTER" layoutX="100.0" layoutY="177.0" maxHeight="30.0" maxWidth="50.0" minHeight="30.0" minWidth="50.0" mnemonicParsing="false" onAction="#loginValidation" prefHeight="30.0" prefWidth="50.0" text="Login" AnchorPane.bottomAnchor="23.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="177.0" />
-      <Label id="Titel" alignment="CENTER" contentDisplay="CENTER" layoutX="83.0" layoutY="27.0" text="Menstrualender" AnchorPane.bottomAnchor="180.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="20.0" />
+      <Label id="Titel" alignment="CENTER" contentDisplay="CENTER" layoutX="83.0" layoutY="27.0" style="-fx-text-fill: #111;" text="Menstrualender" AnchorPane.bottomAnchor="180.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="20.0" />
       <Label id="loginQuestion" fx:id="plsSetPw" layoutX="50.0" layoutY="137.0" prefHeight="21.0" prefWidth="200.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="137.0" />
    </children>
 </AnchorPane>
