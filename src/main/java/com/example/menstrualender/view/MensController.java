@@ -86,7 +86,6 @@ public class MensController implements Initializable {
     private void initStackedBarChart(){
         stackedBarChart.getXAxis().setOpacity(0); //hide x axis
         stackedBarChart.getYAxis().setOpacity(0); //hide y axis
-
         stackedBarChart.getStylesheets().add(getClass().getResource("stacked_bar_chart.css").toExternalForm());
     }
 
