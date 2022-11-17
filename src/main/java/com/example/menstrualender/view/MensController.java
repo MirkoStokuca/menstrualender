@@ -1,12 +1,8 @@
 package com.example.menstrualender.view;
-
-import com.example.menstrualender.model.Cycles;
 import com.example.menstrualender.model.Db;
-import com.example.menstrualender.util.DateUtil;
+
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
-import javafx.beans.Observable;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import com.example.menstrualender.MensApplication;
@@ -18,15 +14,12 @@ import javafx.scene.chart.*;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import java.net.URL;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class MensController implements Initializable {
@@ -47,12 +40,15 @@ public class MensController implements Initializable {
     private DatePicker datePicker;
     @FXML
     private StackedBarChart stackedBarChart;
+
     @FXML
     private MensApplication mensApp;
     @FXML
     private Label Menu;
+
     @FXML
     private Label MenuBack;
+
     @FXML
     private AnchorPane slider;
 
@@ -66,10 +62,10 @@ public class MensController implements Initializable {
 
     public void setMainApp(MensApplication mensApp) {
         this.mensApp = mensApp;
-        initStackedBarChart();
-        loadStackedBarChart();
-        initPieChart();
+        //Init stacked bar chart
         sliderSlide();
+        initPieChart();
+        initStackedBarChart();
     }
 
 
@@ -81,25 +77,24 @@ public class MensController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb){
         //Init pie chart
-
-
     }
 
     /**
      * Init stacked bar chart with empty data
      */
-    public void initStackedBarChart(){
+    private void initStackedBarChart(){
         stackedBarChart.getXAxis().setOpacity(0); //hide x axis
         stackedBarChart.getYAxis().setOpacity(0); //hide y axis
+
         stackedBarChart.getStylesheets().add(getClass().getResource("stacked_bar_chart.css").toExternalForm());
     }
 
     /**
      * Load stored data in db into stacked bar chart
      */
-    public void loadStackedBarChart(){
+    private void loadStackedBarChart(){
 
-        ResultSet rscounter = mensApp.zyklus.getCounterHistory();
+        ResultSet rscounter = this.mensApp.zyklus.getCounterHistory();
         int dbRows;
         try {
             do {
@@ -109,6 +104,8 @@ public class MensController implements Initializable {
             throw new RuntimeException(e);
         }
         System.out.println(dbRows);
+
+
 
         //create Series Instances
         XYChart.Series series1= new XYChart.Series();
@@ -126,7 +123,7 @@ public class MensController implements Initializable {
             series4.getData().add(new XYChart.Data(0, placeholder));
         }
 
-        ResultSet rs = mensApp.zyklus.getCyclesIntervals();
+        ResultSet rs = this.mensApp.zyklus.getCyclesHitstoryIntervals();
         int bleeding_days, second_interval, fertility_days, fourth_interval;
         String start_date;
 
@@ -180,9 +177,48 @@ public class MensController implements Initializable {
      * Init pie chart
      */
     private void initPieChart(){
-        //@JULIA
-        int nextCycleStart; //Hier prediction datum des nächsten Zyklus (oder letzer Zyklus und avrg aus DB)
         int timUntilNextCycle; // nextCycleStart - aktuelles Datum
+        /**
+         * @Mirko, aktuelles Datum könntest du bitte heraussuchen, ja?
+         *
+         * jetzt ist alles Grau well die Variabeln nicht gebracuht werden.
+         * du musst nicht alle Variabeln brauchen, sie es eher als Variabeln Buffet :)
+         */
+        // prediction:
+        int preSecond_interval, preFertility_days, preFourth_interval;
+        // facts in last 12 months:
+        int avg_cyc_length, avg_bleeding_length, min_cyc_length, max_cyc_length;
+        LocalDate start_date, nextCycleStart;
+        ResultSet rs = mensApp.zyklus.getPredictionCycle();
+        try {
+            if(!rs.next()) { // false Check! rs.next() == false
+                System.out.println("Prediction Cycle: Db, hat keine Daten");
+            } else {
+                do {
+                    avg_bleeding_length = rs.getInt("avg_bleeding_days_in_last_12_months");
+                    avg_cyc_length = rs.getInt("avg_cycle_length_in_last_12_months");
+                    preSecond_interval = rs.getInt("second_interval");
+                    preFertility_days = rs.getInt("fertility_length");
+                    preFourth_interval = rs.getInt("fourth_interval");
+                    start_date = LocalDate.parse(rs.getString("start_cycle"));
+
+                    /**
+                     * Todo: @julia; end_cycle is null
+                     */
+                    //nextCycleStart = LocalDate.parse(rs.getString("end_cycle"));
+            // zum testen:
+            System.out.println(avg_bleeding_length);
+            System.out.println(avg_cyc_length);
+            System.out.println(preSecond_interval);
+            System.out.println(preFertility_days);
+            System.out.println(preFourth_interval);
+            System.out.println(start_date);
+            //System.out.println(nextCycleStart);
+                } while (rs.next());
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
         ObservableList<PieChart.Data>cycleChartData =
                 FXCollections.observableArrayList(
@@ -211,24 +247,25 @@ public class MensController implements Initializable {
         loadStackedBarChart();
     }
 
-
-    /**
-     * Changes Label averageInterval in hello-view to averageInterval from Cycles
-     * returns Int averageInterval
-     */
     public void showAverageInterval() {
-        //@JULIA hier bitte richtig (parsen?) wert muss averageInterval übergeben werden
-        //averageInterval = zyklus.getAverageLength();
+        averageInterval.setText(this.mensApp.zyklus.getAverageLength());
     }
 
-    /**
-     * Changes Label nextCycleStart in hello-view to nextCycleStart from Cycles
-     * takes int "averageInterval"
-     */
-
     public void showNextCycleStart() {
-        //@JULIA berechnung nächstes Zyklus start datum
-        //nextCycleStart =
+        ResultSet rs = mensApp.zyklus.getPredictionCycle();
+        String startNextCycle = null;
+        try {
+            if(!rs.next()) { // false Check! rs.next() == false
+                System.out.println("Prediction Datenbank: keinen Inhalt");
+            } else {
+                do {
+                    startNextCycle = rs.getString("end_cycle");
+                } while (rs.next());
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        nextCycleStart.setText(startNextCycle);
     }
 
 
@@ -237,69 +274,75 @@ public class MensController implements Initializable {
         mensApp.loginWindow();
     }
 
-    public void switchToDaily() {
-        mensApp.showDailyWindow();}
-        // Action events
-        /**
-         * Takes the input from the datePicker and saves it in cycle
-         */
-        @FXML
-        public void setDate () {
-            try {
-                LocalDate myDate = datePicker.getValue();
-                myDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-                //@JULIA Hier myDate (gewähltes Datum) an DB weitergeben
-                showButton("Cycle added", Color.GREEN);
-            } catch (NullPointerException e) {
-                showButton("Pick a Date", Color.RED);
-            }
+    public void switchToDaily(){
+        mensApp.showDailyWindow();
+    }
+
+
+    // Action events
+    /**
+     * Takes the input from the datePicker and saves it in cycle
+     */
+    @FXML
+    public void setDate() {
+        try {
+            LocalDate myDate = datePicker.getValue();
+            myDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+            //Start:
+            this.mensApp.zyklus.addDate(myDate);
+            showButton("Cycle added", Color.GREEN);
+        } catch (NullPointerException e) {
+            showButton("Pick a Date", Color.RED);
         }
+    }
 
         //Animations
 
-        private void sliderSlide () {
+    private void sliderSlide(){
+        slider.setTranslateX(-300);
+        Menu.setOnMouseClicked(event -> {
+            TranslateTransition slide = new TranslateTransition();
+            slide.setDuration(Duration.seconds(0.4));
+            slide.setNode(slider);
+
+            slide.setToX(0);
+            slide.play();
+
             slider.setTranslateX(-300);
-            Menu.setOnMouseClicked(event -> {
-                TranslateTransition slide = new TranslateTransition();
-                slide.setDuration(Duration.seconds(0.4));
-                slide.setNode(slider);
 
-                slide.setToX(0);
-                slide.play();
-
-                slider.setTranslateX(-300);
-
-                slide.setOnFinished((ActionEvent e) -> {
-                    Menu.setVisible(false);
-                    MenuBack.setVisible(true);
-                });
+            slide.setOnFinished((ActionEvent e)-> {
+                Menu.setVisible(false);
+                MenuBack.setVisible(true);
             });
+        });
 
-            MenuBack.setOnMouseClicked(event -> {
-                TranslateTransition slide = new TranslateTransition();
-                slide.setDuration(Duration.seconds(0.4));
-                slide.setNode(slider);
-                slide.setToX(-300);
-                slide.play();
+        MenuBack.setOnMouseClicked(event -> {
+            TranslateTransition slide = new TranslateTransition();
+            slide.setDuration(Duration.seconds(0.4));
+            slide.setNode(slider);
 
-                slider.setTranslateX(0);
+            slide.setToX(-300);
+            slide.play();
 
-                slide.setOnFinished((ActionEvent e) -> {
-                    Menu.setVisible(true);
-                    MenuBack.setVisible(false);
-                });
+            slider.setTranslateX(0);
+
+            slide.setOnFinished((ActionEvent e)-> {
+                Menu.setVisible(true);
+                MenuBack.setVisible(false);
+
             });
-        }
+        });
+    }
 
-        /**
-         * sets fade Parameter
-         * @param node
-         * @return fade
-         */
-        private FadeTransition createFader (Node node){
-            FadeTransition fade = new FadeTransition(Duration.seconds(2), node);
-            fade.setFromValue(100);
-            fade.setToValue(0);
+    /**
+     * sets fade Parameter
+     * @param node
+     * @return fade
+     */
+    private FadeTransition createFader(Node node) {
+        FadeTransition fade = new FadeTransition(Duration.seconds(2), node);
+        fade.setFromValue(100);
+        fade.setToValue(0);
 
             return fade;
         }

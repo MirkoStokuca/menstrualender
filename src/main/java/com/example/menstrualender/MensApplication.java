@@ -23,7 +23,6 @@ public class MensApplication extends Application {
 
     @Override
     public void start(Stage defaultStage) throws IOException {
-        Db db = new Db();
         //Setup defaultStage
         this.defaultStage = defaultStage;
         this.defaultStage.setTitle("Menstrualender");
@@ -37,8 +36,6 @@ public class MensApplication extends Application {
         this.zyklus = new Cycles(this.db);
         //Loads login Window
         loginWindow();
-
-
     }
 
     /**
@@ -51,7 +48,6 @@ public class MensApplication extends Application {
             AnchorPane loginView = (AnchorPane) loader.load();
             Scene loginScene = new Scene(loginView);
             defaultStage.setScene(loginScene);
-
 
             LoginController controller = loader.getController();
             controller.setMainApp(this);
@@ -84,8 +80,8 @@ public class MensApplication extends Application {
 
             MensController controller = loader.getController();
             controller.setMainApp(this);
-            controller.upDateInfos();
 
+            controller.upDateInfos();
 
 
         } catch (IOException e) {

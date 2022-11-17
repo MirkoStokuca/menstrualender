@@ -60,7 +60,7 @@ public class Db {
         return 1;
     }
 
-    public int insertTemperature(double value) {
+    public int insertTemperature(String value) {
         this.util.update("insert into c_temperature (cyc_id, temperature_value) values((" + SQL_GET_CYC_ID + "),'" + value + "')");
         return 1;
     }
@@ -91,7 +91,10 @@ public class Db {
         """);
     }
 
-    public ResultSet getCyclesInterval() {
+    /**
+     * History Cycles:
+     */
+    public ResultSet getCyclesHistoryIntervals() {
         return this.util.query("""
                 with base as (
                      select
@@ -99,7 +102,8 @@ public class Db {
                          , date(cyc_start) as start_cycle
                          , lag(cyc_start) over (order by date(cyc_start)) as last_cycle
                      from cycle
-                     order by date(cyc_start)
+                     order by date(cyc_start) desc
+                     limit 12
                  ), length as (
                      select cyc_id
                           , start_cycle
@@ -168,24 +172,83 @@ public class Db {
                 """);
     }
 
+    /**
+     * Prediction Daten:
+     * - Start Datum (aktueller Zyklus)
+     * - Voraussichtliches Enddatum
+     * - durchschnittliche Blutungstage
+     * - Durchschnittliche Zyklusdaurer der letzten 12 Monate
+     * - längste und kürzerste Zyklus dauer
+     * - Fruchtbarkeitsdauer
+     *
+     *
+     */
+
+    public ResultSet getPredictionCycle() {
+        return this.util.query("""
+           with
+                bleeding_in_cycle as (
+                        select cyc_id
+                        , count(*) as bleeding_days
+                from c_bleeding
+                group by cyc_id
+        )
+   , cycle_reference as (
+                select cycle.cyc_id
+                , date(cycle.cyc_start) as start_cycle
+         , lag(cycle.cyc_start) over (order by date(cycle.cyc_start)) as prev_start_cycle
+         , cb.bleeding_days
+                -- , lead(cyc_start) over (order by date(cyc_start)) as next_cycle
+        from cycle
+        inner join bleeding_in_cycle cb
+        on cycle.cyc_id = cb.cyc_id
+        order by date(cyc_start) desc
+)
+   , length as (
+                select base.cyc_id
+                , base.start_cycle
+                -- , date(base.prev_start_cycle, '-1 day') as end_cycle
+         , base.prev_start_cycle
+                , julianday(base.start_cycle) - julianday(base.prev_start_cycle) as last_cycle_length
+         , base.bleeding_days
+        from cycle_reference as base
+        where prev_start_cycle is not null
+)
+        -- select * from length;
+   , min_max_in_12_months as (
+                select cyc_id
+                , start_cycle
+                , last_cycle_length
+                , avg(bleeding_days) over (order by date(start_cycle) rows between 11 preceding and current row) as avg_bleeding_days_in_last_12_months
+         , round(avg(last_cycle_length) over (order by date(start_cycle) rows between 11 preceding and current row),0) as avg_cycle_length_in_last_12_months
+         , min(last_cycle_length) over (order by date(start_cycle) rows between 11 preceding and current row) as min_cycle_length_in_last_12_months
+         , max(last_cycle_length) over (order by date(start_cycle) rows between 11 preceding and current row) as max_cycle_length_in_last_12_months
+         , count(*) over (order by date(start_cycle) rows between 11 preceding and current row) as available_measures
+        from length
+        group by cyc_id, last_cycle_length
+)
+        select
+                cyc_id
+                , start_cycle
+                , avg_bleeding_days_in_last_12_months
+                , avg_cycle_length_in_last_12_months
+                , min_cycle_length_in_last_12_months
+                , max_cycle_length_in_last_12_months
+        -- fertilty_start:
+     , min_cycle_length_in_last_12_months - 18  - avg_bleeding_days_in_last_12_months as second_interval
+     , avg_cycle_length_in_last_12_months - (max_cycle_length_in_last_12_months - 11) as fourth_interval
+     , (max_cycle_length_in_last_12_months - 11) - (min_cycle_length_in_last_12_months - 18) as fertility_length
+     , date(start_cycle, '+ avg_cycle_length_in_last_12_months') as end_cycle
+                , available_measures
+        from min_max_in_12_months
+        order by start_cycle desc
+        limit 1""");
+    }
+
     public ResultSet getAvg() {
         return this.util.query(this.SQL_STATS + """
         select cycle_avg_days
         from cycle_avg
-        """);
-    }
-
-    public ResultSet getLength() {
-        return this.util.query(this.SQL_STATS + """
-                select cycle_length
-                from diff
-                """);
-    }
-
-    public ResultSet getDiff() {
-        return this.util.query(this.SQL_STATS + """
-        select this_cycle, last_cycle, cycle_length as cycle_avg_days
-        from diff
         """);
     }
 }

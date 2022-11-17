@@ -1,15 +1,8 @@
 package com.example.menstrualender.model;
 
-import com.example.menstrualender.MensApplication;
-import com.example.menstrualender.util.DateUtil;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 public class Cycles {
 
@@ -26,12 +19,16 @@ public class Cycles {
         ResultSet rs = this.db.getCycles();
         return rs;
     }
-    public ResultSet getCyclesIntervals() {
-        ResultSet rs = this.db.getCyclesInterval();
+    public ResultSet getCyclesHitstoryIntervals() {
+        ResultSet rs = this.db.getCyclesHistoryIntervals();
         return rs;
     }
     public ResultSet getCounterHistory() {
         ResultSet rs = this.db.getCountHistoryCycles();
+        return rs;
+    }
+    public ResultSet getPredictionCycle() {
+        ResultSet rs = this.db.getPredictionCycle();
         return rs;
     }
 
@@ -42,13 +39,14 @@ public class Cycles {
     public void addDate(LocalDate date) {
         this.db.insertCycle(date);
     }
+
     public void addOutflow(int value) {
         this.db.insertOutflow(value);
     }
     public void addMood(int value) {
         this.db.insertMood(value);
     }
-    public void addTemp(double value) {
+    public void addTemp(String value) {
         this.db.insertTemperature(value);
     }
     public void addComments(String comment) {
@@ -70,7 +68,11 @@ public class Cycles {
      * the cycles Datenbank
      * @return average interval
      */
-    public ResultSet getAverageLength() {
-        return this.db.getAvg();
+    public String getAverageLength() {
+        try {
+            return this.db.getAvg().getString("cycle_avg_days");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

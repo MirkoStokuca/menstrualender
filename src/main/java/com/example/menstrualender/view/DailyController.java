@@ -1,6 +1,9 @@
 package com.example.menstrualender.view;
 
 import com.example.menstrualender.MensApplication;
+import com.example.menstrualender.model.Cycles;
+import com.example.menstrualender.model.Db;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -63,29 +66,37 @@ public class DailyController implements Initializable {
         // ToDo: dailyTemDouble, soll auch leer abgeschickt werden können. (12.11.22)
         DecimalFormat df = new DecimalFormat("#.00");
 
+        // Todo: AddBleeding
+        // Todo: AddOvulation (Eisprung) Datum
 
-        if (outflowChoiceInt != 0) {
-            mensApp.zyklus.addOutflow(outflowChoiceInt);
+        if(outflowChoiceInt != 0) {
+            this.mensApp.zyklus.addOutflow(outflowChoiceInt);
         }
-        if (moodChoiceInt != 0) {
-            mensApp.zyklus.addMood(moodChoiceInt);
+        if(moodChoiceInt != 0) {
+            this.mensApp.zyklus.addMood(moodChoiceInt);
         }
         if (dailyTemp != null) {
             double dailyTempDouble = Double.parseDouble(dailyTemp);
-            mensApp.zyklus.addTemp(Double.parseDouble(df.format(dailyTempDouble)));
+            this.mensApp.zyklus.addTemp(Double.parseDouble(df.format(dailyTempDouble)));
         }
-        if (commentsDaily != null) {
-            mensApp.zyklus.addComments(commentsDaily);
+        if(commentsDaily != null) {
+            this.mensApp.zyklus.addComments(commentsDaily);
         }
-        if (moodChoiceInt != 0) {
-            mensApp.zyklus.addDate(dailyDate);
-        }
+       //ToDo @Julia @Mirko
         if (bleeding.isSelected()){
             mensApp.zyklus.addBleeding(1);
         }
         if (eisprung.isSelected()){
             mensApp.zyklus.addOvulation(dailyDatePicker.getValue());
         }
+
+
+        System.out.println(outflowChoiceInt);
+        System.out.println(moodChoiceInt);
+        System.out.println("Ausgabe Temperatur: " + df.format(dailyTempDouble));
+        System.out.println("Ausgabe Temperatur, unverändert: " + dailyTemp);
+        System.out.println(commentsDaily);
+        System.out.println(dailyDate);
 
     }
 
