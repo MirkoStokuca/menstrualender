@@ -48,8 +48,6 @@ public class LoginController implements Initializable {
                 plsSetPw.setText("Wrong Password");
                 plsSetPw.setTextFill(Color.RED);
             }
-
-
     }
 
     public void displayLogin() {

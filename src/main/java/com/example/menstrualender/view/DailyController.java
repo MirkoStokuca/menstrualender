@@ -31,10 +31,6 @@ public class DailyController implements Initializable {
     private Button dayReturn;
     @FXML
     private TextField dailyComments;
-    @FXML
-    Db db = new Db();
-    @FXML
-    Cycles zyklus = new Cycles(db);
 
     private String[] outflow = {"Trocken","Pampig","Durchsichtig"};
     private String[] mood = {"ängstlich","provozierend","aufgestellt","niedergeschlagen","motiviert","lustlos"};
@@ -71,20 +67,20 @@ public class DailyController implements Initializable {
         // Todo: AddOvulation (Eisprung) Datum
 
         if(outflowChoiceInt != 0) {
-            zyklus.addOutflow(outflowChoiceInt);
+            this.mensApp.zyklus.addOutflow(outflowChoiceInt);
         }
         if(moodChoiceInt != 0) {
-            zyklus.addMood(moodChoiceInt);
+            this.mensApp.zyklus.addMood(moodChoiceInt);
         }
         if(dailyTempDouble != 0) {
-            zyklus.addTemp(df.format(dailyTempDouble));
+            this.mensApp.zyklus.addTemp(df.format(dailyTempDouble));
         }
         if(commentsDaily != null) {
-            zyklus.addComments(commentsDaily);
+            this.mensApp.zyklus.addComments(commentsDaily);
         }
-        if(moodChoiceInt != 0) {
-            zyklus.addDate(dailyDate);
-        }
+        //if(dailyDate != null) {
+        //    this.mensApp.zyklus.addDate(dailyDate);
+        //}
         /*
         if(XXXX != 0) {
             //zyklus.addBleeding();

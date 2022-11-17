@@ -1,15 +1,8 @@
 package com.example.menstrualender.model;
 
-import com.example.menstrualender.MensApplication;
-import com.example.menstrualender.util.DateUtil;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 public class Cycles {
 
@@ -34,6 +27,10 @@ public class Cycles {
         ResultSet rs = this.db.getCountHistoryCycles();
         return rs;
     }
+    public ResultSet getPredictionCycle() {
+        ResultSet rs = this.db.getPredictionCycle();
+        return rs;
+    }
 
     /**
      * add a new date to the cycles Database
@@ -42,6 +39,7 @@ public class Cycles {
     public void addDate(LocalDate date) {
         this.db.insertCycle(date);
     }
+
     public void addOutflow(int value) {
         this.db.insertOutflow(value);
     }
@@ -70,7 +68,11 @@ public class Cycles {
      * the cycles Datenbank
      * @return average interval
      */
-    public ResultSet getAverageLength() {
-        return this.db.getAvg();
+    public String getAverageLength() {
+        try {
+            return this.db.getAvg().getString("cycle_avg_days");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
