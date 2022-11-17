@@ -1,5 +1,4 @@
 package com.example.menstrualender.view;
-import com.example.menstrualender.model.Db;
 
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
@@ -99,13 +98,11 @@ public class MensController implements Initializable {
         try {
             while (rscounter.next()) {
                 dbRows = rscounter.getInt("counter");
-            };
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         System.out.println(dbRows);
-
-
 
         //create Series Instances
         XYChart.Series series1= new XYChart.Series();
@@ -140,7 +137,7 @@ public class MensController implements Initializable {
                 series2.getData().add(new XYChart.Data(second_interval,start_date));
                 series3.getData().add(new XYChart.Data(fertility_days,start_date));
                 series4.getData().add(new XYChart.Data(fourth_interval,start_date));
-            };
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -159,7 +156,7 @@ public class MensController implements Initializable {
         xAxis.setLabel("Number of Month");
         //creating the chart
         final LineChart<Number,Number> lineChart =
-                new LineChart<Number,Number>(xAxis,yAxis);
+                new LineChart<>(xAxis, yAxis);
 
         lineChart.setTitle("Stock Monitoring, 2010");
         //defining a series
@@ -178,11 +175,10 @@ public class MensController implements Initializable {
      */
     private void initPieChart(){
         int timUntilNextCycle; // nextCycleStart - aktuelles Datum
-        /**
-         * @Mirko, aktuelles Datum könntest du bitte heraussuchen, ja?
-         *
-         * jetzt ist alles Grau well die Variabeln nicht gebracuht werden.
-         * du musst nicht alle Variabeln brauchen, sie es eher als Variabeln Buffet :)
+        /* ToDO:
+         *   @Mirko, aktuelles Datum könntest du bitte heraussuchen, ja?
+         *  jetzt ist alles Grau well die Variabeln nicht gebracuht werden.
+         *  du musst nicht alle Variabeln brauchen, sie es eher als Variabeln Buffet :)
          */
         // prediction:
         int preSecond_interval, preFertility_days, preFourth_interval;
@@ -264,6 +260,24 @@ public class MensController implements Initializable {
         nextCycleStart.setText(startNextCycle);
     }
 
+    // Todo: @ Mirko hier die Daten für die Grafik!
+    //   zeigt die Tempdaten aus dem Aktuellen laufenden Zyklus an.
+    public void showCurrentTemperaturCycle() {
+        String oneTemperatur;
+        ResultSet rs = mensApp.zyklus.getTemperatur();
+        try {
+            if (!rs.next()) {
+                System.out.println("keine Temperatur eingaben");
+            } else {
+                do {
+                    oneTemperatur = rs.getString("temperatur_value");
+                } while (rs.next());
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     //Scene/Stage Switches
     public void switchToLogin() {
@@ -339,44 +353,18 @@ public class MensController implements Initializable {
         FadeTransition fade = new FadeTransition(Duration.seconds(2), node);
         fade.setFromValue(100);
         fade.setToValue(0);
-
-            return fade;
-        }
-
-        /**
-         * Makes Text appear and Disappear. Takes label String and color (true = red, false = green)
-         * @param labelText is the output text
-         * @param color
-         */
-        private void showButton (String labelText, Color color){
-            buttonConf.setTextFill(color);
-            buttonConf.setText(labelText);
-            FadeTransition fader = createFader(buttonConf);
-            fader.play();
-        }
-
-
-        //Datenbank Beispiel
-        public void cyclesDetailLength () {
-            String message = "";
-            int bleeding_days, second_interval, fertility_days, fourth_interval;
-            LocalDate start_date;
-            ResultSet rs = mensApp.zyklus.getCyclesHitstoryIntervals();
-            try {
-                if (!rs.next()) { // false Check! rs.next() == false
-                    message += "None Found!\n\nHow to Add New Cycle:\n1. Choose Date\n2.\"Start new Cycle\"" +
-                            "\n\nAdd at least two dates\nto calulate the start\nof the next cycle.";
-                } else {
-                    do {
-                        bleeding_days = rs.getInt("first_interval");
-                        second_interval = rs.getInt("second_interval");
-                        fertility_days = 7;
-                        fourth_interval = rs.getInt("fourt_interval");
-                        start_date = LocalDate.parse(rs.getString("start_cycle"));
-                    } while (rs.next());
-                }
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        }
+        return fade;
     }
+
+    /**
+     * Makes Text appear and Disappear. Takes label String and color (true = red, false = green)
+     * @param labelText is the output text
+     * @param color
+     */
+    private void showButton (String labelText, Color color){
+        buttonConf.setTextFill(color);
+        buttonConf.setText(labelText);
+        FadeTransition fader = createFader(buttonConf);
+        fader.play();
+    }
+}
