@@ -1,26 +1,28 @@
 .root {
-    -fx-background-color: rgba(211, 217, 238, 0.68);
+    -fx-background-color: rgb(253, 232, 233);
 }
 #Menu {
     -fx-font-size: 22;
     -fx-font-weight: 500;
+    -fx-text-fill: #ffffff;
 }
 #menuBar{
-    -fx-background-color: rgb(252, 241, 192);
+    -fx-background-color: rgb(89, 100, 117);
 }
 
 #button{
     -fx-font-size:15;
     -fx-background-radius: 6;
-    -fx-background-color: #b8dad9;
+    -fx-background-color: #596475;
     -fx-border-color: #111;
     -fx-border-radius: 6;
+    -fx-text-fill: #ffffff;
 }
 
 #Ausgabe {
     -fx-font-size: 20;
     -fx-background-radius: 6;
-    -fx-background-color:  #B8DAD9;
+    -fx-background-color: #bc9ec1;
     -fx-border-color: #111;
     -fx-border-radius: 6;
     -fx-padding: 5;
@@ -28,7 +30,7 @@
 
 #rectangle{
     -fx-border-color: #111;
-    -fx-background-color:#fcf1c0;
+    -fx-background-color: #bc9ec1;
     -fx-border-color: #111;
     -fx-border-radius: 8;
     -fx-background-radius: 8;
@@ -38,11 +40,13 @@
     -fx-font-size: 19;
     -fx-font-weight: 600;
     -fx-font-style: italic;
+
 }
 
 #Titel{
     -fx-font-size: 25;
     -fx-font-weight: 800;
+
 }
 #dailyFields{
     -fx-font-size:16;
