@@ -14,6 +14,7 @@ import javafx.scene.Node;
 import javafx.scene.chart.*;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
@@ -50,9 +51,12 @@ public class MensController implements Initializable {
 
     @FXML
     private Label MenuBack;
-
+    @FXML
+    private ToggleButton pregnantMode;
     @FXML
     private AnchorPane slider;
+    public String colorFruchtbar = "SKYBLUE";
+    public ObservableList<PieChart.Data> cycleChartData;
 
 
     /**
@@ -86,7 +90,6 @@ public class MensController implements Initializable {
     private void initStackedBarChart() {
         stackedBarChart.getXAxis().setOpacity(0); //hide x axis
         stackedBarChart.getYAxis().setOpacity(0); //hide y axis
-
         stackedBarChart.getStylesheets().add(getClass().getResource("stacked_bar_chart.css").toExternalForm());
     }
 
@@ -183,6 +186,7 @@ public class MensController implements Initializable {
          * jetzt ist alles Grau well die Variabeln nicht gebracuht werden.
          * du musst nicht alle Variabeln brauchen, sie es eher als Variabeln Buffet :)
          */
+        //gets pregannt mode for color scheme
         // prediction:
         int preSecond_interval = 0;
         int preFertility_days = 0;
@@ -217,18 +221,41 @@ public class MensController implements Initializable {
             throw new RuntimeException(e);
         }
 
-        ObservableList<PieChart.Data> cycleChartData =
+       cycleChartData =
                 FXCollections.observableArrayList(
                         new PieChart.Data("Bleeding", avg_bleeding_length),
-                        new PieChart.Data("", preSecond_interval),
+                        new PieChart.Data("PreSecond", preSecond_interval),
                         new PieChart.Data("Fruchtbar", preFertility_days),
-                        new PieChart.Data("", preFourth_interval));
+                        new PieChart.Data("PreForth", preFourth_interval));
 
-        this.cycleGraph.setLabelLineLength(20);
-        this.cycleGraph.setData(cycleChartData);
+        this.cycleGraph.setLabelLineLength(15);
         this.cycleGraph.setLabelsVisible(true);
-        this.cycleGraph.setStartAngle(-100);
+        this.cycleGraph.setStartAngle(90);
+        this.cycleGraph.setData(cycleChartData);
+        applyCustomColorSequence(
+                cycleChartData,
+                "ORCHID",
+                "lightblue",
+                colorFruchtbar,
+                "MEDIUMPURPLE",
+                "teal");
     }
+    @FXML
+    private void getPregnantMode(){
+        if(pregnantMode.isSelected()){
+            colorFruchtbar = "forestgreen";
+        }
+        else {colorFruchtbar = "firebrick";}
+        applyCustomColorSequence(
+                cycleChartData,
+                "ORCHID",
+                "lightblue",
+                colorFruchtbar,
+                "MEDIUMPURPLE");
+    }
+
+
+
 
     /**
      * Deletes the Data in the File
@@ -361,6 +388,23 @@ public class MensController implements Initializable {
         buttonConf.setText(labelText);
         FadeTransition fader = createFader(buttonConf);
         fader.play();
+    }
+
+    /**
+     * Creates custom color sequence for piechart
+     * @param cycleChartData
+     * @param pieColors
+     */
+    private void applyCustomColorSequence(
+            ObservableList<PieChart.Data> cycleChartData,
+            String... pieColors) {
+        int i = 0;
+        for (PieChart.Data data : cycleChartData) {
+            data.getNode().setStyle(
+                    "-fx-pie-color: " + pieColors[i % pieColors.length] + ";"
+            );
+            i++;
+        }
     }
 
 
