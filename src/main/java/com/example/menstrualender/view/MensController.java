@@ -165,20 +165,18 @@ public class MensController implements Initializable {
         //defining a series
         XYChart.Series series = new XYChart.Series();
 
-        //populating the series with data
-        series.getData().add(new XYChart.Data(1, 34));
-        series.getData().add(new XYChart.Data(2, 37));
-        series.getData().add(new XYChart.Data(3, 35));
-        series.getData().add(new XYChart.Data(4, 33));
-        series.getData().add(new XYChart.Data(5, 34));
-        series.getData().add(new XYChart.Data(6, 36));
-        series.getData().add(new XYChart.Data(7, 39));
-        series.getData().add(new XYChart.Data(8, 34));
-        series.getData().add(new XYChart.Data(9, 34));
-        series.getData().add(new XYChart.Data(10, 34));
-        series.getData().add(new XYChart.Data(11, 33));
-        series.getData().add(new XYChart.Data(12, 37));
-
+        ResultSet temperature = this.mensApp.zyklus.getTemperature();
+        int index = 0;
+        try {
+            do {
+                int tempTemperature = temperature.getInt("temperature");
+                series.getData().add(new XYChart.Data(index, tempTemperature));
+                temperature.getInt("temperature");
+                index++;
+            } while (temperature.next());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
         lineChart.getData().add(series);
 

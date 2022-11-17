@@ -26,9 +26,9 @@
 }
 .axis {
     -fx-border-color: transparent;
-    -fx-tick-mark-visible: false;
+    -fx-tick-mark-visible: true;
     -fx-minor-tick-visible: false;
-    -fx-tick-labels-visible: false;
+    -fx-tick-labels-visible: true;
 }
 .chart-legend {
     -fx-background-color:  transparent;
