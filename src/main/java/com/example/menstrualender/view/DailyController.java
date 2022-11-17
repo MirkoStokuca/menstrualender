@@ -37,7 +37,6 @@ public class DailyController implements Initializable {
 
     private String[] outflow = {"Trocken","Pampig","Durchsichtig"};
     private String[] mood = {"ängstlich","gereizt","aufgestellt","niedergeschlagen","motiviert","lustlos","hoffnungsvoll"};
-
     private String [] blood = {"+","++","+++"};
     public void setMainApp(MensApplication mensApp) {
         this.mensApp = mensApp;
@@ -53,6 +52,8 @@ public class DailyController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         chooseSlime.getItems().addAll(outflow);
         chooseMood.getItems().addAll(mood);
+        chooseBlood.getItems().addAll(blood);
+
 
     }
 
@@ -79,11 +80,11 @@ public class DailyController implements Initializable {
         if(moodChoiceInt != 0) {
             this.mensApp.zyklus.addMood(moodChoiceInt);
         }
-        if (dailyTemp != "") {
+        if (!dailyTemp.equals("")) {
             double dailyTempDouble = Double.parseDouble(dailyTemp);
             this.mensApp.zyklus.addTemp(String.valueOf(dailyTempDouble));
         }
-        if(commentsDaily != "") {
+        if(!commentsDaily.equals("")) {
             this.mensApp.zyklus.addComments(commentsDaily);
         }
        //ToDo @Julia @Mirko

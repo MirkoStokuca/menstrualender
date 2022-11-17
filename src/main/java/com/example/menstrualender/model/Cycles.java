@@ -75,4 +75,8 @@ public class Cycles {
             throw new RuntimeException(e);
         }
     }
+
+    public ResultSet getTemperatur() {
+        return this.db.getTemperatur();
+    }
 }

@@ -18,7 +18,7 @@
       <Pane id="menuBar" maxHeight="60.0" minHeight="60.0" prefHeight="60.0" prefWidth="686.0" />
       <VBox layoutX="56.0" layoutY="1.0" prefHeight="601.0" prefWidth="687.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <AnchorPane maxHeight="60.0" minHeight="60.0" prefHeight="60.0" prefWidth="362.0" />
+            <AnchorPane maxHeight="60.0" minHeight="60.0" prefHeight="60.0" prefWidth="767.0" />
             <AnchorPane maxHeight="168.0" minHeight="135.0" prefHeight="135.0" prefWidth="354.0">
                <children>
                   <Label layoutX="20.0" layoutY="-65.0" text="Ovulation Date" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="50.0">
@@ -36,12 +36,12 @@
             <AnchorPane maxHeight="150.0" minHeight="135.0" prefHeight="150.0">
                <children>
                   <ChoiceBox id="dailyFields" fx:id="chooseSlime" layoutX="20.0" layoutY="50.0" prefHeight="43.0" prefWidth="160.0" AnchorPane.bottomAnchor="22.000000000000007" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="507.0" AnchorPane.topAnchor="90.0" />
+                  <ChoiceBox id="dailyFields" fx:id="chooseBlood" layoutX="513.0" layoutY="70.0" prefHeight="43.0" prefWidth="160.0" />
                   <Label layoutX="20.0" layoutY="59.0" text="Choose consistency of vaginal discharge " AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="59.0">
                      <padding>
                         <Insets bottom="3.0" />
                      </padding>
                   </Label>
-                  <ChoiceBox id="dailyFields" fx:id="chooseBlood" layoutX="513.0" layoutY="70.0" prefHeight="43.0" prefWidth="160.0" />
                   <Label layoutX="512.0" layoutY="39.0" prefHeight="31.0" prefWidth="160.0" text="Period Blood ">
                      <padding>
                         <Insets bottom="3.0" />

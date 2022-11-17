@@ -1,7 +1,5 @@
 package com.example.menstrualender.view;
-
 import com.example.menstrualender.model.Db;
-
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
@@ -15,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.chart.*;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
@@ -52,9 +51,12 @@ public class MensController implements Initializable {
 
     @FXML
     private Label MenuBack;
-
+    @FXML
+    private ToggleButton pregnantMode;
     @FXML
     private AnchorPane slider;
+    public String colorFruchtbar = "SKYBLUE";
+    public ObservableList<PieChart.Data> cycleChartData;
 
 
     /**
@@ -88,7 +90,6 @@ public class MensController implements Initializable {
     private void initStackedBarChart() {
         stackedBarChart.getXAxis().setOpacity(0); //hide x axis
         stackedBarChart.getYAxis().setOpacity(0); //hide y axis
-
         stackedBarChart.getStylesheets().add(getClass().getResource("stacked_bar_chart.css").toExternalForm());
     }
 
@@ -98,16 +99,15 @@ public class MensController implements Initializable {
     private void loadStackedBarChart() {
 
         ResultSet rscounter = this.mensApp.zyklus.getCounterHistory();
-        int dbRows;
+        int dbRows = 0;
         try {
-            do {
+            while (rscounter.next()) {
                 dbRows = rscounter.getInt("counter");
-            } while (rscounter.next());
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         System.out.println(dbRows);
-
 
         //create Series Instances
         XYChart.Series series1 = new XYChart.Series();
@@ -134,7 +134,7 @@ public class MensController implements Initializable {
         String start_date;
 
         try {
-            do {
+            while (rs.next()) {
                 bleeding_days = rs.getInt("first_interval");
                 second_interval = rs.getInt("second_interval");
                 fertility_days = 7;
@@ -142,11 +142,12 @@ public class MensController implements Initializable {
                 start_date = rs.getString("start_cycle");
 
                 //add db datd to series
-                series1.getData().add(new XYChart.Data(bleeding_days, start_date));
-                series2.getData().add(new XYChart.Data(second_interval, start_date));
-                series3.getData().add(new XYChart.Data(fertility_days, start_date));
-                series4.getData().add(new XYChart.Data(fourth_interval, start_date));
-            } while (rs.next());
+                series1.getData().add(new XYChart.Data(bleeding_days,start_date));
+                series2.getData().add(new XYChart.Data(second_interval,start_date));
+                series3.getData().add(new XYChart.Data(fertility_days,start_date));
+                series4.getData().add(new XYChart.Data(fourth_interval,start_date));
+            }
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -202,13 +203,8 @@ public class MensController implements Initializable {
     /**
      * Init pie chart
      */
+
     private void initPieChart() {
-        /**
-         * @Mirko, aktuelles Datum könntest du bitte heraussuchen, ja?
-         *
-         * jetzt ist alles Grau well die Variabeln nicht gebracuht werden.
-         * du musst nicht alle Variabeln brauchen, sie es eher als Variabeln Buffet :)
-         */
         // prediction:
         int preSecond_interval = 0;
         int preFertility_days = 0;
@@ -233,28 +229,49 @@ public class MensController implements Initializable {
                     preFourth_interval = rs.getInt("fourth_interval");
                     start_date = LocalDate.parse(rs.getString("start_cycle"));
 
-                    /**
-                     * Todo: @julia; end_cycle is null
-                     */
-                    //nextCycleStart = LocalDate.parse(rs.getString("end_cycle"));
+
+                    nextCycleStart = LocalDate.parse(rs.getString("end_cycle"));
                 } while (rs.next());
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
-        ObservableList<PieChart.Data> cycleChartData =
+       cycleChartData =
                 FXCollections.observableArrayList(
                         new PieChart.Data("Bleeding", avg_bleeding_length),
-                        new PieChart.Data("", preSecond_interval),
+                        new PieChart.Data("PreSecond", preSecond_interval),
                         new PieChart.Data("Fruchtbar", preFertility_days),
-                        new PieChart.Data("", preFourth_interval));
+                        new PieChart.Data("PreForth", preFourth_interval));
 
-        this.cycleGraph.setLabelLineLength(20);
-        this.cycleGraph.setData(cycleChartData);
+        this.cycleGraph.setLabelLineLength(15);
         this.cycleGraph.setLabelsVisible(true);
-        this.cycleGraph.setStartAngle(-100);
+        this.cycleGraph.setStartAngle(90);
+        this.cycleGraph.setData(cycleChartData);
+        applyCustomColorSequence(
+                cycleChartData,
+                "ORCHID",
+                "lightblue",
+                colorFruchtbar,
+                "MEDIUMPURPLE",
+                "teal");
     }
+    @FXML
+    private void getPregnantMode(){
+        if(pregnantMode.isSelected()){
+            colorFruchtbar = "forestgreen";
+        }
+        else {colorFruchtbar = "firebrick";}
+        applyCustomColorSequence(
+                cycleChartData,
+                "ORCHID",
+                "lightblue",
+                colorFruchtbar,
+                "MEDIUMPURPLE");
+    }
+
+
+
 
     /**
      * Deletes the Data in the File
@@ -295,6 +312,24 @@ public class MensController implements Initializable {
         nextCycleStart.setText(startNextCycle);
     }
 
+    // Todo: @ Mirko hier die Daten für die Grafik!
+    //   zeigt die Tempdaten aus dem Aktuellen laufenden Zyklus an.
+    public void showCurrentTemperaturCycle() {
+        String oneTemperatur;
+        ResultSet rs = mensApp.zyklus.getTemperatur();
+        try {
+            if (!rs.next()) {
+                System.out.println("keine Temperatur eingaben");
+            } else {
+                do {
+                    oneTemperatur = rs.getString("temperatur_value");
+                } while (rs.next());
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     //Scene/Stage Switches
     public void switchToLogin() {
@@ -327,7 +362,6 @@ public class MensController implements Initializable {
     //Animations
 
     private void sliderSlide() {
-        slider.setTranslateX(-300);
         Menu.setOnMouseClicked(event -> {
             TranslateTransition slide = new TranslateTransition();
             slide.setDuration(Duration.seconds(0.4));
@@ -372,7 +406,6 @@ public class MensController implements Initializable {
         FadeTransition fade = new FadeTransition(Duration.seconds(2), node);
         fade.setFromValue(100);
         fade.setToValue(0);
-
         return fade;
     }
 
@@ -383,10 +416,28 @@ public class MensController implements Initializable {
      * @param color
      */
     private void showButton(String labelText, Color color) {
+
         buttonConf.setTextFill(color);
         buttonConf.setText(labelText);
         FadeTransition fader = createFader(buttonConf);
         fader.play();
+    }
+
+    /**
+     * Creates custom color sequence for piechart
+     * @param cycleChartData
+     * @param pieColors
+     */
+    private void applyCustomColorSequence(
+            ObservableList<PieChart.Data> cycleChartData,
+            String... pieColors) {
+        int i = 0;
+        for (PieChart.Data data : cycleChartData) {
+            data.getNode().setStyle(
+                    "-fx-pie-color: " + pieColors[i % pieColors.length] + ";"
+            );
+            i++;
+        }
     }
 
 

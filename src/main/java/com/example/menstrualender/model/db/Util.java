@@ -24,6 +24,7 @@ public class Util {
         if(!isDbExisting) {
             Setup setup = new Setup(this);
             setup.createTables();
+            setup.insertData();
         }
         return succes;
     }
