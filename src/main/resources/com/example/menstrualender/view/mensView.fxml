@@ -118,7 +118,7 @@
                                  <children>
                                     <StackPane prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 
-                                          <PieChart fx:id="cycleGraph" legendVisible="false" prefHeight="200.0" prefWidth="380.0" stylesheets="@pie_Chart.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                          <PieChart fx:id="cycleGraph" legendVisible="false" prefHeight="200.0" prefWidth="380.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                     <Circle fill="WHITE" layoutX="226.0" layoutY="143.0" radius="60.0" stroke="TRANSPARENT" strokeType="INSIDE" AnchorPane.bottomAnchor="78.0" AnchorPane.leftAnchor="166.0" AnchorPane.rightAnchor="163.0" AnchorPane.topAnchor="83.0" />
                                     <Label fx:id="fruchtbar" layoutX="60.0" layoutY="217.0" prefHeight="39.0" prefWidth="79.0" AnchorPane.bottomAnchor="24.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="310.0" AnchorPane.topAnchor="217.0">
                                        <font>
