@@ -21,13 +21,13 @@
             <AnchorPane maxHeight="60.0" minHeight="60.0" prefHeight="60.0" prefWidth="362.0" />
             <AnchorPane maxHeight="168.0" minHeight="135.0" prefHeight="135.0" prefWidth="354.0">
                <children>
-                  <Label layoutX="20.0" layoutY="58.0" text="Set todays date" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="58.0">
+                  <Label layoutX="20.0" layoutY="-65.0" text="Ovulation Date" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="50.0">
                      <padding>
                         <Insets bottom="3.0" />
                      </padding>
                   </Label>
-                  <DatePicker id="dailyFields" fx:id="dailyDatePicker" layoutX="20.0" layoutY="50.0" prefHeight="39.0" prefWidth="160.0" AnchorPane.bottomAnchor="26.000000000000007" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="507.0" AnchorPane.topAnchor="90.0" />
-                  <JFXToggleButton id="dailyFields" fx:id="eisprung" layoutX="535.0" layoutY="45.0" prefHeight="22.0" prefWidth="147.0" text="Ovulation" AnchorPane.bottomAnchor="26.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="90.0" />
+                  <DatePicker id="dailyFields" fx:id="dailyDatePicker" layoutX="20.0" layoutY="50.0" prefHeight="39.0" prefWidth="160.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="507.0" AnchorPane.topAnchor="85.0" />
+                  <JFXToggleButton id="dailyFields" fx:id="eisprung" layoutX="62.0" layoutY="86.0" prefHeight="9.0" prefWidth="147.0" text="Ovulation" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="507.0" AnchorPane.topAnchor="120.0" />
                </children>
                <padding>
                   <Insets top="-20.0" />
@@ -41,7 +41,12 @@
                         <Insets bottom="3.0" />
                      </padding>
                   </Label>
-                  <JFXToggleButton id="dailyFields" fx:id="bleeding" layoutX="391.0" layoutY="71.0" prefHeight="39.0" prefWidth="190.0" text="Period bleeding" AnchorPane.bottomAnchor="22.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="90.0" />
+                  <ChoiceBox id="dailyFields" fx:id="chooseBlood" layoutX="513.0" layoutY="70.0" prefHeight="43.0" prefWidth="160.0" />
+                  <Label layoutX="512.0" layoutY="39.0" prefHeight="31.0" prefWidth="160.0" text="Period Blood ">
+                     <padding>
+                        <Insets bottom="3.0" />
+                     </padding>
+                  </Label>
                </children>
                <padding>
                   <Insets top="-20.0" />

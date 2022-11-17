@@ -24,6 +24,8 @@ public class DailyController implements Initializable {
     @FXML
     private ChoiceBox<String> chooseSlime;
     @FXML
+    private ChoiceBox<String> chooseBlood;
+    @FXML
     private MensApplication mensApp;
     @FXML
     private TextField dailyTemperature;
@@ -31,13 +33,12 @@ public class DailyController implements Initializable {
     private Button dayReturn, saveButton;
     @FXML
     private TextField dailyComments;
-    @FXML
-    private ToggleButton bleeding;
     @FXML ToggleButton eisprung;
 
     private String[] outflow = {"Trocken","Pampig","Durchsichtig"};
     private String[] mood = {"ängstlich","gereizt","aufgestellt","niedergeschlagen","motiviert","lustlos","hoffnungsvoll"};
 
+    private String [] blood = {"+","++","+++"};
     public void setMainApp(MensApplication mensApp) {
         this.mensApp = mensApp;
     }
@@ -52,6 +53,7 @@ public class DailyController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         chooseSlime.getItems().addAll(outflow);
         chooseMood.getItems().addAll(mood);
+
     }
 
     public void dailySave() {
@@ -61,10 +63,11 @@ public class DailyController implements Initializable {
         String dailyTemp = dailyTemperature.getText();
         LocalDate dailyDate = dailyDatePicker.getValue(); // für was ist das?
         String commentsDaily = dailyComments.getText();
+        String bloodChoice = chooseBlood.getValue();
 
         int outflowChoiceInt = Arrays.asList(outflow).indexOf(outflowChoice) + 1; //Trocken = 1, Pampig = 2, Durchsichtig = 3
         int moodChoiceInt = Arrays.asList(mood).indexOf(moodChoice) + 1;  //ängstlich = 1, gereizt = 2, aufgestellt = 3, niedergeschlagen = 4, motiviert = 5, lustlos = 6, hoffnungsvoll =7
-
+        int bloodChoiceInt  = Arrays.asList(blood).indexOf(bloodChoice)+1;
         DecimalFormat df = new DecimalFormat("#.00");
 
         // Todo: AddBleeding
@@ -84,8 +87,8 @@ public class DailyController implements Initializable {
             this.mensApp.zyklus.addComments(commentsDaily);
         }
        //ToDo @Julia @Mirko
-        if (bleeding.isSelected()){
-            mensApp.zyklus.addBleeding(1);
+        if (bloodChoiceInt != 0){
+            mensApp.zyklus.addBleeding(bloodChoiceInt);
         }
         if (eisprung.isSelected()){
             mensApp.zyklus.addOvulation(dailyDatePicker.getValue());
