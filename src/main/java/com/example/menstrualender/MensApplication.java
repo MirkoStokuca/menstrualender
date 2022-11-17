@@ -1,4 +1,6 @@
 package com.example.menstrualender;
+import com.example.menstrualender.model.Cycles;
+import com.example.menstrualender.model.Db;
 import com.example.menstrualender.view.DailyController;
 import com.example.menstrualender.view.LoginController;
 import com.example.menstrualender.view.MensController;
@@ -16,10 +18,12 @@ public class MensApplication extends Application {
 
     private Stage defaultStage;
     public double x,y;
+    public Db db;
+    public Cycles zyklus;
 
     @Override
     public void start(Stage defaultStage) throws IOException {
-
+        Db db = new Db();
         //Setup defaultStage
         this.defaultStage = defaultStage;
         this.defaultStage.setTitle("Menstrualender");
@@ -29,8 +33,11 @@ public class MensApplication extends Application {
         Scene scene = new Scene(root);
         defaultStage.setScene(scene);
         defaultStage.show();
+        this.db = new Db();
+        this.zyklus = new Cycles(this.db);
         //Loads login Window
         loginWindow();
+
 
     }
 
@@ -45,8 +52,10 @@ public class MensApplication extends Application {
             Scene loginScene = new Scene(loginView);
             defaultStage.setScene(loginScene);
 
+
             LoginController controller = loader.getController();
             controller.setMainApp(this);
+            controller.displayLogin();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

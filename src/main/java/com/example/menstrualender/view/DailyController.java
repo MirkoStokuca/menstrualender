@@ -31,7 +31,7 @@ public class DailyController implements Initializable {
     private Button dayReturn;
     @FXML
     private TextField dailyComments;
-
+    @FXML
     Db db = new Db();
     @FXML
     Cycles zyklus = new Cycles(db);
@@ -55,7 +55,6 @@ public class DailyController implements Initializable {
     }
 
     public void dailySave(ActionEvent actionEvent) {
-        //Try add und info check
         String outflowChoice = chooseSlime.getValue();
         String moodChoice = chooseMood.getValue();
         String dailyTemp = dailyTemperature.getText();
@@ -83,7 +82,7 @@ public class DailyController implements Initializable {
         if(commentsDaily != null) {
             zyklus.addComments(commentsDaily);
         }
-        if(dailyDate != null) {
+        if(moodChoiceInt != 0) {
             zyklus.addDate(dailyDate);
         }
         /*

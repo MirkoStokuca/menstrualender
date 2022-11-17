@@ -30,6 +30,10 @@ public class Cycles {
         ResultSet rs = this.db.getCyclesHistoryIntervals();
         return rs;
     }
+    public ResultSet getCounterHistory() {
+        ResultSet rs = this.db.getCountHistoryCycles();
+        return rs;
+    }
 
     /**
      * add a new date to the cycles Database

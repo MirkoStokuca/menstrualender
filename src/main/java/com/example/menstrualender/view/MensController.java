@@ -22,8 +22,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import java.net.URL;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -64,10 +63,7 @@ public class MensController implements Initializable {
 
     @FXML
     private MensApplication mensApp;
-    
-    Db db = new Db();
-    @FXML
-    Cycles zyklus = new Cycles(db);
+
 
     /**
      * Constructor
@@ -108,44 +104,60 @@ public class MensController implements Initializable {
      * Load stored data in db into stacked bar chart
      */
     private void loadStackedBarChart(){
-        String [][] stringList = {
-                {"01.01.2022", "10", "4", "9"},
-                {"01.02.2022", "11", "5", "10"},
-                {"01.03.2022", "12", "4", "11"},
-                {"01.04.2022", "9", "3", "12"},
-                {"01.05.2022", "10", "6", "10"},
-                {"01.06.2022", "11", "7", "10"}
-        };
+
+        ResultSet rscounter = zyklus.getCounterHistory();
+        int dbRows;
+        try {
+            do {
+                dbRows = rscounter.getInt("counter");
+            } while (rscounter.next());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println(dbRows);
+
+
 
         //create Series Instances
         XYChart.Series series1= new XYChart.Series();
         XYChart.Series series2= new XYChart.Series();
         XYChart.Series series3= new XYChart.Series();
+        XYChart.Series series4= new XYChart.Series();
 
         //fill series with placeholder values
-        for (int i = 12; i > stringList.length; i--) {
+        for (int i = 11; i > dbRows; i--) {
             String placeholder = "Placeholder" + i;
 
             series1.getData().add(new XYChart.Data(0,placeholder));
             series2.getData().add(new XYChart.Data(0,placeholder));
             series3.getData().add(new XYChart.Data(0,placeholder));
+            series4.getData().add(new XYChart.Data(0, placeholder));
         }
 
-        //add data to series
-        for (var cycle : stringList) {
+        ResultSet rs = zyklus.getCyclesIntervals();
+        int bleeding_days, second_interval, fertility_days, fourth_interval;
+        String start_date;
 
-            String tempStartDate = cycle[0];
-            int tempBefore = Integer.parseInt(cycle[1]);
-            int tempDuring = Integer.parseInt(cycle[2]);
-            int tempAfter = Integer.parseInt(cycle[3]);
+        try {
+            do {
+                bleeding_days = rs.getInt("first_interval");
+                second_interval = rs.getInt("second_interval");
+                fertility_days = 7;
+                fourth_interval = rs.getInt("fourth_interval");
+                start_date = rs.getString("start_cycle");
 
-            series1.getData().add(new XYChart.Data(tempBefore,tempStartDate));
-            series2.getData().add(new XYChart.Data(tempBefore,tempStartDate));
-            series3.getData().add(new XYChart.Data(tempBefore,tempStartDate));
+                //add db datd to series
+                series1.getData().add(new XYChart.Data(bleeding_days,start_date));
+                series2.getData().add(new XYChart.Data(second_interval,start_date));
+                series3.getData().add(new XYChart.Data(fertility_days,start_date));
+                series4.getData().add(new XYChart.Data(fourth_interval,start_date));
+            } while (rs.next());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
 
         //add series to stackedBarChart
-        stackedBarChart.getData().addAll(series1, series2, series3);
+        stackedBarChart.getData().addAll(series1, series2, series3, series4);
     }
 
     /**
@@ -184,9 +196,9 @@ public class MensController implements Initializable {
                 FXCollections.observableArrayList(
                         new PieChart.Data("", 10),
                         new  PieChart.Data("", 18));
-        cycleGraph.setData(cycleChartData);
-        cycleGraph.autosize();
-        cycleGraph.setStartAngle(-100);
+        this.cycleGraph.setData(cycleChartData);
+        this.cycleGraph.autosize();
+        this.cycleGraph.setStartAngle(-100);
     }
 
     /**
@@ -196,8 +208,8 @@ public class MensController implements Initializable {
      */
     @FXML
     private void deleteData() {
-        zyklus.deleteData();
-        mensApp.showDefaultWindow();
+        this.mensApp.zyklus.deleteData();
+        this.mensApp.showDefaultWindow();
     }
 
     @FXML
@@ -228,11 +240,6 @@ public class MensController implements Initializable {
         //nextCycleStart =
     }
 
-    public static void main(String[] args) {
-        MensController m = new MensController();
-        m.cyclesDetailLength();
-
-    }
 
     //Scene/Stage Switches
     public void switchToLogin() {
@@ -327,9 +334,9 @@ public class MensController implements Initializable {
     //Datenbank Beispiel
     public void cyclesDetailLength() {
         String message = "";
-        int bleeding_days, second_interval, fertility_days, fourth_interval, cycle_length, anzahl_cycles = 0;
+        int bleeding_days, second_interval, fertility_days, fourth_interval;
         LocalDate start_date;
-        ResultSet rs = zyklus.getCyclesHitstoryIntervals();
+        ResultSet rs = mensApp.zyklus.getCyclesIntervals();
         try {
             if(!rs.next()) { // false Check! rs.next() == false
                 message += "None Found!\n\nHow to Add New Cycle:\n1. Choose Date\n2.\"Start new Cycle\"" +
@@ -341,16 +348,6 @@ public class MensController implements Initializable {
                     fertility_days = 7;
                     fourth_interval = rs.getInt("fourth_interval");
                     start_date = LocalDate.parse(rs.getString("start_cycle"));
-                    cycle_length = rs.getInt("cycle_length");
-                    anzahl_cycles++;
-                    System.out.println(bleeding_days);
-                    System.out.println(second_interval);
-                    System.out.println(fertility_days);
-                    System.out.println(fourth_interval);
-                    System.out.println(fourth_interval);
-                    System.out.println(start_date);
-                    System.out.println(cycle_length);
-                    System.out.println(anzahl_cycles);
                 } while (rs.next());
             }
         } catch (SQLException e) {

@@ -7,6 +7,7 @@ import java.time.LocalDate;
 public class Db {
     Util util;
 
+
     protected String SQL_STATS = """
             with base as (
                 select
@@ -38,9 +39,11 @@ public class Db {
     ;
 
     public Db() {
-        this.util = new Util();
     }
-
+    public boolean setUp(String password){
+        this.util = new Util();
+        return this.util.setUp(password);
+    }
 
     public int insertCycle(LocalDate date) {
         this.util.update("insert into cycle (cyc_start) values('" + date + "')");
@@ -129,6 +132,45 @@ public class Db {
                  """);
     }
 
+    public ResultSet getCountHistoryCycles() {
+        return this.util.query(this.SQL_STATS + """
+                select count(*) as counter
+                                 from(
+                             
+                             with base as (
+                                 select
+                                     cyc_id
+                                      , date(cyc_start) as start_cycle
+                                      , lag(cyc_start) over (order by date(cyc_start)) as last_cycle
+                                 from cycle
+                                 order by date(cyc_start)
+                             ), length as (
+                                 select cyc_id
+                                      , start_cycle
+                                      , last_cycle
+                                      , julianday(start_cycle) - julianday(last_cycle) as cycle_length
+                                 from base
+                                 where last_cycle is not null
+                             ), bleeding_days as (
+                                 select cyc_id, count(*) as first_interval
+                                 from c_bleeding
+                                 group by cyc_id
+                             ), interval as (
+                                 select length.cyc_id
+                                      , start_cycle
+                                      , cycle_length
+                                      , first_interval
+                                      , round(cycle_length/2 - first_interval -4) as second_interval
+                                      , cycle_length - first_interval - round(cycle_length/2 - first_interval -4) -7 as fourth_interval
+                                 from length
+                                          inner join bleeding_days
+                                                     on bleeding_days.cyc_id = length.cyc_id
+                                 group by length.cyc_id
+                             )
+                             select *
+                             from interval)
+                """);
+    }
 
     public ResultSet getAvg() {
         return this.util.query(this.SQL_STATS + """
