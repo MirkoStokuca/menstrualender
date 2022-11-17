@@ -95,11 +95,11 @@ public class MensController implements Initializable {
     private void loadStackedBarChart(){
 
         ResultSet rscounter = this.mensApp.zyklus.getCounterHistory();
-        int dbRows;
+        int dbRows = 0;
         try {
-            do {
+            while (rscounter.next()) {
                 dbRows = rscounter.getInt("counter");
-            } while (rscounter.next());
+            };
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -128,7 +128,7 @@ public class MensController implements Initializable {
         String start_date;
 
         try {
-            do {
+            while (rs.next()) {
                 bleeding_days = rs.getInt("first_interval");
                 second_interval = rs.getInt("second_interval");
                 fertility_days = 7;
@@ -140,7 +140,7 @@ public class MensController implements Initializable {
                 series2.getData().add(new XYChart.Data(second_interval,start_date));
                 series3.getData().add(new XYChart.Data(fertility_days,start_date));
                 series4.getData().add(new XYChart.Data(fourth_interval,start_date));
-            } while (rs.next());
+            };
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
