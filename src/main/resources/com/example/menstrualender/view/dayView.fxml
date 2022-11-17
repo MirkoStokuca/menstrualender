@@ -16,8 +16,6 @@
 <AnchorPane maxHeight="600.0" maxWidth="600.0" minHeight="600.0" prefHeight="600.0" prefWidth="600.0" stylesheets="@../css/generalStyleSheet.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.menstrualender.view.DailyController">
    <children>
       <Pane id="menuBar" maxHeight="60.0" minHeight="60.0" prefHeight="60.0" prefWidth="686.0" />
-      <Button id="button" fx:id="dayReturn" mnemonicParsing="false" onAction="#dailyReturn" text="Return" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="10.0" />
-      <Button id="button" layoutX="496.0" layoutY="17.0" mnemonicParsing="false" onAction="#dailySave" text="Save" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
       <VBox layoutX="56.0" layoutY="1.0" prefHeight="601.0" prefWidth="687.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <AnchorPane maxHeight="60.0" minHeight="60.0" prefHeight="60.0" prefWidth="362.0" />
@@ -85,6 +83,8 @@
             <Font size="23.0" />
          </font>
       </Label>
+      <Button id="button" fx:id="dayReturn" layoutX="539.5" layoutY="13.0" mnemonicParsing="false" onAction="#dailyReturn" text="Return" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="13.0" />
+      <Button id="button" fx:id="saveButton" layoutX="623.5" layoutY="13.0" mnemonicParsing="false" onAction="#dailySave" text="Save" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="13.0" />
       <Line endX="215.99993896484375" endY="-27.66666030883789" layoutX="470.0" layoutY="87.0" startX="-470.0" startY="-27.66666030883789" />
    </children>
 </AnchorPane>
