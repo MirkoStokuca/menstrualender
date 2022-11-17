@@ -28,7 +28,7 @@ public class DailyController implements Initializable {
     @FXML
     private TextField dailyTemperature;
     @FXML
-    private Button dayReturn;
+    private Button dayReturn, saveButton;
     @FXML
     private TextField dailyComments;
     @FXML
@@ -55,6 +55,7 @@ public class DailyController implements Initializable {
     }
 
     public void dailySave() {
+        System.out.println("Funktion: Save");
         String outflowChoice = chooseSlime.getValue();
         String moodChoice = chooseMood.getValue();
         String dailyTemp = dailyTemperature.getText();
@@ -63,7 +64,7 @@ public class DailyController implements Initializable {
 
         int outflowChoiceInt = Arrays.asList(outflow).indexOf(outflowChoice) + 1; //Trocken = 1, Pampig = 2, Durchsichtig = 3
         int moodChoiceInt = Arrays.asList(mood).indexOf(moodChoice) + 1;  //ängstlich = 1, gereizt = 2, aufgestellt = 3, niedergeschlagen = 4, motiviert = 5, lustlos = 6, hoffnungsvoll =7
-        // ToDo: dailyTemDouble, soll auch leer abgeschickt werden können. (12.11.22)
+
         DecimalFormat df = new DecimalFormat("#.00");
 
         // Todo: AddBleeding
@@ -77,7 +78,7 @@ public class DailyController implements Initializable {
         }
         if (dailyTemp != null) {
             double dailyTempDouble = Double.parseDouble(dailyTemp);
-            this.mensApp.zyklus.addTemp(Double.parseDouble(df.format(dailyTempDouble)));
+            this.mensApp.zyklus.addTemp(String.valueOf(dailyTempDouble));
         }
         if(commentsDaily != null) {
             this.mensApp.zyklus.addComments(commentsDaily);
