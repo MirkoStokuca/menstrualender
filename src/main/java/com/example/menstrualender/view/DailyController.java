@@ -80,11 +80,11 @@ public class DailyController implements Initializable {
         if(moodChoiceInt != 0) {
             this.mensApp.zyklus.addMood(moodChoiceInt);
         }
-        if (dailyTemp != "") {
+        if (!dailyTemp.equals("")) {
             double dailyTempDouble = Double.parseDouble(dailyTemp);
             this.mensApp.zyklus.addTemp(String.valueOf(dailyTempDouble));
         }
-        if(commentsDaily != "") {
+        if(!commentsDaily.equals("")) {
             this.mensApp.zyklus.addComments(commentsDaily);
         }
        //ToDo @Julia @Mirko

@@ -1,7 +1,5 @@
 package com.example.menstrualender.view;
-
 import com.example.menstrualender.model.Db;
-
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
@@ -99,16 +97,15 @@ public class MensController implements Initializable {
     private void loadStackedBarChart() {
 
         ResultSet rscounter = this.mensApp.zyklus.getCounterHistory();
-        int dbRows;
+        int dbRows = 0;
         try {
-            do {
+            while (rscounter.next()) {
                 dbRows = rscounter.getInt("counter");
-            } while (rscounter.next());
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         System.out.println(dbRows);
-
 
         //create Series Instances
         XYChart.Series series1 = new XYChart.Series();
@@ -131,7 +128,7 @@ public class MensController implements Initializable {
         String start_date;
 
         try {
-            do {
+            while (rs.next()) {
                 bleeding_days = rs.getInt("first_interval");
                 second_interval = rs.getInt("second_interval");
                 fertility_days = 7;
@@ -139,11 +136,12 @@ public class MensController implements Initializable {
                 start_date = rs.getString("start_cycle");
 
                 //add db datd to series
-                series1.getData().add(new XYChart.Data(bleeding_days, start_date));
-                series2.getData().add(new XYChart.Data(second_interval, start_date));
-                series3.getData().add(new XYChart.Data(fertility_days, start_date));
-                series4.getData().add(new XYChart.Data(fourth_interval, start_date));
-            } while (rs.next());
+                series1.getData().add(new XYChart.Data(bleeding_days,start_date));
+                series2.getData().add(new XYChart.Data(second_interval,start_date));
+                series3.getData().add(new XYChart.Data(fertility_days,start_date));
+                series4.getData().add(new XYChart.Data(fourth_interval,start_date));
+            }
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -161,8 +159,9 @@ public class MensController implements Initializable {
         final NumberAxis yAxis = new NumberAxis();
         xAxis.setLabel("Number of Month");
         //creating the chart
-        final LineChart<Number, Number> lineChart =
-                new LineChart<Number, Number>(xAxis, yAxis);
+
+        final LineChart<Number,Number> lineChart =
+                new LineChart<>(xAxis, yAxis);
 
         lineChart.setTitle("Stock Monitoring, 2010");
         //defining a series
@@ -179,14 +178,8 @@ public class MensController implements Initializable {
     /**
      * Init pie chart
      */
+
     private void initPieChart() {
-        /**
-         * @Mirko, aktuelles Datum könntest du bitte heraussuchen, ja?
-         *
-         * jetzt ist alles Grau well die Variabeln nicht gebracuht werden.
-         * du musst nicht alle Variabeln brauchen, sie es eher als Variabeln Buffet :)
-         */
-        //gets pregannt mode for color scheme
         // prediction:
         int preSecond_interval = 0;
         int preFertility_days = 0;
@@ -211,10 +204,8 @@ public class MensController implements Initializable {
                     preFourth_interval = rs.getInt("fourth_interval");
                     start_date = LocalDate.parse(rs.getString("start_cycle"));
 
-                    /**
-                     * Todo: @julia; end_cycle is null
-                     */
-                    //nextCycleStart = LocalDate.parse(rs.getString("end_cycle"));
+
+                    nextCycleStart = LocalDate.parse(rs.getString("end_cycle"));
                 } while (rs.next());
             }
         } catch (SQLException e) {
@@ -296,6 +287,24 @@ public class MensController implements Initializable {
         nextCycleStart.setText(startNextCycle);
     }
 
+    // Todo: @ Mirko hier die Daten für die Grafik!
+    //   zeigt die Tempdaten aus dem Aktuellen laufenden Zyklus an.
+    public void showCurrentTemperaturCycle() {
+        String oneTemperatur;
+        ResultSet rs = mensApp.zyklus.getTemperatur();
+        try {
+            if (!rs.next()) {
+                System.out.println("keine Temperatur eingaben");
+            } else {
+                do {
+                    oneTemperatur = rs.getString("temperatur_value");
+                } while (rs.next());
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     //Scene/Stage Switches
     public void switchToLogin() {
@@ -373,7 +382,6 @@ public class MensController implements Initializable {
         FadeTransition fade = new FadeTransition(Duration.seconds(2), node);
         fade.setFromValue(100);
         fade.setToValue(0);
-
         return fade;
     }
 
@@ -384,6 +392,7 @@ public class MensController implements Initializable {
      * @param color
      */
     private void showButton(String labelText, Color color) {
+
         buttonConf.setTextFill(color);
         buttonConf.setText(labelText);
         FadeTransition fader = createFader(buttonConf);
