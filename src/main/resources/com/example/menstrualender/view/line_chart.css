@@ -1,0 +1,17 @@
+.default-color0. {
+    -fx-bar-fill: #ffa3ec;
+}
+.chart {
+    -fx-create-symbols: false;
+}
+
+.chart-plot-background {
+    -fx-background-color: transparent;
+}
+
+.axis {
+    -fx-border-color: transparent;
+    -fx-tick-mark-visible: false;
+    -fx-minor-tick-visible: false;
+    -fx-tick-labels-visible: false;
+}

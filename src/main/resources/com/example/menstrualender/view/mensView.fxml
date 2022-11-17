@@ -132,9 +132,9 @@
                         </AnchorPane>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <LineChart fx:id="tempGraph" alternativeColumnFillVisible="true" layoutX="-47.0" layoutY="-85.0" prefHeight="315.3333333333333" prefWidth="900.0" title="Temperature" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <LineChart fx:id="lineChart" alternativeColumnFillVisible="false" horizontalGridLinesVisible="false" horizontalZeroLineVisible="false" verticalGridLinesVisible="false" verticalZeroLineVisible="false" layoutX="-47.0" layoutY="-85.0" prefHeight="315.3333333333333" prefWidth="900.0" title="Temperature" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <xAxis>
-                                  <CategoryAxis side="BOTTOM" />
+                                  <NumberAxis side="BOTTOM" />
                                 </xAxis>
                                 <yAxis>
                                   <NumberAxis side="LEFT" />
@@ -144,12 +144,12 @@
                         </AnchorPane>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <StackedBarChart fx:id="stackedBarChart" alternativeRowFillVisible="false" categoryGap="5.0" horizontalGridLinesVisible="false" horizontalZeroLineVisible="false" layoutY="-48.0" legendVisible="false" prefHeight="242.0" prefWidth="800.0" verticalGridLinesVisible="false" verticalZeroLineVisible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-48.0">
+                              <StackedBarChart fx:id="stackedBarChart" categoryGap="5.0" layoutY="-48.0" prefHeight="242.0" prefWidth="800.0" title="Past Cycles Overview" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-48.0">
                                  <xAxis>
-                                    <NumberAxis autoRanging="false" minorTickVisible="false" side="TOP" tickLabelsVisible="false" tickLength="10.0" tickMarkVisible="false" tickUnit="10.0" upperBound="31.0" />
+                                    <NumberAxis autoRanging="false" upperBound="31.0" />
                                  </xAxis>
                                  <yAxis>
-                                    <CategoryAxis side="LEFT" tickLabelGap="5.0" tickLabelsVisible="false" tickMarkVisible="false" />
+                                    <CategoryAxis/>
                                  </yAxis>
                               </StackedBarChart>
                            </children>

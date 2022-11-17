@@ -11,6 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.chart.*;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -35,13 +36,14 @@ public class MensController implements Initializable {
     @FXML
     private PieChart cycleGraph;
     @FXML
-    private LineChart tempGraph;
+    private LineChart lineChart;
     @FXML
     private StackedBarChart generalGraph;
     @FXML
     private DatePicker datePicker;
     @FXML
     private StackedBarChart stackedBarChart;
+
 
     @FXML
     private MensApplication mensApp;
@@ -67,8 +69,8 @@ public class MensController implements Initializable {
         sliderSlide();
         initPieChart();
         initStackedBarChart();
+        initLineChart();
     }
-
 
     //Init and Charts
 
@@ -109,9 +111,13 @@ public class MensController implements Initializable {
 
         //create Series Instances
         XYChart.Series series1 = new XYChart.Series();
+        series1.setName("Blood");
         XYChart.Series series2 = new XYChart.Series();
+        series2.setName("Pre-Fertile");
         XYChart.Series series3 = new XYChart.Series();
+        series3.setName("Fertile");
         XYChart.Series series4 = new XYChart.Series();
+        series4.setName("Post-Fertile");
 
         //fill series with placeholder values
         for (int i = 11; i > dbRows; i--) {
@@ -154,19 +160,41 @@ public class MensController implements Initializable {
      */
     private void initLineChart() {
 
-        final NumberAxis xAxis = new NumberAxis();
+        lineChart.getStylesheets().add(getClass().getResource("line_chart.css").toExternalForm());
+
+        //defining a series
+        XYChart.Series series = new XYChart.Series();
+
+        //populating the series with data
+        series.getData().add(new XYChart.Data(1, 34));
+        series.getData().add(new XYChart.Data(2, 37));
+        series.getData().add(new XYChart.Data(3, 35));
+        series.getData().add(new XYChart.Data(4, 33));
+        series.getData().add(new XYChart.Data(5, 34));
+        series.getData().add(new XYChart.Data(6, 36));
+        series.getData().add(new XYChart.Data(7, 39));
+        series.getData().add(new XYChart.Data(8, 34));
+        series.getData().add(new XYChart.Data(9, 34));
+        series.getData().add(new XYChart.Data(10, 34));
+        series.getData().add(new XYChart.Data(11, 33));
+        series.getData().add(new XYChart.Data(12, 37));
+
+
+        lineChart.getData().add(series);
+
+/*        final NumberAxis xAxis = new NumberAxis();
         final NumberAxis yAxis = new NumberAxis();
         xAxis.setLabel("Number of Month");
         //creating the chart
         final LineChart<Number, Number> lineChart =
-                new LineChart<Number, Number>(xAxis, yAxis);
+                new LineChart<>(xAxis, yAxis);
 
         lineChart.setTitle("Stock Monitoring, 2010");
         //defining a series
         XYChart.Series series = new XYChart.Series();
         //DBHandler dbHandler = new DBHandler();
 
-        /*List<List<Integer>> dataHolder = dbHandler.getDataHolder();
+        *//*List<List<Integer>> dataHolder = dbHandler.getDataHolder();
         for(int i = 0; i < dataHolder.size(); i++)
         {
             series.getData().add(new XYChart.Data(dataHolder.get(i).get(0), dataHolder.get(i).get(1)));
