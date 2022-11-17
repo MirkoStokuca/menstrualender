@@ -117,6 +117,12 @@ public class Db {
 
     public void deleteCycle() {
         this.util.update("delete from cycle");
+        this.util.update("delete from c_bleeding");
+        this.util.update("delete from c_comment");
+        this.util.update("delete from c_mood");
+        this.util.update("delete from c_outflow");
+        this.util.update("delete from c_ovulation");
+        this.util.update("delete from c_temperature");
     }
 
     public ResultSet getCycles() {

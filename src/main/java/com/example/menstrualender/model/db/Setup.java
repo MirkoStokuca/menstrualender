@@ -67,7 +67,7 @@ public class Setup {
             CREATE TABLE "c_ovulation" (
             "ovu_id" INTEGER NOT NULL,
             "cyc_id" INTEGER NOT NULL,
-            "vulation" INTEGER,
+            "ovulation_date" TEXT,
             PRIMARY KEY ("ovu_id" AUTOINCREMENT)
             );"""
         );
