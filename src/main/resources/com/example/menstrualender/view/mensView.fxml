@@ -32,18 +32,6 @@
                         <Line endX="999.9999389648438" layoutY="45.0" opacity="0.75" startX="-6.781684078305261E-6" strokeWidth="1.5" />
                         <Line endX="212.0" endY="644.1111450195312" layoutX="10.0" layoutY="55.0" opacity="0.75" startX="212.0" startY="-9.666671752929688" strokeWidth="1.5" />
                      </children></Pane>
-                  <Label id="Menu" fx:id="MenuBack" text="MENU" textFill="#00000080" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="5.0">
-                     <font>
-                        <Font name="System Bold" size="23.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/1024px-Hamburger_icon_white.svg.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Label>
                   <Label id="Menu" fx:id="Menu" layoutX="14.0" layoutY="44.0" text="MENU" textFill="#0000007f" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="5.0">
                      <graphic>
                         <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
@@ -55,6 +43,18 @@
                      <font>
                         <Font size="14.0" />
                      </font>
+                  </Label>
+                  <Label id="Menu" fx:id="MenuBack" text="MENU" textFill="#00000080" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="5.0">
+                     <font>
+                        <Font name="System Bold" size="23.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/1024px-Hamburger_icon_white.svg.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
                   </Label>
                </children>
             </AnchorPane>

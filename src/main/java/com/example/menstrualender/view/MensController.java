@@ -337,7 +337,6 @@ public class MensController implements Initializable {
     //Animations
 
     private void sliderSlide() {
-        slider.setTranslateX(-300);
         Menu.setOnMouseClicked(event -> {
             TranslateTransition slide = new TranslateTransition();
             slide.setDuration(Duration.seconds(0.4));
