@@ -166,15 +166,19 @@ public class MensController implements Initializable {
         //defining a series
         XYChart.Series series = new XYChart.Series();
 
-        ResultSet temperature = this.mensApp.zyklus.getTemperature();
         int index = 0;
+        String oneTemperatur;
+        ResultSet rs = mensApp.zyklus.getTemperatur();
         try {
-            do {
-                int tempTemperature = temperature.getInt("temperature");
-                series.getData().add(new XYChart.Data(index, tempTemperature));
-                temperature.getInt("temperature");
-                index++;
-            } while (temperature.next());
+            if (!rs.next()) {
+                System.out.println("keine Temperatur eingaben");
+            } else {
+                do {
+                    oneTemperatur = rs.getString("temperatur_value");
+                    series.getData().add(new XYChart.Data(index, Integer.parseInt(oneTemperatur)));
+                    index++;
+                } while (rs.next());
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -329,8 +333,6 @@ public class MensController implements Initializable {
             throw new RuntimeException(e);
         }
     }
-
-
     //Scene/Stage Switches
     public void switchToLogin() {
         mensApp.loginWindow();
