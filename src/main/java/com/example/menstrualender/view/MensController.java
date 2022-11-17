@@ -365,7 +365,7 @@ public class MensController implements Initializable {
             String message = "";
             int bleeding_days, second_interval, fertility_days, fourth_interval;
             LocalDate start_date;
-            ResultSet rs = mensApp.zyklus.getCyclesIntervals();
+            ResultSet rs = mensApp.zyklus.getCyclesHitstoryIntervals();
             try {
                 if (!rs.next()) { // false Check! rs.next() == false
                     message += "None Found!\n\nHow to Add New Cycle:\n1. Choose Date\n2.\"Start new Cycle\"" +

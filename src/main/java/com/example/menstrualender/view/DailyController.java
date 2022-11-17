@@ -93,7 +93,6 @@ public class DailyController implements Initializable {
 
         System.out.println(outflowChoiceInt);
         System.out.println(moodChoiceInt);
-        System.out.println("Ausgabe Temperatur: " + df.format(dailyTempDouble));
         System.out.println("Ausgabe Temperatur, unverändert: " + dailyTemp);
         System.out.println(commentsDaily);
         System.out.println(dailyDate);
