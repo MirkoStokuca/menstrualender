@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
@@ -14,54 +15,67 @@
 
 <AnchorPane maxHeight="600.0" maxWidth="600.0" minHeight="600.0" prefHeight="600.0" prefWidth="600.0" stylesheets="@../css/generalStyleSheet.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.menstrualender.view.DailyController">
    <children>
-      <Pane id="menuBar" prefHeight="59.0" prefWidth="686.0" />
+      <Pane id="menuBar" maxHeight="60.0" minHeight="60.0" prefHeight="60.0" prefWidth="686.0" />
       <Button id="button" fx:id="dayReturn" mnemonicParsing="false" onAction="#dailyReturn" text="Return" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="10.0" />
       <Button id="button" layoutX="496.0" layoutY="17.0" mnemonicParsing="false" onAction="#dailySave" text="Save" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
-      <TextField id="dailyFields" fx:id="dailyComments" layoutX="391.0" layoutY="436.0" prefHeight="150.0" prefWidth="300.0" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" />
-      <Label layoutX="366.0" layoutY="398.0" text="Comments" AnchorPane.leftAnchor="366.0" AnchorPane.topAnchor="398.0">
-         <padding>
-            <Insets bottom="3.0" />
-         </padding></Label>
-      <VBox layoutX="56.0" layoutY="24.0" prefHeight="577.0" prefWidth="387.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="24.0">
+      <VBox layoutX="56.0" layoutY="1.0" prefHeight="601.0" prefWidth="687.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <AnchorPane maxHeight="150.0" minHeight="115.0" prefHeight="150.0" prefWidth="387.0">
+            <AnchorPane maxHeight="60.0" minHeight="60.0" prefHeight="60.0" prefWidth="362.0" />
+            <AnchorPane maxHeight="168.0" minHeight="135.0" prefHeight="135.0" prefWidth="354.0">
                <children>
-                  <Label layoutX="40.0" layoutY="68.0" text="Set todays date" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="68.0">
+                  <Label layoutX="20.0" layoutY="58.0" text="Set todays date" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="58.0">
                      <padding>
                         <Insets bottom="3.0" />
                      </padding>
                   </Label>
-                  <DatePicker id="dailyFields" fx:id="dailyDatePicker" layoutX="40.0" layoutY="100.0" prefHeight="36.0" prefWidth="125.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="100.0" />
+                  <DatePicker id="dailyFields" fx:id="dailyDatePicker" layoutX="20.0" layoutY="50.0" prefHeight="39.0" prefWidth="160.0" AnchorPane.bottomAnchor="26.000000000000007" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="507.0" AnchorPane.topAnchor="90.0" />
+                  <JFXToggleButton id="dailyFields" fx:id="eisprung" layoutX="535.0" layoutY="45.0" prefHeight="22.0" prefWidth="147.0" text="Ovulation" AnchorPane.bottomAnchor="26.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="90.0" />
                </children>
+               <padding>
+                  <Insets top="-20.0" />
+               </padding>
             </AnchorPane>
-            <AnchorPane maxHeight="150.0" minHeight="150.0" prefHeight="150.0">
+            <AnchorPane maxHeight="150.0" minHeight="135.0" prefHeight="150.0">
                <children>
-                  <ChoiceBox id="dailyFields" fx:id="chooseSlime" layoutX="39.0" layoutY="96.0" prefHeight="40.0" prefWidth="125.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="200.0" />
-                  <Label layoutX="40.0" layoutY="64.0" text="Choose Slime (Schleimig = 1 / Flüssig = 6)" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="64.0">
+                  <ChoiceBox id="dailyFields" fx:id="chooseSlime" layoutX="20.0" layoutY="50.0" prefHeight="43.0" prefWidth="160.0" AnchorPane.bottomAnchor="22.000000000000007" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="507.0" AnchorPane.topAnchor="90.0" />
+                  <Label layoutX="20.0" layoutY="59.0" text="Choose consistency of vaginal discharge " AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="59.0">
                      <padding>
                         <Insets bottom="3.0" />
                      </padding>
                   </Label>
+                  <JFXToggleButton id="dailyFields" fx:id="bleeding" layoutX="391.0" layoutY="71.0" prefHeight="39.0" prefWidth="190.0" text="Period bleeding" AnchorPane.bottomAnchor="22.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="90.0" />
                </children>
+               <padding>
+                  <Insets top="-20.0" />
+               </padding>
             </AnchorPane>
-            <AnchorPane maxHeight="150.0" minHeight="150.0" prefHeight="150.0">
+            <AnchorPane maxHeight="150.0" minHeight="135.0" prefHeight="150.0">
                <children>
-                  <Label layoutX="40.0" layoutY="64.0" text="Choose Mood" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="64.0">
+                  <Label layoutX="20.0" layoutY="59.0" text="Choose your current mood" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="60.0">
                      <padding>
                         <Insets bottom="3.0" />
                      </padding>
                   </Label>
-                  <ChoiceBox id="dailyFields" fx:id="chooseMood" layoutX="36.0" layoutY="96.0" prefHeight="40.0" prefWidth="119.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="96.0" />
+                  <ChoiceBox id="dailyFields" fx:id="chooseMood" layoutX="36.0" layoutY="50.0" prefHeight="43.0" prefWidth="160.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="507.0" AnchorPane.topAnchor="90.0" />
+                  <Label layoutX="364.0" layoutY="23.0" text="Comments" AnchorPane.leftAnchor="364.0" AnchorPane.topAnchor="60.0">
+                     <padding>
+                        <Insets bottom="3.0" />
+                     </padding>
+                  </Label>
+                  <TextField id="dailyFields" fx:id="dailyComments" alignment="TOP_LEFT" layoutX="364.0" layoutY="68.0" prefHeight="182.0" prefWidth="300.0" AnchorPane.bottomAnchor="-115.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="90.0" />
                </children>
+               <padding>
+                  <Insets top="-20.0" />
+               </padding>
             </AnchorPane>
-            <AnchorPane maxHeight="150.0" minHeight="150.0" prefHeight="150.0">
+            <AnchorPane maxHeight="150.0" minHeight="135.0" prefHeight="150.0">
                <children>
-                  <Label layoutX="40.0" layoutY="64.0" text="Set Temperature (Use ##.##)" AnchorPane.leftAnchor="40.0">
+                  <Label layoutX="20.0" layoutY="59.0" text="Set your vaignal temperature" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="20.0">
                      <padding>
                         <Insets bottom="3.0" />
                      </padding>
                   </Label>
-                  <TextField id="dailyFields" fx:id="dailyTemperature" layoutX="36.0" layoutY="96.0" prefHeight="40.0" prefWidth="111.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="96.0" />
+                  <TextField id="dailyFields" fx:id="dailyTemperature" layoutX="36.0" layoutY="96.0" prefHeight="40.0" prefWidth="160.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="507.0" />
                </children>
             </AnchorPane>
          </children>

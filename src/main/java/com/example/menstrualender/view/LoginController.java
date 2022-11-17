@@ -7,7 +7,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.paint.Color;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -48,8 +47,6 @@ public class LoginController implements Initializable {
                 plsSetPw.setText("Wrong Password");
                 plsSetPw.setTextFill(Color.RED);
             }
-
-
     }
 
     public void displayLogin() {

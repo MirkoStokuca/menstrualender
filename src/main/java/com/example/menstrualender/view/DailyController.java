@@ -1,9 +1,6 @@
 package com.example.menstrualender.view;
 
 import com.example.menstrualender.MensApplication;
-import com.example.menstrualender.model.Cycles;
-import com.example.menstrualender.model.Db;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -32,12 +29,12 @@ public class DailyController implements Initializable {
     @FXML
     private TextField dailyComments;
     @FXML
-    Db db = new Db();
-    @FXML
-    Cycles zyklus = new Cycles(db);
+    private ToggleButton bleeding;
+    @FXML ToggleButton eisprung;
 
     private String[] outflow = {"Trocken","Pampig","Durchsichtig"};
-    private String[] mood = {"ängstlich","provozierend","aufgestellt","niedergeschlagen","motiviert","lustlos"};
+    private String[] mood = {"ängstlich","gereizt","aufgestellt","niedergeschlagen","motiviert","lustlos","hoffnungsvoll"};
+
     public void setMainApp(MensApplication mensApp) {
         this.mensApp = mensApp;
     }
@@ -61,41 +58,39 @@ public class DailyController implements Initializable {
         LocalDate dailyDate = dailyDatePicker.getValue(); // für was ist das?
         String commentsDaily = dailyComments.getText();
 
-        int outflowChoiceInt = Arrays.asList(outflow).indexOf(outflowChoice)+1; //Trocken = 1, Pampig = 2, Durchsichtig = 3
-        int moodChoiceInt = Arrays.asList(mood).indexOf(moodChoice)+1;  //ängstlich = 1, provozierend = 2, aufgestellt = 3, niedergeschlagen = 4, motiviert = 5, lustlos = 6
+        int outflowChoiceInt = Arrays.asList(outflow).indexOf(outflowChoice) + 1; //Trocken = 1, Pampig = 2, Durchsichtig = 3
+        int moodChoiceInt = Arrays.asList(mood).indexOf(moodChoice) + 1;  //ängstlich = 1, gereizt = 2, aufgestellt = 3, niedergeschlagen = 4, motiviert = 5, lustlos = 6, hoffnungsvoll =7
         // ToDo: dailyTemDouble, soll auch leer abgeschickt werden können. (12.11.22)
         DecimalFormat df = new DecimalFormat("#.00");
 
-        // Todo: AddBleeding
-        // Todo: AddOvulation (Eisprung) Datum
 
-        if(outflowChoiceInt != 0) {
-            zyklus.addOutflow(outflowChoiceInt);
+        if (outflowChoiceInt != 0) {
+            mensApp.zyklus.addOutflow(outflowChoiceInt);
         }
-        if(moodChoiceInt != 0) {
-            zyklus.addMood(moodChoiceInt);
+        if (moodChoiceInt != 0) {
+            mensApp.zyklus.addMood(moodChoiceInt);
         }
-        if(dailyTemp != null) {
+        if (dailyTemp != null) {
             double dailyTempDouble = Double.parseDouble(dailyTemp);
-            zyklus.addTemp(Double.parseDouble(df.format(dailyTempDouble)));
+            mensApp.zyklus.addTemp(Double.parseDouble(df.format(dailyTempDouble)));
         }
-        if(commentsDaily != null) {
-            zyklus.addComments(commentsDaily);
+        if (commentsDaily != null) {
+            mensApp.zyklus.addComments(commentsDaily);
         }
-        if(moodChoiceInt != 0) {
-            zyklus.addDate(dailyDate);
+        if (moodChoiceInt != 0) {
+            mensApp.zyklus.addDate(dailyDate);
         }
-        /*
-        if(XXXX != 0) {
-            //zyklus.addBleeding();
+        if (bleeding.isSelected()){
+            mensApp.zyklus.addBleeding(1);
         }
-        if(XXXX != 0) {
-            //zyklus.addOvulation();
-        }*/
+        if (eisprung.isSelected()){
+            mensApp.zyklus.addOvulation(dailyDatePicker.getValue());
+        }
 
     }
 
-    public void dailyReturn(ActionEvent actionEvent) {
+
+    public void dailyReturn() {
         Stage dayStage = (Stage) dayReturn.getScene().getWindow();
         dayStage.close();
     }

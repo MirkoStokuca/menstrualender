@@ -47,25 +47,15 @@ public class MensController implements Initializable {
     private DatePicker datePicker;
     @FXML
     private StackedBarChart stackedBarChart;
-
     @FXML
-
     private MensApplication mensApp;
-
-    Db db = new Db();
-    private AnchorPane resize;
-
     @FXML
     private Label Menu;
-
     @FXML
     private Label MenuBack;
-
     @FXML
     private AnchorPane slider;
 
-    @FXML
-    private MensApplication mensApp;
 
 
     /**
@@ -76,6 +66,10 @@ public class MensController implements Initializable {
 
     public void setMainApp(MensApplication mensApp) {
         this.mensApp = mensApp;
+        initStackedBarChart();
+        loadStackedBarChart();
+        initPieChart();
+        sliderSlide();
     }
 
 
@@ -87,31 +81,25 @@ public class MensController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb){
         //Init pie chart
-        initPieChart();
 
-        //Init stacked bar chart
-        initStackedBarChart();
-        loadStackedBarChart();
-        sliderSlide();
 
     }
 
     /**
      * Init stacked bar chart with empty data
      */
-    private void initStackedBarChart(){
+    public void initStackedBarChart(){
         stackedBarChart.getXAxis().setOpacity(0); //hide x axis
         stackedBarChart.getYAxis().setOpacity(0); //hide y axis
-
         stackedBarChart.getStylesheets().add(getClass().getResource("stacked_bar_chart.css").toExternalForm());
     }
 
     /**
      * Load stored data in db into stacked bar chart
      */
-    private void loadStackedBarChart(){
+    public void loadStackedBarChart(){
 
-        ResultSet rscounter = zyklus.getCounterHistory();
+        ResultSet rscounter = mensApp.zyklus.getCounterHistory();
         int dbRows;
         try {
             do {
@@ -121,8 +109,6 @@ public class MensController implements Initializable {
             throw new RuntimeException(e);
         }
         System.out.println(dbRows);
-
-
 
         //create Series Instances
         XYChart.Series series1= new XYChart.Series();
@@ -140,7 +126,7 @@ public class MensController implements Initializable {
             series4.getData().add(new XYChart.Data(0, placeholder));
         }
 
-        ResultSet rs = zyklus.getCyclesIntervals();
+        ResultSet rs = mensApp.zyklus.getCyclesIntervals();
         int bleeding_days, second_interval, fertility_days, fourth_interval;
         String start_date;
 
@@ -230,7 +216,6 @@ public class MensController implements Initializable {
      * Changes Label averageInterval in hello-view to averageInterval from Cycles
      * returns Int averageInterval
      */
-
     public void showAverageInterval() {
         //@JULIA hier bitte richtig (parsen?) wert muss averageInterval übergeben werden
         //averageInterval = zyklus.getAverageLength();
@@ -252,110 +237,107 @@ public class MensController implements Initializable {
         mensApp.loginWindow();
     }
 
-    public void switchToDaily(){
-        mensApp.showDailyWindow();
-
-    // Action events
-    /**
-     * Takes the input from the datePicker and saves it in cycle
-     */
-    @FXML
-    public void setDate() {
-        try {
-            LocalDate myDate = datePicker.getValue();
-            myDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-            //@JULIA Hier myDate (gewähltes Datum) an DB weitergeben
-            showButton("Cycle added", Color.GREEN);
-        } catch (NullPointerException e) {
-            showButton("Pick a Date", Color.RED);
-        }
-    }
-
-    //Animations
-
-    private void sliderSlide(){
-        slider.setTranslateX(-300);
-        Menu.setOnMouseClicked(event -> {
-            TranslateTransition slide = new TranslateTransition();
-            slide.setDuration(Duration.seconds(0.4));
-            slide.setNode(slider);
-
-            slide.setToX(0);
-            slide.play();
-
-            slider.setTranslateX(-300);
-
-            slide.setOnFinished((ActionEvent e)-> {
-                Menu.setVisible(false);
-                MenuBack.setVisible(true);
-            });
-        });
-
-        MenuBack.setOnMouseClicked(event -> {
-            TranslateTransition slide = new TranslateTransition();
-            slide.setDuration(Duration.seconds(0.4));
-            slide.setNode(slider);
-
-            slide.setToX(-300);
-            slide.play();
-
-            slider.setTranslateX(0);
-
-            slide.setOnFinished((ActionEvent e)-> {
-                Menu.setVisible(true);
-                MenuBack.setVisible(false);
-
-            });
-        });
-    }
-
-    /**
-     * sets fade Parameter
-     * @param node
-     * @return fade
-     */
-    private FadeTransition createFader(Node node) {
-        FadeTransition fade = new FadeTransition(Duration.seconds(2), node);
-        fade.setFromValue(100);
-        fade.setToValue(0);
-
-        return fade;
-    }
-
-    /**
-     * Makes Text appear and Disappear. Takes label String and color (true = red, false = green)
-     * @param labelText is the output text
-     * @param color
-     */
-    private void showButton(String labelText, Color color) {
-        buttonConf.setTextFill(color);
-        buttonConf.setText(labelText);
-        FadeTransition fader = createFader(buttonConf);
-        fader.play();
-    }
-
-
-    //Datenbank Beispiel
-    public void cyclesDetailLength() {
-        String message = "";
-        int bleeding_days, second_interval, fertility_days, fourth_interval;
-        LocalDate start_date;
-        ResultSet rs = mensApp.zyklus.getCyclesIntervals();
-        try {
-            if(!rs.next()) { // false Check! rs.next() == false
-                message += "None Found!\n\nHow to Add New Cycle:\n1. Choose Date\n2.\"Start new Cycle\"" +
-                        "\n\nAdd at least two dates\nto calulate the start\nof the next cycle.";
-            } else {
-                do {
-                    bleeding_days = rs.getInt("first_interval");
-                    second_interval = rs.getInt("second_interval");
-                    fertility_days = 7;
-                    fourth_interval = rs.getInt("fourt_interval");
-                    start_date = LocalDate.parse(rs.getString("start_cycle"));
-                } while (rs.next());
+    public void switchToDaily() {
+        mensApp.showDailyWindow();}
+        // Action events
+        /**
+         * Takes the input from the datePicker and saves it in cycle
+         */
+        @FXML
+        public void setDate () {
+            try {
+                LocalDate myDate = datePicker.getValue();
+                myDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+                //@JULIA Hier myDate (gewähltes Datum) an DB weitergeben
+                showButton("Cycle added", Color.GREEN);
+            } catch (NullPointerException e) {
+                showButton("Pick a Date", Color.RED);
             }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        }
+
+        //Animations
+
+        private void sliderSlide () {
+            slider.setTranslateX(-300);
+            Menu.setOnMouseClicked(event -> {
+                TranslateTransition slide = new TranslateTransition();
+                slide.setDuration(Duration.seconds(0.4));
+                slide.setNode(slider);
+
+                slide.setToX(0);
+                slide.play();
+
+                slider.setTranslateX(-300);
+
+                slide.setOnFinished((ActionEvent e) -> {
+                    Menu.setVisible(false);
+                    MenuBack.setVisible(true);
+                });
+            });
+
+            MenuBack.setOnMouseClicked(event -> {
+                TranslateTransition slide = new TranslateTransition();
+                slide.setDuration(Duration.seconds(0.4));
+                slide.setNode(slider);
+                slide.setToX(-300);
+                slide.play();
+
+                slider.setTranslateX(0);
+
+                slide.setOnFinished((ActionEvent e) -> {
+                    Menu.setVisible(true);
+                    MenuBack.setVisible(false);
+                });
+            });
+        }
+
+        /**
+         * sets fade Parameter
+         * @param node
+         * @return fade
+         */
+        private FadeTransition createFader (Node node){
+            FadeTransition fade = new FadeTransition(Duration.seconds(2), node);
+            fade.setFromValue(100);
+            fade.setToValue(0);
+
+            return fade;
+        }
+
+        /**
+         * Makes Text appear and Disappear. Takes label String and color (true = red, false = green)
+         * @param labelText is the output text
+         * @param color
+         */
+        private void showButton (String labelText, Color color){
+            buttonConf.setTextFill(color);
+            buttonConf.setText(labelText);
+            FadeTransition fader = createFader(buttonConf);
+            fader.play();
+        }
+
+
+        //Datenbank Beispiel
+        public void cyclesDetailLength () {
+            String message = "";
+            int bleeding_days, second_interval, fertility_days, fourth_interval;
+            LocalDate start_date;
+            ResultSet rs = mensApp.zyklus.getCyclesIntervals();
+            try {
+                if (!rs.next()) { // false Check! rs.next() == false
+                    message += "None Found!\n\nHow to Add New Cycle:\n1. Choose Date\n2.\"Start new Cycle\"" +
+                            "\n\nAdd at least two dates\nto calulate the start\nof the next cycle.";
+                } else {
+                    do {
+                        bleeding_days = rs.getInt("first_interval");
+                        second_interval = rs.getInt("second_interval");
+                        fertility_days = 7;
+                        fourth_interval = rs.getInt("fourt_interval");
+                        start_date = LocalDate.parse(rs.getString("start_cycle"));
+                    } while (rs.next());
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
-}

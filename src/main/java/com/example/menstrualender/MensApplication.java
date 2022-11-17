@@ -84,8 +84,8 @@ public class MensApplication extends Application {
 
             MensController controller = loader.getController();
             controller.setMainApp(this);
-
             controller.upDateInfos();
+
 
 
         } catch (IOException e) {
