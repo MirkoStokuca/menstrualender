@@ -39,14 +39,14 @@ public class LoginController implements Initializable {
         if (password == "") {
             password = null;
         }
-            if (this.mensApp.db.setUp(password)) {
-                plsSetPw.setText("Login succesfull!");
-                plsSetPw.setTextFill(Color.GREEN);
-                this.mensApp.showDefaultWindow();
-            } else {
-                plsSetPw.setText("Wrong Password");
-                plsSetPw.setTextFill(Color.RED);
-            }
+        if (this.mensApp.db.setUp(password)) {
+            plsSetPw.setText("Login succesfull!");
+            plsSetPw.setTextFill(Color.GREEN);
+            this.mensApp.showDefaultWindow();
+        } else {
+            plsSetPw.setText("Wrong Password");
+            plsSetPw.setTextFill(Color.RED);
+        }
     }
 
     public void displayLogin() {

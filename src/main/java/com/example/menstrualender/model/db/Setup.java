@@ -18,7 +18,6 @@ public class Setup {
             );"""
         );
         // Temperature Table erstellen, abhängig von Cycle (cyc_id)
-        // toDo: temperatur = double...
         this.util.update("""
             CREATE TABLE "c_temperature" (
             "t_id" INTEGER NOT NULL,
@@ -72,5 +71,31 @@ public class Setup {
             PRIMARY KEY ("ovu_id" AUTOINCREMENT)
             );"""
         );
+    }
+    // insert Data to:
+    // - Cycle
+    // - Bleeding
+    // - Temperature
+    public void insertData() {
+        int month, id = 1;
+        for (month = 1 ; month < 10 ; month++ ){
+            this.util.update("""
+                insert into cycle (cyc_start)
+                values ('2022-0"""+ month + "-01')"
+            );
+            for (int i = 0 ; i < 25 ; i++ ) {
+                this.util.update("""
+                    insert into c_temperature (cyc_id, temperature_value)
+                    values (""" + id + ", '37.56')"
+                );
+            }
+            for (int c = 0 ; c < 5; c++) {
+                this.util.update("""
+                    insert into c_bleeding (cyc_id, bleeding)
+                    values (""" + id + ", '++')"
+                );
+            }
+            id++;
+        }
     }
 }
