@@ -201,11 +201,7 @@ public class MensController implements Initializable {
                     preFertility_days = rs.getInt("fertility_length");
                     preFourth_interval = rs.getInt("fourth_interval");
                     start_date = LocalDate.parse(rs.getString("start_cycle"));
-
-                    /**
-                     * Todo: @julia; end_cycle is null
-                     */
-                    //nextCycleStart = LocalDate.parse(rs.getString("end_cycle"));
+                    nextCycleStart = LocalDate.parse(rs.getString("end_cycle"));
             // zum testen:
             System.out.println(avg_bleeding_length);
             System.out.println(avg_cyc_length);
@@ -213,7 +209,7 @@ public class MensController implements Initializable {
             System.out.println(preFertility_days);
             System.out.println(preFourth_interval);
             System.out.println(start_date);
-            //System.out.println(nextCycleStart);
+            System.out.println(nextCycleStart);
                 } while (rs.next());
             }
         } catch (SQLException e) {
