@@ -139,4 +139,7 @@ public class Cycles {
     public ResultSet getTemperatur() {
         return this.db.getTemperatur();
     }
+    public ResultSet getOutflow() {
+        return this.db.getOutflow();
+    }
 }

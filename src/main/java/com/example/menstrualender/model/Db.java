@@ -92,8 +92,6 @@ public class Db {
 
     /**
      * adds new cyle to Db
-     * @param date
-     * @return
      */
     public int insertCycle(LocalDate date) {
         this.util.update("insert into cycle (cyc_start) values('" + date + "')");
@@ -102,8 +100,6 @@ public class Db {
 
     /**
      * Add new Mood Input to Db
-     * @param value
-     * @return
      */
     public int insertMood(int value) {
         this.util.update("insert into c_mood (cyc_id, mood) values((" + SQL_GET_CYC_ID + "),'" + value + "')");
@@ -112,8 +108,6 @@ public class Db {
 
     /**
      * Add new Flow Input to Db
-     * @param value
-     * @return
      */
     public int insertOutflow(int value) {
         this.util.update("insert into c_outflow (cyc_id, outflow) values((" + SQL_GET_CYC_ID + "),'" + value + "')");
@@ -122,8 +116,6 @@ public class Db {
 
     /**
      * Add new Temperature Input to Db
-     * @param value
-     * @return
      */
     public int insertTemperature(String value) {
         this.util.update("insert into c_temperature (cyc_id, temperature_value) values((" + SQL_GET_CYC_ID + "),'" + value + "')");
@@ -132,8 +124,6 @@ public class Db {
 
     /**
      * Add new Comment Input to Db
-     * @param comment
-     * @return
      */
     public int insertComment(String comment) {
         this.util.update("insert into c_comment (cyc_id, comment) values((" + SQL_GET_CYC_ID + "),'" + comment + "')");
@@ -175,7 +165,7 @@ public class Db {
 
     /**
      * returns Date from all cycles
-     * @return
+     *
      */
     public ResultSet getCycles() {
         return this.util.query("""
@@ -194,7 +184,6 @@ public class Db {
 
     /**
      * returns the last Cycle Date
-     * @return
      */
     public ResultSet getCountHistoryCycles() {
         return this.util.query("""
@@ -205,18 +194,19 @@ public class Db {
 
     /**
      * returns the Temperature from given Day
-     * @return
+     *
      */
     public ResultSet getTemperatur() {
         return this.util.query("""
-                select temperature_value
-                from c_temperature
-                where cyc_id = (
-                    select cyc_id
-                    from cycle
-                    order by cyc_start desc
-                    limit 1
-                )""");
+            select temperature_value
+            from c_temperature
+            where cyc_id = (
+                select cyc_id
+                from cycle
+                order by cyc_start desc
+                limit 1
+            )"""
+        );
     }
 
     /**
@@ -227,8 +217,6 @@ public class Db {
      * - Durchschnittliche Zyklusdaurer der letzten 12 Monate
      * - längste und kürzerste Zyklus dauer
      * - Fruchtbarkeitsdauer
-     *
-     *
      */
     public ResultSet getPredictionCycle() {
         return this.util.query("""
@@ -285,21 +273,36 @@ public class Db {
                      , avg_cycle_length_in_last_12_months - avg_bleeding_days_in_last_12_months - (min_cycle_length_in_last_12_months - 18  - avg_bleeding_days_in_last_12_months) - ( (max_cycle_length_in_last_12_months - 11) - (min_cycle_length_in_last_12_months - 18))as fourth_interval
                      , (max_cycle_length_in_last_12_months - 11) - (min_cycle_length_in_last_12_months - 18) as fertility_length
                      , date(start_cycle, '+' || avg_cycle_length_in_last_12_months || ' days') as end_cycle
+                     , date(start_cycle, '+' ||(min_cycle_length_in_last_12_months - 18)||  ' day') as fertility_start
+                     , date(start_cycle, '+' ||(max_cycle_length_in_last_12_months - 11) ||  ' day') as fertility_end
                      , available_measures
                 from min_max_in_12_months
                 order by start_cycle desc
-                limit 1""");
+                limit 1"""
+        );
     }
 
     /**
      * returnes average cycle length
-     * @return
      */
     public ResultSet getAvg() {
         return this.util.query(this.SQL_STATS + """
-        select cycle_avg_days
-        from cycle_avg
-        """);
+            select cycle_avg_days
+            from cycle_avg
+            """
+        );
+    }
+
+    public ResultSet getOutflow() {
+        return this.util.query("""
+            select outflow
+            from c_outflow
+            where cyc_id = (
+                select cyc_id
+                from cycle
+                order by cyc_start desc
+                limit 1)"""
+        );
     }
 }
 

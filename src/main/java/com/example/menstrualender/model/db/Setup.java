@@ -6,8 +6,8 @@ public class Setup {
 
     /**
      * constructor
-     * @param util
      */
+
     public Setup(Util util) {
         this.util = util;
     }
@@ -96,6 +96,10 @@ public class Setup {
                 this.util.update("""
                     insert into c_temperature (cyc_id, temperature_value)
                     values (""" + id + ", '37.56')"
+                );
+                this.util.update("""
+                        insert into c_outflow (cyc_id, outflow)
+                        values (""" + id + ", '1')"
                 );
             }
             for (int c = 0 ; c < 5; c++) {

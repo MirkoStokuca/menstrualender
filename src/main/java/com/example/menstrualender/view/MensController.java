@@ -174,8 +174,6 @@ public class MensController implements Initializable {
         //style lineChart
         //lineChart.getStylesheets().add(getClass().getResource("line_chart.css").toExternalForm());
 
-
-
         //add information into series
         for(int i = 0; i < getArrayListFloatTemperaturData().size(); i++)
         {
@@ -208,6 +206,32 @@ public class MensController implements Initializable {
     }
 
     /**
+     * Hier steht die Outflow Arraylist für eine beliebige ausgabe zur verfügung
+     * viel spass :)
+     *
+     */
+    public ArrayList<Integer> getArrayListOutflow() {
+        ArrayList<Integer> arrayOutflow = new ArrayList<>();
+        int oneOutflow;
+        ResultSet rs = mensApp.zyklus.getOutflow();
+        try {
+            if (!rs.next()) {
+                System.out.println("keine Temperatur eingaben");
+            } else {
+                do {
+                    oneOutflow = rs.getInt("outflow");
+                    arrayOutflow.add(oneOutflow);
+                } while (rs.next());
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println("Hole Daten aus der Outflow Tabelle | Datenbank");
+        System.out.println(arrayOutflow);
+        return arrayOutflow;
+    }
+
+    /**
      * Init pie chart
      */
 
@@ -222,7 +246,7 @@ public class MensController implements Initializable {
         int min_cyc_length = 0;
         int max_cyc_length = 0;
 
-        LocalDate start_date, nextCycleStart;
+        LocalDate start_date, nextCycleStart, fertility_interval_start, fertility_interval_end;
         ResultSet rs = mensApp.zyklus.getPredictionCycle();
         try {
             if (!rs.next()) { // false Check! rs.next() == false
@@ -235,8 +259,8 @@ public class MensController implements Initializable {
                     preFertility_days = rs.getInt("fertility_length");
                     preFourth_interval = rs.getInt("fourth_interval");
                     start_date = LocalDate.parse(rs.getString("start_cycle"));
-
-
+                    fertility_interval_start = LocalDate.parse(rs.getString("fertility_start"));
+                    fertility_interval_end = LocalDate.parse(rs.getString("fertility_end"));
                     nextCycleStart = LocalDate.parse(rs.getString("end_cycle"));
                 } while (rs.next());
             }
