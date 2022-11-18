@@ -202,7 +202,6 @@ public class MensController implements Initializable {
         }
         System.out.println("Hole Daten aus der Datenbank");
         System.out.println(arrayTemperatur);
-
         return arrayTemperatur;
     }
 
