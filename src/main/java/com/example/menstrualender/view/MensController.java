@@ -163,48 +163,24 @@ public class MensController implements Initializable {
      * Init Line Chart
      */
     private void initLineChart() {
-
-        lineChart.getStylesheets().add(getClass().getResource("line_chart.css").toExternalForm());
+        //change Title
+        lineChart.setTitle("Temperature Curve");
 
         //defining a series
         XYChart.Series series = new XYChart.Series();
 
-        int index = 0;
-        String oneTemperatur;
-        ResultSet rs = mensApp.zyklus.getTemperatur();
-        try {
-            if (!rs.next()) {
-                System.out.println("keine Temperatur eingaben");
-            } else {
-                do {
-                    oneTemperatur = rs.getString("temperatur_value");
-                    series.getData().add(new XYChart.Data(index, Integer.parseInt(oneTemperatur)));
-                    index++;
-                } while (rs.next());
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        //style lineChart
+        //lineChart.getStylesheets().add(getClass().getResource("line_chart.css").toExternalForm());
 
-        lineChart.getData().add(series);
 
-/*        final NumberAxis xAxis = new NumberAxis();
-        final NumberAxis yAxis = new NumberAxis();
-        xAxis.setLabel("Number of Month");
-        //creating the chart
-        final LineChart<Number, Number> lineChart =
-                new LineChart<>(xAxis, yAxis);
 
-        lineChart.setTitle("Stock Monitoring, 2010");
-        //defining a series
-        XYChart.Series series = new XYChart.Series();
-        //DBHandler dbHandler = new DBHandler();
-
-        *//*List<List<Integer>> dataHolder = dbHandler.getDataHolder();
-        for(int i = 0; i < dataHolder.size(); i++)
+        //add information into series
+        for(int i = 0; i < getArrayListFloatTemperaturData().size(); i++)
         {
-            series.getData().add(new XYChart.Data(dataHolder.get(i).get(0), dataHolder.get(i).get(1)));
-        }*/
+            series.getData().add(new XYChart.Data(i,getArrayListFloatTemperaturData().get(i)));
+        }
+        //load series into linechart
+        lineChart.getData().addAll(series);
     }
 
 

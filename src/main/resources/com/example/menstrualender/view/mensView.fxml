@@ -134,10 +134,10 @@
                            <children>
                               <LineChart fx:id="lineChart" alternativeColumnFillVisible="false" horizontalGridLinesVisible="false" horizontalZeroLineVisible="false" verticalGridLinesVisible="false" verticalZeroLineVisible="false" layoutX="-47.0" layoutY="-85.0" prefHeight="315.3333333333333" prefWidth="900.0" title="Temperature" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <xAxis>
-                                  <NumberAxis side="BOTTOM" />
+                                  <NumberAxis side="BOTTOM"  />
                                 </xAxis>
                                 <yAxis>
-                                  <NumberAxis side="LEFT" autoRanging="false" lowerBound="30.0" upperBound="40.0"/>
+                                  <NumberAxis side="LEFT" autoRanging="false" lowerBound="36.0" upperBound="39.0"/>
                                 </yAxis>
                               </LineChart>
                            </children>
