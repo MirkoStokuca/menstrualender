@@ -37,6 +37,10 @@ public class MensController implements Initializable {
     @FXML
     private LineChart lineChart;
     @FXML
+    private CategoryAxis BOTTOM;
+    @FXML
+    private NumberAxis LEFT;
+    @FXML
     private StackedBarChart generalGraph;
     @FXML
     private DatePicker datePicker;
