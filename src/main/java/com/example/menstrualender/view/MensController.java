@@ -19,9 +19,15 @@ import javafx.util.Duration;
 
 import java.net.URL;
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class MensController implements Initializable {
@@ -77,6 +83,7 @@ public class MensController implements Initializable {
         initPieChart();
         initStackedBarChart();
         initLineChart();
+        loadStackedBarChart();
     }
 
     //Init and Charts
@@ -112,8 +119,6 @@ public class MensController implements Initializable {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        System.out.println(dbRows);
-
         //create Series Instances
         XYChart.Series series1 = new XYChart.Series();
         series1.setName("Blood");
@@ -246,7 +251,7 @@ public class MensController implements Initializable {
         int min_cyc_length = 0;
         int max_cyc_length = 0;
 
-        LocalDate start_date, nextCycleStart, fertility_interval_start, fertility_interval_end;
+        LocalDate start_date, nextCycleStart, fertility_interval_start = null, fertility_interval_end;
         ResultSet rs = mensApp.zyklus.getPredictionCycle();
         try {
             if (!rs.next()) { // false Check! rs.next() == false
@@ -272,10 +277,10 @@ public class MensController implements Initializable {
                 FXCollections.observableArrayList(
                         new PieChart.Data("Bleeding", avg_bleeding_length),
                         new PieChart.Data("PreSecond", preSecond_interval),
-                        new PieChart.Data("Fruchtbar", preFertility_days),
+                        new PieChart.Data("Fruchtbar "+"\n"+ fertility_interval_start+" - "+ fertility_interval_start, preFertility_days),
                         new PieChart.Data("PreForth", preFourth_interval));
 
-        this.cycleGraph.setLabelLineLength(15);
+        this.cycleGraph.setLabelLineLength(8);
         this.cycleGraph.setLabelsVisible(true);
         this.cycleGraph.setStartAngle(90);
         this.cycleGraph.setData(cycleChartData);
@@ -322,14 +327,15 @@ public class MensController implements Initializable {
     public void upDateInfos() {
         showAverageInterval();
         showNextCycleStart();
-        loadStackedBarChart();
+
     }
 
     /**
      * shows Average Interval on scene
      */
     public void showAverageInterval() {
-        averageInterval.setText(this.mensApp.zyklus.getAverageLength());
+        final DecimalFormat avgFormat = new DecimalFormat("0.0");
+        averageInterval.setText(avgFormat.format(Double.parseDouble(this.mensApp.zyklus.getAverageLength()))+" Days");
     }
 
     /**
@@ -349,7 +355,14 @@ public class MensController implements Initializable {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        nextCycleStart.setText(startNextCycle);
+        try {
+           SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+           SimpleDateFormat userValue = new SimpleDateFormat("yyyy-MM-dd");
+           nextCycleStart.setText(format.format(userValue.parse(startNextCycle)));
+
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
@@ -377,7 +390,7 @@ public class MensController implements Initializable {
     public void setDate() {
         try {
             LocalDate myDate = datePicker.getValue();
-            myDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+            myDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.GERMAN));
             //Start:
             this.mensApp.zyklus.addDate(myDate);
             showButton("Cycle added", Color.GREEN);

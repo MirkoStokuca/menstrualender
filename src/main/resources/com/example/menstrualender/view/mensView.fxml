@@ -77,7 +77,6 @@
                   <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#bc9ec1" height="170.0" layoutX="10.0" layoutY="308.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="1.3" styleClass="rectangle" width="200.0" AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                   <JFXButton id="button" buttonType="RAISED" layoutX="30.0" layoutY="350.0" onAction="#upDateInfos" text="Update infos" AnchorPane.bottomAnchor="267.3333333333333" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" />
                   <JFXButton id="button" buttonType="RAISED" layoutX="30.0" layoutY="450.0" onAction="#deleteData" text="Delete" AnchorPane.bottomAnchor="167.33333333333331" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" />
-                  <JFXButton id="button" buttonType="RAISED" layoutX="30.0" layoutY="400.0" text="Save" AnchorPane.bottomAnchor="217.33333333333331" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" />
                   <Label fx:id="buttonConf" alignment="CENTER" contentDisplay="CENTER" layoutX="96.0" layoutY="227.0" textAlignment="CENTER" AnchorPane.bottomAnchor="408.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" />
                   <JFXToggleButton id="button" fx:id="pregnantMode" layoutX="39.0" layoutY="532.0" onAction="#getPregnantMode" prefHeight="16.0" prefWidth="160.0" size="6.0" text="Pregnant Mode" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" />
                </children>
@@ -92,34 +91,34 @@
                            <children>
                               <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="450.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <Label id="Ausgabe" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutY="62.0" prefHeight="30.0" prefWidth="198.0" text="Next Cycle :" textAlignment="RIGHT" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="124.0" AnchorPane.topAnchor="62.0">
+                                    <Label id="Ausgabe" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="-13.0" layoutY="97.0" prefHeight="42.0" prefWidth="201.0" text="Next Cycle :" textAlignment="RIGHT" AnchorPane.leftAnchor="-13.0" AnchorPane.rightAnchor="137.0" AnchorPane.topAnchor="97.0">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
                                     </Label>
-                                    <Label id="Ausgabe" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutY="110.0" prefHeight="33.0" prefWidth="198.0" text="Average Cycle length:" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="124.0" AnchorPane.topAnchor="110.0">
+                                    <Label id="Ausgabe" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="-13.0" layoutY="145.0" prefHeight="33.0" prefWidth="198.0" text="Average Cycle length:" AnchorPane.leftAnchor="-13.0" AnchorPane.rightAnchor="137.0" AnchorPane.topAnchor="145.0">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
                                     </Label>
-                                    <Label id="Ausgabe" fx:id="nextCycleStart" layoutX="210.0" layoutY="62.0" prefHeight="33.0" prefWidth="119.0" AnchorPane.leftAnchor="210.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="62.0">
+                                    <Label id="Ausgabe" fx:id="nextCycleStart" layoutX="223.0" layoutY="95.0" prefHeight="42.0" prefWidth="94.0" AnchorPane.leftAnchor="197.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="97.0">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
                                     </Label>
-                                    <Label id="Ausgabe" fx:id="averageInterval" layoutX="210.0" layoutY="110.0" prefHeight="33.0" prefWidth="119.0" AnchorPane.leftAnchor="210.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="110.0">
+                                    <Label id="Ausgabe" fx:id="averageInterval" layoutX="197.0" layoutY="145.0" prefHeight="33.0" prefWidth="119.0" AnchorPane.leftAnchor="197.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="145.0">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
                                     </Label>
                                  </children>
                               </AnchorPane>
-                              <AnchorPane prefHeight="280.0" prefWidth="449.0" stylesheets="@pie_Chart.css" AnchorPane.bottomAnchor="-63.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="331.0" AnchorPane.topAnchor="0.0">
+                              <AnchorPane prefHeight="280.0" prefWidth="449.0" AnchorPane.bottomAnchor="-63.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="331.0" AnchorPane.topAnchor="0.0">
                                  <children>
                                     <StackPane prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 
-                                          <PieChart fx:id="cycleGraph" legendVisible="false" prefHeight="200.0" prefWidth="380.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                    <Circle fill="WHITE" layoutX="226.0" layoutY="143.0" radius="60.0" stroke="TRANSPARENT" strokeType="INSIDE" AnchorPane.bottomAnchor="78.0" AnchorPane.leftAnchor="166.0" AnchorPane.rightAnchor="163.0" AnchorPane.topAnchor="83.0" />
+                                          <PieChart fx:id="cycleGraph" layoutX="-66.0" layoutY="-42.0" legendVisible="false" prefHeight="367.0" prefWidth="532.0" AnchorPane.bottomAnchor="-19.0" AnchorPane.leftAnchor="-66.0" AnchorPane.rightAnchor="-17.0" AnchorPane.topAnchor="-42.0" />
+                                    <Circle fill="WHITE" layoutX="199.0" layoutY="145.0" radius="70.0" stroke="TRANSPARENT" strokeType="INSIDE" AnchorPane.bottomAnchor="92.0" AnchorPane.leftAnchor="129.0" AnchorPane.rightAnchor="180.0" AnchorPane.topAnchor="75.0" />
                                     <Label fx:id="fruchtbar" layoutX="60.0" layoutY="217.0" prefHeight="39.0" prefWidth="79.0" AnchorPane.bottomAnchor="24.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="310.0" AnchorPane.topAnchor="217.0">
                                        <font>
                                           <Font size="14.0" />
@@ -130,26 +129,26 @@
                            </children>
 
                         </AnchorPane>
-                        <AnchorPane prefHeight="137.0" prefWidth="780.0">
+                        <AnchorPane prefHeight="127.0" prefWidth="780.0">
                            <children>
-                              <LineChart fx:id="lineChart" alternativeColumnFillVisible="false" horizontalGridLinesVisible="false" horizontalZeroLineVisible="false" verticalGridLinesVisible="false" verticalZeroLineVisible="false" layoutX="-47.0" layoutY="-85.0" prefHeight="315.3333333333333" prefWidth="900.0" title="Temperature" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <LineChart fx:id="lineChart" alternativeColumnFillVisible="false" horizontalGridLinesVisible="false" horizontalZeroLineVisible="false" layoutX="-47.0" layoutY="-15.0" prefHeight="156.0" prefWidth="780.0" title="Temperature" verticalZeroLineVisible="false" AnchorPane.bottomAnchor="-24.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-15.0">
                                 <xAxis>
-                                  <NumberAxis side="BOTTOM"  />
+                                  <NumberAxis side="BOTTOM" />
                                 </xAxis>
                                 <yAxis>
-                                  <NumberAxis side="LEFT" autoRanging="false" lowerBound="36.0" upperBound="39.0"/>
+                                  <NumberAxis autoRanging="false" lowerBound="36.0" side="LEFT" upperBound="39.0" />
                                 </yAxis>
                               </LineChart>
                            </children>
                         </AnchorPane>
-                        <AnchorPane prefHeight="290.0" prefWidth="780.0" stylesheets="@stacked_bar_chart.css">
+                        <AnchorPane prefHeight="261.0" prefWidth="780.0" stylesheets="@stacked_bar_chart.css">
                            <children>
-                              <StackedBarChart fx:id="stackedBarChart" categoryGap="5.0" layoutY="-48.0" prefHeight="242.0" prefWidth="800.0" title="Past Cycles Overview" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-48.0">
+                              <StackedBarChart fx:id="stackedBarChart" categoryGap="5.0" layoutX="-73.0" layoutY="-15.0" prefHeight="261.0" prefWidth="853.0" title="Past Cycles Overview" AnchorPane.bottomAnchor="-3.0" AnchorPane.leftAnchor="-73.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-15.0">
                                  <xAxis>
-                                    <NumberAxis autoRanging="false" upperBound="31.0"/>
+                                    <NumberAxis autoRanging="false" prefHeight="37.0" prefWidth="812.0" upperBound="31.0" />
                                  </xAxis>
                                  <yAxis>
-                                    <CategoryAxis/>
+                                    <CategoryAxis />
                                  </yAxis>
                               </StackedBarChart>
                            </children>

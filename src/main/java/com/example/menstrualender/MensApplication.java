@@ -13,6 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Locale;
 
 public class MensApplication extends Application {
 
@@ -28,7 +29,7 @@ public class MensApplication extends Application {
      */
     @Override
     public void start(Stage defaultStage) throws IOException {
-        //Setup defaultStage
+        Locale.setDefault(Locale.GERMAN);//Setup defaultStage
         this.defaultStage = defaultStage;
         this.defaultStage.setTitle("Menstrualender");
         this.defaultStage.getIcons().add(new Image(MensApplication.class.getResourceAsStream("images/mensicon.png")));
