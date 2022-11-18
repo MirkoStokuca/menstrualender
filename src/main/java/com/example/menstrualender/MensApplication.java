@@ -21,6 +21,11 @@ public class MensApplication extends Application {
     public Db db;
     public Cycles zyklus;
 
+    /**
+     * creates Base Stage and the default Scene
+     * @param defaultStage
+     * @throws IOException
+     */
     @Override
     public void start(Stage defaultStage) throws IOException {
         //Setup defaultStage
@@ -89,6 +94,9 @@ public class MensApplication extends Application {
         }
     }
 
+    /**
+     * Creates new Stage and Scene "Daily View"
+     */
     public void showDailyWindow() {
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -107,6 +115,10 @@ public class MensApplication extends Application {
         }
     }
 
+    /**
+     * main
+     * @param args
+     */
     public static void main(String[] args) {
         System.setProperty("prism.lcdtext", "false");
         launch(args);

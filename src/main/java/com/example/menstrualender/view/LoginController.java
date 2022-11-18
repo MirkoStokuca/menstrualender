@@ -13,8 +13,15 @@ import java.util.ResourceBundle;
 public class LoginController implements Initializable {
 
 
+    /**
+     * Action Handling from login Screen
+     */
     @FXML
     private MensApplication mensApp;
+    @FXML
+    private PasswordField passwordField;
+    @FXML
+    public Label plsSetPw;
 
     /**
      * Constructor
@@ -27,28 +34,29 @@ public class LoginController implements Initializable {
     }
 
     /**
-     * Action Handling from login Screen
+     * Checks the Login Password
      */
-    @FXML
-    private PasswordField passwordField;
-    @FXML
-    public Label plsSetPw;
-
     public void loginValidation() {
         String password = passwordField.getText();
         if (password == "") {
             password = null;
         }
+        //if login is Wrong:
         if (this.mensApp.db.setUp(password)) {
             plsSetPw.setText("Login succesfull!");
             plsSetPw.setTextFill(Color.GREEN);
             this.mensApp.showDefaultWindow();
+
+        //if login is Right:
         } else {
             plsSetPw.setText("Wrong Password");
             plsSetPw.setTextFill(Color.RED);
         }
     }
 
+    /**
+     * On first start you can choose a password
+     */
     public void displayLogin() {
         if (!Util.isDbExisting()) {
             plsSetPw.setTextFill(Color.RED);
@@ -59,6 +67,11 @@ public class LoginController implements Initializable {
 
     }
 
+    /**
+     * initializer
+     * @param url
+     * @param resourceBundle
+     */
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }

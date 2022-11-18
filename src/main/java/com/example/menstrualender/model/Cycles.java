@@ -5,8 +5,12 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * bridge between Db and Fxml
+ */
 public class Cycles {
 
+    //deklaration
     private Db db;
 
     public Cycles(Db db) {
@@ -16,18 +20,37 @@ public class Cycles {
     public Cycles() {
     }
 
+    /**
+     * returns last cycle
+     * @return
+     */
     public ResultSet getCycles() {
         ResultSet rs = this.db.getCycles();
         return rs;
     }
+
+    /**
+     * returns all Last Cycles
+     * @return
+     */
     public ResultSet getCyclesHitstoryIntervals() {
         ResultSet rs = this.db.getCyclesHistoryIntervals();
         return rs;
     }
+
+    /**
+     * returns counter History
+     * @return
+     */
     public ResultSet getCounterHistory() {
         ResultSet rs = this.db.getCountHistoryCycles();
         return rs;
     }
+
+    /**
+     * returns calculated predicted Cycle
+     * @return
+     */
     public ResultSet getPredictionCycle() {
         ResultSet rs = this.db.getPredictionCycle();
         return rs;
@@ -41,25 +64,57 @@ public class Cycles {
         this.db.insertCycle(date);
     }
 
+    /**
+     * add a new Flow data to the cycles Database
+     * @param value
+     */
     public void addOutflow(int value) {
         this.db.insertOutflow(value);
     }
+
+    /**
+     * add a new Mood data to the cycles Database
+     * @param value
+     */
     public void addMood(int value) {
         this.db.insertMood(value);
     }
+
+    /**
+     * add a new Temperature Data to the cycles Database
+     * @param value
+     */
     public void addTemp(String value) {
         this.db.insertTemperature(value);
     }
+
+    /**
+     * add a new Comment Data to the cycles Database
+     * @param comment
+     */
     public void addComments(String comment) {
         this.db.insertComment(comment);
     }
+
+    /**
+     * add a new bleeding data to the cycles Database
+     * @param value
+     */
     public void addBleeding(int value) {
         this.db.insertBleeding(value);
     }
+
+    /**
+     * add a new Ovulation data to the cycles Database
+     * @param date
+     */
     public void addOvulation(LocalDate date) {
         this.db.insertOvulation(date);
     }
 
+    /**
+     * calls method to delete all the Data in Db
+     */
     public void deleteData(){
         this.db.deleteCycle();        // in der Klammer könnte die id_cyc mit gegeben werden, um ein bestimmten Eintrag zu löschen
     }
@@ -77,6 +132,10 @@ public class Cycles {
         }
     }
 
+    /**
+     * returns the Temperature from Db
+     * @return
+     */
     public ResultSet getTemperatur() {
         return this.db.getTemperatur();
     }

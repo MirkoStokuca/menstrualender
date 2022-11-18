@@ -1,4 +1,5 @@
 package com.example.menstrualender.view;
+import com.example.menstrualender.model.Db;
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
@@ -45,13 +46,10 @@ public class MensController implements Initializable {
     private DatePicker datePicker;
     @FXML
     private StackedBarChart stackedBarChart;
-
-
     @FXML
     private MensApplication mensApp;
     @FXML
     private Label Menu;
-
     @FXML
     private Label MenuBack;
     @FXML
@@ -68,6 +66,10 @@ public class MensController implements Initializable {
     public MensController() {
     }
 
+    /**
+     * Starts scene and calls visual output
+     * @param mensApp
+     */
     public void setMainApp(MensApplication mensApp) {
         this.mensApp = mensApp;
         //Init stacked bar chart
@@ -289,6 +291,9 @@ public class MensController implements Initializable {
         this.mensApp.showDefaultWindow();
     }
 
+    /**
+     * updates Grafik output
+     */
     @FXML
     public void upDateInfos() {
         showAverageInterval();
@@ -296,10 +301,16 @@ public class MensController implements Initializable {
         loadStackedBarChart();
     }
 
+    /**
+     * shows Average Interval on scene
+     */
     public void showAverageInterval() {
         averageInterval.setText(this.mensApp.zyklus.getAverageLength());
     }
 
+    /**
+     * shows next Cycle start on scene
+     */
     public void showNextCycleStart() {
         ResultSet rs = mensApp.zyklus.getPredictionCycle();
         String startNextCycle = null;
@@ -318,11 +329,16 @@ public class MensController implements Initializable {
     }
 
 
-    //Scene/Stage Switches
+    /**
+     * calls open LoginWindow
+     */
     public void switchToLogin() {
         mensApp.loginWindow();
     }
 
+    /**
+     * calls showDailyWindow
+     */
     public void switchToDaily() {
         mensApp.showDailyWindow();
     }
