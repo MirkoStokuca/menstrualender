@@ -12,8 +12,8 @@ public class Db {
             with base as (
                 select
                     cyc_id
-                    , date(cyc_start) as this_cycle
-                    , lag(cyc_start) over (order by date(cyc_start)) as last_cycle
+                     , date(cyc_start) as this_cycle
+                     , lag(cyc_start) over (order by date(cyc_start)) as last_cycle
                 from cycle
                 order by date(cyc_start)
             ), diff as (
@@ -24,7 +24,7 @@ public class Db {
                 from base
                 where last_cycle is not null
             ), cycle_avg as (
-                select avg(cycle_length) as cycle_avg_days
+                select round(avg(cycle_length),0) as cycle_avg_days
                 from diff
             )
             """

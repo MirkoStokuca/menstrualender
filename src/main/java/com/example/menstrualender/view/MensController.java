@@ -177,7 +177,7 @@ public class MensController implements Initializable {
         XYChart.Series series = new XYChart.Series();
 
         //style lineChart
-        //lineChart.getStylesheets().add(getClass().getResource("line_chart.css").toExternalForm());
+        lineChart.getStylesheets().add(getClass().getResource("line_chart.css").toExternalForm());
 
         //add information into series
         for(int i = 0; i < getArrayListFloatTemperaturData().size(); i++)

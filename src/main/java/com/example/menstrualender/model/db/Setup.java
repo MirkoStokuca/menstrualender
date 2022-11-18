@@ -92,10 +92,14 @@ public class Setup {
                 insert into cycle (cyc_start)
                 values ('2022-0"""+ month + "-01')"
             );
-            for (int i = 0 ; i < 25 ; i++ ) {
+            for (int i = 0 ; i < 10 ; i++ ) {
                 this.util.update("""
                     insert into c_temperature (cyc_id, temperature_value)
                     values (""" + id + ", '37.56')"
+                );
+                this.util.update("""
+                    insert into c_temperature (cyc_id, temperature_value)
+                    values (""" + id + ", '36.36')"
                 );
                 this.util.update("""
                         insert into c_outflow (cyc_id, outflow)
