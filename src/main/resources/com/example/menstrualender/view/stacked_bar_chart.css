@@ -1,16 +1,28 @@
 .default-color0.chart-bar {
-    -fx-bar-fill: #ff6d6d;
+    -fx-bar-fill: ORCHID;
 }
 .default-color1.chart-bar {
-    -fx-bar-fill: #d9f8b0;
+    -fx-bar-fill: lightblue;
 }
 .default-color2.chart-bar {
-    -fx-bar-fill: #b8a4ff;
+    -fx-bar-fill:MEDIUMPURPLE;
 }
 .default-color3.chart-bar {
-    -fx-bar-fill: #d9f8b0;
+    -fx-bar-fill: teal;
 }
 
+.default-color4.chart-bar {
+    -fx-bar-fill: ORCHID;
+}
+.default-color5.chart-bar {
+    -fx-bar-fill: lightblue;
+}
+.default-color6.chart-bar {
+    -fx-bar-fill:MEDIUMPURPLE;
+}
+.default-color7.chart-bar {
+    -fx-bar-fill: teal;
+}
 .stacked-bar-chart {
     -fx-alternative-row-visible: false;
     -fx-alternative-column-visible: false;

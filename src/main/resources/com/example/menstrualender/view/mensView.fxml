@@ -68,7 +68,8 @@
                   <Label alignment="CENTER" layoutX="48.0" layoutY="5.0" prefHeight="53.0" prefWidth="182.0" text="Enter you daily infos" textAlignment="CENTER" AnchorPane.bottomAnchor="590.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
                      <font>
                         <Font name="System Bold" size="12.0" />
-                     </font></Label>
+                     </font>
+                  </Label>
                   <DatePicker fx:id="datePicker" layoutX="-19.0" layoutY="145.0" prefHeight="33.0" prefWidth="160.0" AnchorPane.bottomAnchor="435.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" />
                   <Label alignment="CENTER" layoutX="21.0" layoutY="155.0" prefHeight="32.0" prefWidth="141.0" text="Next cylce" AnchorPane.bottomAnchor="470.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                   <JFXButton id="button" buttonType="RAISED" layoutX="84.0" layoutY="88.0" onAction="#switchToDaily" text="Daily" AnchorPane.bottomAnchor="552.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" />
@@ -117,8 +118,8 @@
                                  <children>
                                     <StackPane prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 
-                                          <PieChart fx:id="cycleGraph" layoutX="-66.0" layoutY="-42.0" legendVisible="false" prefHeight="367.0" prefWidth="532.0" AnchorPane.bottomAnchor="-19.0" AnchorPane.leftAnchor="-66.0" AnchorPane.rightAnchor="-17.0" AnchorPane.topAnchor="-42.0" />
-                                    <Circle fill="WHITE" layoutX="199.0" layoutY="145.0" radius="70.0" stroke="TRANSPARENT" strokeType="INSIDE" AnchorPane.bottomAnchor="92.0" AnchorPane.leftAnchor="129.0" AnchorPane.rightAnchor="180.0" AnchorPane.topAnchor="75.0" />
+                                          <PieChart fx:id="cycleGraph" layoutX="-51.0" layoutY="-42.0" legendVisible="false" prefHeight="372.0" prefWidth="517.0" AnchorPane.bottomAnchor="-19.0" AnchorPane.leftAnchor="-51.0" AnchorPane.rightAnchor="-17.0" AnchorPane.topAnchor="-42.0" />
+                                    <Circle fill="#fde8e9" layoutX="208.0" layoutY="146.0" radius="70.0" stroke="TRANSPARENT" strokeType="INSIDE" AnchorPane.bottomAnchor="95.0" AnchorPane.leftAnchor="138.0" AnchorPane.rightAnchor="171.0" AnchorPane.topAnchor="76.0" />
                                     <Label fx:id="fruchtbar" layoutX="60.0" layoutY="217.0" prefHeight="39.0" prefWidth="79.0" AnchorPane.bottomAnchor="24.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="310.0" AnchorPane.topAnchor="217.0">
                                        <font>
                                           <Font size="14.0" />

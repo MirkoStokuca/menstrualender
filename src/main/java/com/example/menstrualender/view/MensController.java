@@ -83,7 +83,7 @@ public class MensController implements Initializable {
         initPieChart();
         initStackedBarChart();
         initLineChart();
-        loadStackedBarChart();
+        //loadStackedBarChart();
     }
 
     //Init and Charts
@@ -129,6 +129,14 @@ public class MensController implements Initializable {
         XYChart.Series series4 = new XYChart.Series();
         series4.setName("Post-Fertile");
 
+        // delete Data
+        if (stackedBarChart != null) {
+            series1.getData().removeAll();
+            series2.getData().removeAll();
+            series3.getData().removeAll();
+            series4.getData().removeAll();
+        }
+
         //fill series with placeholder values
         for (int i = 11; i > dbRows; i--) {
             String placeholder = "Placeholder" + i;
@@ -143,6 +151,7 @@ public class MensController implements Initializable {
         int bleeding_days, second_interval, fertility_days, fourth_interval;
         String start_date;
 
+
         try {
             while (rs.next()) {
                 bleeding_days = rs.getInt("first_interval");
@@ -150,6 +159,7 @@ public class MensController implements Initializable {
                 fertility_days = 7;
                 fourth_interval = rs.getInt("fourth_interval");
                 start_date = rs.getString("start_cycle");
+
 
                 //add db datd to series
                 series1.getData().add(new XYChart.Data(bleeding_days,start_date));
@@ -161,7 +171,7 @@ public class MensController implements Initializable {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
+        stackedBarChart.getData().clear();
         //add series to stackedBarChart
         stackedBarChart.getData().addAll(series1, series2, series3, series4);
     }
@@ -276,7 +286,7 @@ public class MensController implements Initializable {
        cycleChartData =
                 FXCollections.observableArrayList(
                         new PieChart.Data("Bleeding", avg_bleeding_length),
-                        new PieChart.Data("PreSecond", preSecond_interval),
+                        new PieChart.Data("Pre Fertile", preSecond_interval),
                         new PieChart.Data("Fruchtbar "+"\n"+ fertility_interval_start+" - "+ fertility_interval_start, preFertility_days),
                         new PieChart.Data("PreForth", preFourth_interval));
 
@@ -327,6 +337,7 @@ public class MensController implements Initializable {
     public void upDateInfos() {
         showAverageInterval();
         showNextCycleStart();
+        loadStackedBarChart();
 
     }
 
@@ -391,7 +402,6 @@ public class MensController implements Initializable {
         try {
             LocalDate myDate = datePicker.getValue();
             myDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.GERMAN));
-            //Start:
             this.mensApp.zyklus.addDate(myDate);
             showButton("Cycle added", Color.GREEN);
         } catch (NullPointerException e) {
