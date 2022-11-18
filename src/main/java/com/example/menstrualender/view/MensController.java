@@ -1,5 +1,4 @@
 package com.example.menstrualender.view;
-import com.example.menstrualender.model.Db;
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
@@ -9,7 +8,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.chart.*;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -22,6 +20,7 @@ import java.net.URL;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class MensController implements Initializable {
@@ -208,6 +207,29 @@ public class MensController implements Initializable {
         }*/
     }
 
+
+    public ArrayList<Float> getArrayListFloatTemperaturData() {
+        ArrayList<Float> arrayTemperatur = new ArrayList<>();
+        float oneTemperatur;
+        ResultSet rs = mensApp.zyklus.getTemperatur();
+        try {
+            if (!rs.next()) {
+                System.out.println("keine Temperatur eingaben");
+            } else {
+                do {
+                    oneTemperatur = rs.getFloat("temperature_value");
+                    arrayTemperatur.add(oneTemperatur);
+                } while (rs.next());
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println("Hole Daten aus der Datenbank");
+        System.out.println(arrayTemperatur);
+
+        return arrayTemperatur;
+    }
+
     /**
      * Init pie chart
      */
@@ -320,23 +342,7 @@ public class MensController implements Initializable {
         nextCycleStart.setText(startNextCycle);
     }
 
-    // Todo: @ Mirko hier die Daten für die Grafik!
-    //   zeigt die Tempdaten aus dem Aktuellen laufenden Zyklus an.
-    public void showCurrentTemperaturCycle() {
-        String oneTemperatur;
-        ResultSet rs = mensApp.zyklus.getTemperatur();
-        try {
-            if (!rs.next()) {
-                System.out.println("keine Temperatur eingaben");
-            } else {
-                do {
-                    oneTemperatur = rs.getString("temperatur_value");
-                } while (rs.next());
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
+
     //Scene/Stage Switches
     public void switchToLogin() {
         mensApp.loginWindow();
