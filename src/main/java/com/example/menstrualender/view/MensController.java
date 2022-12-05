@@ -121,13 +121,13 @@ public class MensController implements Initializable {
         }
         //create Series Instances
         XYChart.Series series1 = new XYChart.Series();
-        series1.setName("Blood");
+        series1.setName("Blutung");
         XYChart.Series series2 = new XYChart.Series();
-        series2.setName("Pre-Fertile");
+        series2.setName("Vorfruchtbarkeitsphase");
         XYChart.Series series3 = new XYChart.Series();
-        series3.setName("Fertile");
+        series3.setName("Fruchtbar");
         XYChart.Series series4 = new XYChart.Series();
-        series4.setName("Post-Fertile");
+        series4.setName("Vorblutungsphase");
 
         // delete Data
         if (stackedBarChart != null) {
@@ -181,7 +181,7 @@ public class MensController implements Initializable {
      */
     private void initLineChart() {
         //change Title
-        lineChart.setTitle("Temperature Curve");
+        lineChart.setTitle("Temperaturkurve");
 
         //defining a series
         XYChart.Series series = new XYChart.Series();
@@ -285,10 +285,10 @@ public class MensController implements Initializable {
 
        cycleChartData =
                 FXCollections.observableArrayList(
-                        new PieChart.Data("Bleeding", avg_bleeding_length),
-                        new PieChart.Data("Pre Fertile", preSecond_interval),
+                        new PieChart.Data("Blutung", avg_bleeding_length),
+                        new PieChart.Data("Vorfruchtbarkeits Phase", preSecond_interval),
                         new PieChart.Data("Fruchtbar "+"\n"+ fertility_interval_start+" - "+ fertility_interval_start, preFertility_days),
-                        new PieChart.Data("PreForth", preFourth_interval));
+                        new PieChart.Data("Vorblutungs Phase", preFourth_interval));
 
         this.cycleGraph.setLabelLineLength(8);
         this.cycleGraph.setLabelsVisible(true);
@@ -403,9 +403,9 @@ public class MensController implements Initializable {
             LocalDate myDate = datePicker.getValue();
             myDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.GERMAN));
             this.mensApp.zyklus.addDate(myDate);
-            showButton("Cycle added", Color.GREEN);
+            showButton("Zyklus hinzugefügt", Color.GREEN);
         } catch (NullPointerException e) {
-            showButton("Pick a Date", Color.RED);
+            showButton("Datum wählen", Color.RED);
         }
     }
 
