@@ -506,7 +506,7 @@ public class MensController implements Initializable {
                     bleeding_days = rs.getInt("first_interval");
                     second_interval = rs.getInt("second_interval");
                     fertility_days = 7;
-                    fourth_interval = rs.getInt("fourt_interval");
+                    fourth_interval = rs.getInt("fourth_interval");
                     start_date = LocalDate.parse(rs.getString("start_cycle"));
                 } while (rs.next());
             }
