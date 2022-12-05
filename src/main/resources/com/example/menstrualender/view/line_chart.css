@@ -1,0 +1,14 @@
+.chart {
+    -fx-create-symbols: false;
+}
+
+.chart-plot-background {
+    -fx-background-color: transparent;
+}
+
+.axis {
+    -fx-border-color: transparent;
+    -fx-tick-mark-visible: true;
+    -fx-minor-tick-visible: false;
+    -fx-tick-labels-visible: true;
+}

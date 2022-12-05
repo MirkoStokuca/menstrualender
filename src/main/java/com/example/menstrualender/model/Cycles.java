@@ -1,118 +1,145 @@
 package com.example.menstrualender.model;
 
-import com.example.menstrualender.MensApplication;
-import com.example.menstrualender.util.DateUtil;
-
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
+/**
+ * bridge between Db and Fxml
+ */
 public class Cycles {
 
-    public ArrayList<LocalDate> cycles = new ArrayList<>();
+    //deklaration
+    private Db db;
+
+    public Cycles(Db db) {
+        this.db = db;
+    }
+
+    public Cycles() {
+    }
 
     /**
-     * reads the .csv file and saves the found dates as
-     * LocalDate objects in the cycles Arraylist
-     * returns cycles ArrayList of Cycle objects
+     * returns last cycle
+     * @return
      */
-    public void readData() {
-
-        ArrayList<LocalDate> readDates = new ArrayList<>();
-        try {
-            Path path = Paths.get(MensApplication.PATH_TO_FILE);
-            for(String valueLine : Files.readAllLines(path)){
-                String[] val = valueLine.split(";");
-                for (String s : val) {
-
-                    var tempStringArray = s.split("-");
-                    int year = Integer.parseInt(tempStringArray[0]);
-                    int month = Integer.parseInt(tempStringArray[1]);
-                    int day = Integer.parseInt(tempStringArray[2]);
-                    readDates.add(LocalDate.of(year, month, day));
-
-                }
-            }
-        } catch (IOException e) {
-            System.err.println("Fehler beim Einlesen der Datei.");
-            System.err.println(e.getMessage());
-        }
-        System.out.println();
-        System.out.println("Es wurden " + readDates.size() + " Einträge generiert");
-        System.out.println();
-        if (!cycles.isEmpty()) cycles.clear();
-        cycles = readDates;
-    }
-
-    public ArrayList<LocalDate> getCycles() {
-        return cycles;
-    }
-
-    public void saveData() {
-        try (var fileWriter = new FileWriter(MensApplication.PATH_TO_FILE)){
-            for (var cycle : cycles) {
-                fileWriter.write(cycle + ";");
-            }
-        } catch (IOException e) {
-            System.out.println("Error: " + e);
-        }
+    public ResultSet getCycles() {
+        ResultSet rs = this.db.getCycles();
+        return rs;
     }
 
     /**
-     * add a new date to the cycles Arraylist
+     * returns all Last Cycles
+     * @return
+     */
+    public ResultSet getCyclesHitstoryIntervals() {
+        ResultSet rs = this.db.getCyclesHistoryIntervals();
+        return rs;
+    }
+
+    /**
+     * returns counter History
+     * @return
+     */
+    public ResultSet getCounterHistory() {
+        ResultSet rs = this.db.getCountHistoryCycles();
+        return rs;
+    }
+
+    /**
+     * returns calculated predicted Cycle
+     * @return
+     */
+    public ResultSet getPredictionCycle() {
+        ResultSet rs = this.db.getPredictionCycle();
+        return rs;
+    }
+
+    /**
+     * add a new date to the cycles Database
      * @param date LocalDate object
      */
     public void addDate(LocalDate date) {
-        cycles.add(date);
+        this.db.insertCycle(date);
     }
 
+    /**
+     * add a new Flow data to the cycles Database
+     * @param value
+     */
+    public void addOutflow(int value) {
+        this.db.insertOutflow(value);
+    }
+
+    /**
+     * add a new Mood data to the cycles Database
+     * @param value
+     */
+    public void addMood(int value) {
+        this.db.insertMood(value);
+    }
+
+    /**
+     * add a new Temperature Data to the cycles Database
+     * @param value
+     */
+    public void addTemp(String value) {
+        this.db.insertTemperature(value);
+    }
+
+    /**
+     * add a new Comment Data to the cycles Database
+     * @param comment
+     */
+    public void addComments(String comment) {
+        this.db.insertComment(comment);
+    }
+
+    /**
+     * add a new bleeding data to the cycles Database
+     * @param value
+     */
+    public void addBleeding(int value) {
+        this.db.insertBleeding(value);
+    }
+
+    /**
+     * add a new Ovulation data to the cycles Database
+     * @param date
+     */
+    public void addOvulation(LocalDate date) {
+        this.db.insertOvulation(date);
+    }
+
+    /**
+     * calls method to delete all the Data in Db
+     */
     public void deleteData(){
-        cycles.clear();
-        saveData();
+        this.db.deleteCycle();        // in der Klammer könnte die id_cyc mit gegeben werden, um ein bestimmten Eintrag zu löschen
     }
 
     /**
      * calculates the average interval in between the dates in
-     * the cycles ArrayList
+     * the cycles Datenbank
      * @return average interval
      */
-    public int getAverageInterval() {
-
-        long intervals = 0;
-
-        for (int i = 0; i < (cycles.size() - 1); i++) {
-            LocalDate start = cycles.get(i);
-            LocalDate end = cycles.get(i + 1);
-
-            // Calculate Number of Days Between two LocalDate objects
-            long numberOfDays = ChronoUnit.DAYS.between(start, end);
-            //System.out.println("Number of days :" + numberOfDays);
-            intervals += numberOfDays;
+    public String getAverageLength() {
+        try {
+            return this.db.getAvg().getString("cycle_avg_days");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
-
-        double resultOfDivision = (double) intervals/(cycles.size()-1);
-
-        return (int) Math.round(resultOfDivision);
     }
 
     /**
-     * Calculates the date of the start of the next cycle
-     * @return LocalDate with averageInterval added
+     * returns the Temperature from Db
+     * @return
      */
-    public String calculateNextCycleStart() {
-
-        int averageInterval = getAverageInterval();
-
-        try {
-            LocalDate lastEntry = this.cycles.get(cycles.size() - 1);
-            return lastEntry.plusDays(averageInterval).format(DateUtil.formatter);
-        } catch (IndexOutOfBoundsException e) {
-            return "";
-        }
+    public ResultSet getTemperatur() {
+        return this.db.getTemperatur();
+    }
+    public ResultSet getOutflow() {
+        return this.db.getOutflow();
     }
 }
