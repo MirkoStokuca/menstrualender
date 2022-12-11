@@ -154,7 +154,7 @@
                         </AnchorPane>
                         <AnchorPane prefHeight="127.0" prefWidth="780.0">
                            <children>
-                              <LineChart fx:id="lineChart" alternativeColumnFillVisible="false" horizontalGridLinesVisible="false" horizontalZeroLineVisible="false" layoutX="-47.0" layoutY="-15.0" prefHeight="156.0" prefWidth="780.0" title="Temperature" verticalZeroLineVisible="false" AnchorPane.bottomAnchor="-24.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-15.0">
+                              <LineChart fx:id="lineChart" alternativeColumnFillVisible="false" horizontalGridLinesVisible="false" horizontalZeroLineVisible="false" layoutX="-47.0" layoutY="-15.0" prefHeight="156.0" prefWidth="780.0" title="Temperatur" verticalZeroLineVisible="false" AnchorPane.bottomAnchor="-24.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-15.0">
                                 <xAxis>
                                   <NumberAxis side="BOTTOM" />
                                 </xAxis>
@@ -167,7 +167,7 @@
                         <AnchorPane prefHeight="261.0" prefWidth="780.0" stylesheets="@stacked_bar_chart.css">
                            <children>
 
-                              <StackedBarChart fx:id="stackedBarChart" categoryGap="5.0" layoutY="-15.0" prefHeight="269.0" prefWidth="780.0" title="Past Cycles Overview" AnchorPane.bottomAnchor="-3.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-15.0">
+                              <StackedBarChart fx:id="stackedBarChart" categoryGap="5.0" layoutX="-47.0" layoutY="-15.0" prefHeight="270.0" prefWidth="828.0" title="Vergangen Zyklen" AnchorPane.bottomAnchor="-3.0" AnchorPane.leftAnchor="-47.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-15.0">
 
                                  <xAxis>
                                     <NumberAxis autoRanging="false" prefHeight="37.0" prefWidth="812.0" upperBound="31.0" />
