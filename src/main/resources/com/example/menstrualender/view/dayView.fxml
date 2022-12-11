@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
@@ -26,8 +26,12 @@
                         <Insets bottom="3.0" />
                      </padding>
                   </Label>
-                  <DatePicker id="dailyFields" fx:id="dailyDatePicker" layoutX="20.0" layoutY="50.0" prefHeight="39.0" prefWidth="160.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="507.0" AnchorPane.topAnchor="85.0" />
-                  <JFXToggleButton id="dailyFields" fx:id="eisprung" layoutX="62.0" layoutY="86.0" prefHeight="9.0" prefWidth="147.0" text="Eisprung" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="507.0" AnchorPane.topAnchor="120.0" />
+
+                  <DatePicker id="dailyFields" fx:id="dailyDatePicker" layoutX="20.0" layoutY="45.0" prefHeight="31.0" prefWidth="160.0" AnchorPane.bottomAnchor="39.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="507.0" AnchorPane.topAnchor="85.0">
+                     <cursor>
+                        <Cursor fx:constant="CROSSHAIR" />
+                     </cursor></DatePicker>
+
                </children>
                <padding>
                   <Insets top="-20.0" />
