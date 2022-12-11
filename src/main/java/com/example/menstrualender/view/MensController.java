@@ -286,9 +286,9 @@ public class MensController implements Initializable {
                 FXCollections.observableArrayList(
 
                         new PieChart.Data("Blutung", avg_bleeding_length),
-                        new PieChart.Data("Follikelphase Phase", preSecond_interval),
-                        new PieChart.Data("Fruchtbar "+"\n"+ fertility_interval_start+" - "+ fertility_interval_end, preFertility_days),
-                        new PieChart.Data("Lutealphase Phase", preFourth_interval));
+                        new PieChart.Data("Follikelphase", preSecond_interval),
+                        new PieChart.Data("Fruchtbare Zeit "+"\n"+ fertility_interval_start+" - "+ fertility_interval_end, preFertility_days),
+                        new PieChart.Data("Lutealphase", preFourth_interval));
 
 
         this.cycleGraph.setLabelLineLength(8);
