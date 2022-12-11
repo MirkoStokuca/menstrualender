@@ -75,7 +75,7 @@ public class MensController implements Initializable {
      * Starts scene and calls visual output
      * @param mensApp
      */
-    public void setMainApp(MensApplication mensApp) {
+    public void setMainApp(MensApplication mensApp) throws ParseException {
         this.mensApp = mensApp;
         //Init stacked bar chart
         sliderSlide();
@@ -249,7 +249,7 @@ public class MensController implements Initializable {
      * Init pie chart
      */
 
-    private void initPieChart() {
+    private void initPieChart() throws ParseException {
         // prediction:
         int preSecond_interval = 0;
         int preFertility_days = 0;
@@ -281,15 +281,16 @@ public class MensController implements Initializable {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
+        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+        SimpleDateFormat userValue = new SimpleDateFormat("yyyy-MM-dd");
+        String fertilityEnd = format.format(userValue.parse(String.valueOf(fertility_interval_end)));
+        String fertilityStart = format.format(userValue.parse(String.valueOf(fertility_interval_start)));
        cycleChartData =
                 FXCollections.observableArrayList(
-
                         new PieChart.Data("Blutung", avg_bleeding_length),
                         new PieChart.Data("Follikelphase", preSecond_interval),
-                        new PieChart.Data("Fruchtbare Zeit "+"\n"+ fertility_interval_start+" - "+ fertility_interval_end, preFertility_days),
+                        new PieChart.Data("Fruchtbare Zeit "+"\n"+ fertilityStart+" - "+ fertilityEnd, preFertility_days),
                         new PieChart.Data("Lutealphase", preFourth_interval));
-
 
         this.cycleGraph.setLabelLineLength(8);
         this.cycleGraph.setLabelsVisible(true);
@@ -339,6 +340,7 @@ public class MensController implements Initializable {
         showNextCycleStart();
         loadStackedBarChart();
         todaysDate();
+        initPieChart();
 
     }
 
