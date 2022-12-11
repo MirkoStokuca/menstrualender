@@ -347,7 +347,7 @@ public class MensController implements Initializable {
      */
     public void showAverageInterval() {
         final DecimalFormat avgFormat = new DecimalFormat("0");
-        averageInterval.setText(avgFormat.format(Double.parseDouble(this.mensApp.zyklus.getAverageLength()))+" Days");
+        averageInterval.setText(avgFormat.format(Double.parseDouble(this.mensApp.zyklus.getAverageLength()))+" Tage");
     }
 
     /**
