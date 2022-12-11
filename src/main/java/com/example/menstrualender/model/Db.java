@@ -80,18 +80,16 @@ public class Db {
     public Db() {
     }
 
-    /**
+    /*
      * set Up password
-     * @param password
-     * @return
      */
     public boolean setUp(String password){
         this.util = new Util();
         return this.util.setUp(password);
     }
 
-    /**
-     * adds new cyle to Db
+    /*
+     * adds new cycle to Db
      */
     public int insertCycle(LocalDate date) {
         this.util.update("insert into cycle (cyc_start) values('" + date + "')");
@@ -105,7 +103,6 @@ public class Db {
             while (rs.next()) {
                 countBleedingDay = rs.getInt("count_bleeding_days");
                 cycID = rs.getInt("cyc_id");
-                System.out.println("Startblutung wird hinzugefügt!");
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -159,27 +156,23 @@ public class Db {
         return 1;
     }
 
-    /**
+    /*
      * Add new Bleeding Cycle Input to Db
-     * @param value
-     * @return
      */
     public int insertBleeding(int value, int cycId) {
         this.util.update("insert into c_bleeding (cyc_id, bleeding) values((" + cycId + "),'" + value + "')");
         return 1;
     }
 
-    /**
+    /*
      * Add new Ovulation Input to Db
-     * @param date
-     * @return
      */
     public int insertOvulation(LocalDate date) {
         this.util.update("insert into c_ovulation (cyc_id, ovulation_date) values((" + SQL_GET_CYC_ID + "),'" + date + "')");
         return 1;
     }
 
-    /**
+    /*
      * erases all data from Db
      */
     public void deleteCycle() {
@@ -192,18 +185,7 @@ public class Db {
         this.util.update("delete from c_temperature");
     }
 
-    /**
-     * returns Date from all cycles
-     *
-     */
-    public ResultSet getCycles() {
-        return this.util.query("""
-        select cyc_id, date(cyc_start) as cyc_date_start
-        from cycle
-        """);
-    }
-
-    /**
+    /*
      * History Cycles:
      */
     public ResultSet getCyclesHistoryIntervals() {
@@ -211,7 +193,7 @@ public class Db {
                 this.SQL_GET_HISTORY);
     }
 
-    /**
+    /*
      * returns the last Cycle Date
      */
     public ResultSet getCountHistoryCycles() {
@@ -221,11 +203,10 @@ public class Db {
         );
     }
 
-    /**
+    /*
      * returns the Temperature from given Day
-     *
      */
-    public ResultSet getTemperatur() {
+    public ResultSet getTemperature() {
         return this.util.query("""
             select temperature_value
             from c_temperature
@@ -238,7 +219,7 @@ public class Db {
         );
     }
 
-    /**
+    /*
      * Prediction Daten:
      * - Start Datum (aktueller Zyklus)
      * - Voraussichtliches Enddatum
@@ -311,8 +292,8 @@ public class Db {
         );
     }
 
-    /**
-     * returnes average cycle length
+    /*
+     * returns average cycle length
      */
     public ResultSet getAvg() {
         return this.util.query(this.SQL_STATS + """

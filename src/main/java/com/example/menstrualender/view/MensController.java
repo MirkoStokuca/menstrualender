@@ -1,5 +1,4 @@
 package com.example.menstrualender.view;
-import com.example.menstrualender.model.Db;
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
@@ -19,14 +18,12 @@ import javafx.util.Duration;
 
 import java.net.URL;
 import java.sql.*;
-import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
