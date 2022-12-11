@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
@@ -18,7 +18,15 @@
       <Pane id="menuBar" maxHeight="60.0" minHeight="60.0" prefHeight="60.0" prefWidth="686.0" />
       <VBox layoutX="56.0" layoutY="1.0" prefHeight="601.0" prefWidth="687.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <AnchorPane maxHeight="60.0" minHeight="60.0" prefHeight="60.0" prefWidth="767.0" />
+            <AnchorPane maxHeight="60.0" minHeight="60.0" prefHeight="60.0" prefWidth="767.0">
+               <children>
+                  <Label id="Titel" alignment="CENTER" contentDisplay="CENTER" layoutX="154.0" layoutY="6.0" prefHeight="47.0" prefWidth="379.0" text="Tägliche Eingabe" textAlignment="CENTER" AnchorPane.leftAnchor="154.0" AnchorPane.rightAnchor="154.0" AnchorPane.topAnchor="6.0">
+                     <font>
+                        <Font size="23.0" />
+                     </font>
+                  </Label>
+                  <Button id="button" fx:id="dayReturn" layoutX="515.0" layoutY="13.0" mnemonicParsing="false" onAction="#dailyReturn" text="Zurück" AnchorPane.rightAnchor="104.33333333333337" AnchorPane.topAnchor="13.0" />
+               </children></AnchorPane>
             <AnchorPane maxHeight="168.0" minHeight="135.0" prefHeight="135.0" prefWidth="354.0">
                <children>
                   <Label layoutX="20.0" layoutY="-65.0" text="Datum für den Eisprung" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="50.0">
@@ -26,8 +34,12 @@
                         <Insets bottom="3.0" />
                      </padding>
                   </Label>
-                  <DatePicker id="dailyFields" fx:id="dailyDatePicker" layoutX="20.0" layoutY="50.0" prefHeight="39.0" prefWidth="160.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="507.0" AnchorPane.topAnchor="85.0" />
-                  <JFXToggleButton id="dailyFields" fx:id="eisprung" layoutX="62.0" layoutY="86.0" prefHeight="9.0" prefWidth="147.0" text="Eisprung" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="507.0" AnchorPane.topAnchor="120.0" />
+
+                  <DatePicker id="dailyFields" fx:id="dailyDatePicker" layoutX="20.0" layoutY="45.0" prefHeight="31.0" prefWidth="160.0" AnchorPane.bottomAnchor="39.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="507.0" AnchorPane.topAnchor="85.0">
+                     <cursor>
+                        <Cursor fx:constant="CROSSHAIR" />
+                     </cursor></DatePicker>
+
                </children>
                <padding>
                   <Insets top="-20.0" />
@@ -37,7 +49,7 @@
                <children>
                   <ChoiceBox id="dailyFields" fx:id="chooseSlime" layoutX="20.0" layoutY="50.0" prefHeight="43.0" prefWidth="160.0" AnchorPane.bottomAnchor="22.000000000000007" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="507.0" AnchorPane.topAnchor="90.0" />
                   <ChoiceBox id="dailyFields" fx:id="chooseBlood" layoutX="513.0" layoutY="70.0" prefHeight="43.0" prefWidth="160.0" />
-                  <Label layoutX="20.0" layoutY="59.0" text="Wählen Sie die Konsistenz des Scheidenausflusses " AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="59.0">
+                  <Label layoutX="20.0" layoutY="59.0" text="Konsistenz des Scheidenausflusses " AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="59.0">
                      <padding>
                         <Insets bottom="3.0" />
                      </padding>
@@ -54,7 +66,7 @@
             </AnchorPane>
             <AnchorPane maxHeight="150.0" minHeight="135.0" prefHeight="150.0">
                <children>
-                  <Label layoutX="20.0" layoutY="59.0" text="Wie ist ihre Stimmung" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="60.0">
+                  <Label layoutX="20.0" layoutY="59.0" text="Gemütszustand" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="60.0">
                      <padding>
                         <Insets bottom="3.0" />
                      </padding>
@@ -73,7 +85,7 @@
             </AnchorPane>
             <AnchorPane maxHeight="150.0" minHeight="135.0" prefHeight="150.0">
                <children>
-                  <Label layoutX="20.0" layoutY="59.0" text="Vaginaltemperatur mit zwei Nachkommastellen" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="20.0">
+                  <Label layoutX="20.0" layoutY="59.0" text="Vaginaltemperatur" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="20.0">
                      <padding>
                         <Insets bottom="3.0" />
                      </padding>
@@ -83,12 +95,6 @@
             </AnchorPane>
          </children>
       </VBox>
-      <Label id="Titel" alignment="CENTER" contentDisplay="CENTER" prefHeight="47.0" prefWidth="488.0" text="Tägliche Eingabe" textAlignment="CENTER" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="4.0">
-         <font>
-            <Font size="23.0" />
-         </font>
-      </Label>
-      <Button id="button" fx:id="dayReturn" layoutX="539.5" layoutY="13.0" mnemonicParsing="false" onAction="#dailyReturn" text="Zurück" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="13.0" />
       <Button id="button" fx:id="saveButton" layoutX="623.5" layoutY="13.0" mnemonicParsing="false" onAction="#dailySave" text="Speichern" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="13.0" />
       <Line endX="215.99993896484375" endY="-27.66666030883789" layoutX="470.0" layoutY="87.0" startX="-470.0" startY="-27.66666030883789" />
    </children>

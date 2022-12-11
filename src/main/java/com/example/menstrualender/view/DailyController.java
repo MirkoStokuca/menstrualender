@@ -101,7 +101,7 @@ public class DailyController implements Initializable {
         if (bloodChoiceInt != 0){
             mensApp.zyklus.addBleeding(bloodChoiceInt);
         }
-        if (eisprung.isSelected()){
+        if (dailyDatePicker != null){
             mensApp.zyklus.addOvulation(dailyDatePicker.getValue());
         }
 

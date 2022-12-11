@@ -27,6 +27,14 @@
     -fx-border-radius: 6;
     -fx-padding: 5;
 }
+#dateToday {
+    -fx-font-size: 20;
+    -fx-background-radius: 6;
+    -fx-background-color: #596475;
+    -fx-border-color: #111;
+    -fx-border-radius: 6;
+    -fx-padding: 5;
+}
 
 #rectangle{
     -fx-border-color: #111;

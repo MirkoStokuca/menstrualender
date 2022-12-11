@@ -48,6 +48,8 @@ public class MensController implements Initializable {
     @FXML
     private DatePicker datePicker;
     @FXML
+    private Label todaysDate;
+    @FXML
     private StackedBarChart stackedBarChart;
     @FXML
     private MensApplication mensApp;
@@ -258,7 +260,7 @@ public class MensController implements Initializable {
         int min_cyc_length = 0;
         int max_cyc_length = 0;
 
-        LocalDate start_date, nextCycleStart, fertility_interval_start = null, fertility_interval_end;
+        LocalDate start_date, nextCycleStart, fertility_interval_start = null, fertility_interval_end = null;
         ResultSet rs = mensApp.zyklus.getPredictionCycle();
         try {
             if (!rs.next()) { // false Check! rs.next() == false
@@ -282,10 +284,12 @@ public class MensController implements Initializable {
 
        cycleChartData =
                 FXCollections.observableArrayList(
+
                         new PieChart.Data("Blutung", avg_bleeding_length),
-                        new PieChart.Data("Follikelphase Phase", preSecond_interval),
-                        new PieChart.Data("Fruchtbar "+"\n"+ fertility_interval_start+" - "+ fertility_interval_start, preFertility_days),
-                        new PieChart.Data("Lutealphase Phase", preFourth_interval));
+                        new PieChart.Data("Follikelphase", preSecond_interval),
+                        new PieChart.Data("Fruchtbare Zeit "+"\n"+ fertility_interval_start+" - "+ fertility_interval_end, preFertility_days),
+                        new PieChart.Data("Lutealphase", preFourth_interval));
+
 
         this.cycleGraph.setLabelLineLength(8);
         this.cycleGraph.setLabelsVisible(true);
@@ -330,10 +334,11 @@ public class MensController implements Initializable {
      * updates Grafik output
      */
     @FXML
-    public void upDateInfos() {
+    public void upDateInfos() throws ParseException {
         showAverageInterval();
         showNextCycleStart();
         loadStackedBarChart();
+        todaysDate();
 
     }
 
@@ -341,7 +346,7 @@ public class MensController implements Initializable {
      * shows Average Interval on scene
      */
     public void showAverageInterval() {
-        final DecimalFormat avgFormat = new DecimalFormat("0.0");
+        final DecimalFormat avgFormat = new DecimalFormat("0");
         averageInterval.setText(avgFormat.format(Double.parseDouble(this.mensApp.zyklus.getAverageLength()))+" Days");
     }
 
@@ -370,6 +375,14 @@ public class MensController implements Initializable {
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void todaysDate() throws ParseException {
+        LocalDate dateToday = LocalDate.now();
+        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+        SimpleDateFormat userValue = new SimpleDateFormat("yyyy-MM-dd");
+        String today = format.format(userValue.parse(String.valueOf(dateToday)));
+        todaysDate.setText("Heute ist der: "+ today);
     }
 
 
