@@ -101,6 +101,7 @@ public class Cycles {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
         this.db.insertBleeding(value, actuelleCycId);
     }
 
