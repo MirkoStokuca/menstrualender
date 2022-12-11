@@ -147,7 +147,7 @@ public class MensController implements Initializable {
             series4.getData().add(new XYChart.Data(0, placeholder));
         }
 
-        ResultSet rs = this.mensApp.zyklus.getCyclesHitstoryIntervals();
+        ResultSet rs = this.mensApp.zyklus.getCyclesHistoryIntervals();
         int bleeding_days, second_interval, fertility_days, fourth_interval;
         String start_date;
 
@@ -202,7 +202,7 @@ public class MensController implements Initializable {
     public ArrayList<Float> getArrayListFloatTemperaturData() {
         ArrayList<Float> arrayTemperatur = new ArrayList<>();
         float oneTemperatur;
-        ResultSet rs = mensApp.zyklus.getTemperatur();
+        ResultSet rs = mensApp.zyklus.getTemperature();
         try {
             if (!rs.next()) {
                 System.out.println("keine Temperatur eingaben");
@@ -496,7 +496,7 @@ public class MensController implements Initializable {
         String message = "";
         int bleeding_days, second_interval, fertility_days, fourth_interval;
         LocalDate start_date;
-        ResultSet rs = mensApp.zyklus.getCyclesHitstoryIntervals();
+        ResultSet rs = mensApp.zyklus.getCyclesHistoryIntervals();
         try {
             if (!rs.next()) { // false Check! rs.next() == false
                 message += "None Found!\n\nHow to Add New Cycle:\n1. Choose Date\n2.\"Start new Cycle\"" +
