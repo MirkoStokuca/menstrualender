@@ -108,7 +108,7 @@ Das Ziel wird es sein ein Tool zu schaffen, das einfach von Gebrauch ist, aber d
 
 Flowchart:
 
-<img src="imagesReadme/FlowChartMenstrualender.jpg" width="500">
+<img src="imagesReadme/FlowchartMenstrualender.jpg" width="500">
 
 Package Diagram:
 
