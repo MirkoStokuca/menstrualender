@@ -62,6 +62,7 @@ public class Cycles {
      */
     public void addDate(LocalDate date) {
         this.db.insertCycle(date);
+        this.db.closeCycle();
     }
 
     /**
@@ -101,7 +102,7 @@ public class Cycles {
      * @param value
      */
     public void addBleeding(int value) {
-        this.db.insertBleeding(value);
+        this.db.insertBleeding(value, Integer.parseInt(this.db.SQL_GET_CYC_ID));
     }
 
     /**

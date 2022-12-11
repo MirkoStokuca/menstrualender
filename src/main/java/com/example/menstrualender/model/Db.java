@@ -98,6 +98,35 @@ public class Db {
         return 1;
     }
 
+    public int closeCycle(){
+        ResultSet rs = getLastBleedingLength();
+        int countBleedingDay = 1, cycID = 0;
+        try {
+            while (rs.next()) {
+                countBleedingDay = rs.getInt("count_bleeding_days");
+                cycID = rs.getInt("cyc_id");
+                System.out.println("Startblutung wird hinzugefügt!");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        if(countBleedingDay == 0) {
+            insertBleeding(1, cycID);
+        }
+        return 1;
+    }
+
+    public ResultSet getLastBleedingLength(){
+        return this.util.query("""
+                select cycle.cyc_id, cyc_start, count(c_bleeding.cyc_id) as count_bleeding_days
+                from cycle
+                    left join c_bleeding
+                        on cycle.cyc_id = c_bleeding.cyc_id
+                group by cycle.cyc_id, cyc_start
+                order by cycle.cyc_id desc
+                limit 1 offset 1""");
+    }
+
     /**
      * Add new Mood Input to Db
      */
@@ -135,8 +164,8 @@ public class Db {
      * @param value
      * @return
      */
-    public int insertBleeding(int value) {
-        this.util.update("insert into c_bleeding (cyc_id, bleeding) values((" + SQL_GET_CYC_ID + "),'" + value + "')");
+    public int insertBleeding(int value, int cycId) {
+        this.util.update("insert into c_bleeding (cyc_id, bleeding) values((" + cycId + "),'" + value + "')");
         return 1;
     }
 
