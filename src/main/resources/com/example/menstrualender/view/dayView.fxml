@@ -21,7 +21,7 @@
             <AnchorPane maxHeight="60.0" minHeight="60.0" prefHeight="60.0" prefWidth="767.0" />
             <AnchorPane maxHeight="168.0" minHeight="135.0" prefHeight="135.0" prefWidth="354.0">
                <children>
-                  <Label layoutX="20.0" layoutY="-65.0" text="Datum des Eisprungs" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="50.0">
+                  <Label layoutX="20.0" layoutY="-65.0" text="Datum für den Eisprung" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="50.0">
                      <padding>
                         <Insets bottom="3.0" />
                      </padding>
@@ -54,13 +54,13 @@
             </AnchorPane>
             <AnchorPane maxHeight="150.0" minHeight="135.0" prefHeight="150.0">
                <children>
-                  <Label layoutX="20.0" layoutY="59.0" text="Eingabe: Stimmung" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="60.0">
+                  <Label layoutX="20.0" layoutY="59.0" text="Wie ist ihre Stimmung" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="60.0">
                      <padding>
                         <Insets bottom="3.0" />
                      </padding>
                   </Label>
                   <ChoiceBox id="dailyFields" fx:id="chooseMood" layoutX="36.0" layoutY="50.0" prefHeight="43.0" prefWidth="160.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="507.0" AnchorPane.topAnchor="90.0" />
-                  <Label layoutX="364.0" layoutY="23.0" text="Kommentare" AnchorPane.leftAnchor="364.0" AnchorPane.topAnchor="60.0">
+                  <Label layoutX="364.0" layoutY="23.0" text="Kommentar" AnchorPane.leftAnchor="364.0" AnchorPane.topAnchor="60.0">
                      <padding>
                         <Insets bottom="3.0" />
                      </padding>
@@ -73,7 +73,7 @@
             </AnchorPane>
             <AnchorPane maxHeight="150.0" minHeight="135.0" prefHeight="150.0">
                <children>
-                  <Label layoutX="20.0" layoutY="59.0" text="Eingabe: Vaginaltemperatur" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="20.0">
+                  <Label layoutX="20.0" layoutY="59.0" text="Vaginaltemperatur mit zwei Nachkommastellen" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="20.0">
                      <padding>
                         <Insets bottom="3.0" />
                      </padding>

@@ -59,7 +59,7 @@ public class MensController implements Initializable {
     private ToggleButton pregnantMode;
     @FXML
     private AnchorPane slider;
-    public String colorFruchtbar = "SKYBLUE";
+    public String colorFruchtbar = "MEDIUMPURPLE";
     public ObservableList<PieChart.Data> cycleChartData;
 
 
@@ -120,11 +120,11 @@ public class MensController implements Initializable {
         XYChart.Series series1 = new XYChart.Series();
         series1.setName("Blutung");
         XYChart.Series series2 = new XYChart.Series();
-        series2.setName("Vorfruchtbarkeitsphase");
+        series2.setName("Follikelphase");
         XYChart.Series series3 = new XYChart.Series();
         series3.setName("Fruchtbar");
         XYChart.Series series4 = new XYChart.Series();
-        series4.setName("Vorblutungsphase");
+        series4.setName("Lutealphase");
 
         // delete Data
         if (stackedBarChart != null) {
@@ -283,9 +283,9 @@ public class MensController implements Initializable {
        cycleChartData =
                 FXCollections.observableArrayList(
                         new PieChart.Data("Blutung", avg_bleeding_length),
-                        new PieChart.Data("Vorfruchtbarkeits Phase", preSecond_interval),
+                        new PieChart.Data("Follikelphase Phase", preSecond_interval),
                         new PieChart.Data("Fruchtbar "+"\n"+ fertility_interval_start+" - "+ fertility_interval_start, preFertility_days),
-                        new PieChart.Data("Vorblutungs Phase", preFourth_interval));
+                        new PieChart.Data("Lutealphase Phase", preFourth_interval));
 
         this.cycleGraph.setLabelLineLength(8);
         this.cycleGraph.setLabelsVisible(true);
@@ -296,8 +296,7 @@ public class MensController implements Initializable {
                 "ORCHID",
                 "lightblue",
                 colorFruchtbar,
-                "MEDIUMPURPLE",
-                "teal");
+                "lightblue");
     }
     @FXML
     private void getPregnantMode(){
@@ -310,7 +309,7 @@ public class MensController implements Initializable {
                 "ORCHID",
                 "lightblue",
                 colorFruchtbar,
-                "MEDIUMPURPLE");
+                "lightblue");
     }
 
 
