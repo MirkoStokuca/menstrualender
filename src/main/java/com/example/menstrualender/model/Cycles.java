@@ -94,7 +94,14 @@ public class Cycles {
      * add a new bleeding data to the cycles Database
      */
     public void addBleeding(int value) {
-        this.db.insertBleeding(value, Integer.parseInt(this.db.SQL_GET_CYC_ID));
+        int actuelleCycId;
+        ResultSet resultSet = this.db.util.query(this.db.SQL_GET_CYC_ID);
+        try {
+            actuelleCycId = resultSet.getInt("cyc_id");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        this.db.insertBleeding(value, actuelleCycId);
     }
 
     /*
