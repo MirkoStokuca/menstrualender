@@ -4,14 +4,12 @@ import java.io.File;
 import java.sql.*;
 
 public class Util {
-    //deklaration
     Statement statement;
     Connection connection;
 
 
-    /**
+    /*
      * checks if Db Exists. returns boolean
-     * @return
      */
     public static boolean isDbExisting(){
         File f = new File("sample.sqlite");
@@ -23,10 +21,8 @@ public class Util {
         else return true;
     }
 
-    /**
-     * if Db doesnt exist yet it creates a new one
-     * @param password
-     * @return
+    /*
+     * Controller if a database is existing
      */
     public boolean setUp(String password){
         boolean isDbExisting = Util.isDbExisting();
@@ -39,10 +35,8 @@ public class Util {
         return succes;
     }
 
-    /**
+    /*
      * creates dataBase connection and handles password
-     * @param password
-     * @return
      */
     private boolean getConnection(String password) {
         try {
@@ -66,9 +60,8 @@ public class Util {
         return true;
     }
 
-    /**
+    /*
      * calls method to update Data
-     * @param sql
      */
     public void update(String sql) {
         try {
@@ -78,10 +71,8 @@ public class Util {
         }
     }
 
-    /**
-     *
-     * @param sql
-     * @return
+    /*
+    um etwas in der Datenbank zulesen
      */
     public ResultSet query(String sql) {
         try {
@@ -91,11 +82,11 @@ public class Util {
         }
     }
 
-    // Brauchen wir vielleicht nicht einmal
-
-    /**
+    /*
      * cloeses the connection
+     * Brauchen wir vielleicht nicht einmal
      */
+
     private void closeConnection() {
         try
         {

@@ -92,27 +92,55 @@ public class Setup {
                 insert into cycle (cyc_start)
                 values ('2022-0"""+ month + "-01')"
             );
-            for (int i = 0 ; i < 10 ; i++ ) {
-                this.util.update("""
-                    insert into c_temperature (cyc_id, temperature_value)
-                    values (""" + id + ", '37.56')"
-                );
-                this.util.update("""
-                    insert into c_temperature (cyc_id, temperature_value)
-                    values (""" + id + ", '36.36')"
-                );
-                this.util.update("""
-                        insert into c_outflow (cyc_id, outflow)
-                        values (""" + id + ", '1')"
-                );
-            }
-            for (int c = 0 ; c < 5; c++) {
-                this.util.update("""
-                    insert into c_bleeding (cyc_id, bleeding)
-                    values (""" + id + ", '++')"
-                );
-            }
-            id++;
+            id = temperaturDaten(id);
         }
+        for (month = 10 ; month < 13 ; month++ ){
+            this.util.update("""
+                insert into cycle (cyc_start)
+                values ('2022-"""+ month + "-01')"
+            );
+            id = temperaturDaten(id);
+        }
+    }
+
+    private int temperaturDaten(int id) {
+        for (int i = 0 ; i < 12 ; i++ ) {
+            this.util.update("""
+                insert into c_temperature (cyc_id, temperature_value)
+                values (""" + id + ", '36.36')"
+            );
+            this.util.update("""
+                    insert into c_outflow (cyc_id, outflow)
+                    values (""" + id + ", '1')"
+            );
+        }
+        for (int i = 0 ; i < 5 ; i++ ) {
+            this.util.update("""
+                insert into c_temperature (cyc_id, temperature_value)
+                values (""" + id + ", '37.56')"
+            );
+            this.util.update("""
+                    insert into c_outflow (cyc_id, outflow)
+                    values (""" + id + ", '1')"
+            );
+        }
+        for (int i = 0 ; i < 13 ; i++ ) {
+            this.util.update("""
+                insert into c_temperature (cyc_id, temperature_value)
+                values (""" + id + ", '36.36')"
+            );
+            this.util.update("""
+                    insert into c_outflow (cyc_id, outflow)
+                    values (""" + id + ", '1')"
+            );
+        }
+        for (int c = 0 ; c < 5; c++) {
+            this.util.update("""
+                insert into c_bleeding (cyc_id, bleeding)
+                values (""" + id + ", '++')"
+            );
+        }
+        id++;
+        return id;
     }
 }
