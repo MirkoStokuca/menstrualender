@@ -106,8 +106,22 @@ Das Ziel wird es sein ein Tool zu schaffen, das einfach von Gebrauch ist, aber d
 ### a. Taskliste für die Umsetzung der User Story (Schätzung in Stunden) b. Anreicherung der User Stories für die Umsetzung
 ### c. UML Package, Klassen- und Sequenzdiagramm
 
-Klassendiagramm
-![FlowchartMenstrualender](imagesReadme/FlowchartMenstrualender.jpg)
+Flowchart:
+
+<img src="imagesReadme/FlowChartMenstrualender.jpg" width="500">
+
+Package Diagram:
+
+<img src="imagesReadme/PackageDiagram.png" width="200">
+
+Class Diagram:
+
+<img src="imagesReadme/ClassDiagram.png" width="500">
+
+
+Sequence Diagram:
+
+<img src="imagesReadme/SequenceDiagram.png" width="500">
 
 
 ### d. Dokumentation wichtiger Code Snippets
