@@ -7,8 +7,13 @@
 3. [Kurze Bedienungsanleitung](#paragraph2)
 4. [User Stories inkl. Akzeptanzkriterium, Aufwandschätzung in Story-Points und Priorisierung](#paragraph3)
 5. [Releaseplan mit den Ausbaustufen](#paragraph4)
-6. [ Dokumentation Sprint 1 ](#paragraph5)
-7. [Dokumentation Sprint 2 (inkl. Punkte a-e ](#paragraph6)
+6. [ Dokumentation Sprint 1 & 2 ](#paragraph5)
+   1. [Taskliste Sprint 1](#subparagraph1)
+   2. [Taskliste Sprint 2](#subparagraph1)
+   3. [UML Package, Klassen- und Sequenzdiagramm](#subparagraph1)
+   4. [Code Snippets](#subparagraph1)
+   5. [Testfälle aus den Akzeptanzkriterien](#subparagraph1)
+
 
 
 # 1) Einleitung, Ziele, Randbedingungen <a name="introduction"></a>
@@ -108,23 +113,40 @@ Alternativ kann das Programm auch von einer IDE ausgeführt werden: navigieren h
 | 3   |User - Story 3: Daten einlesen       | User - Story 9: Schwangerschafts vs. Verhütungsmodus |
 | 4   |User - Story 4: Zyklusdauer ermitteln | User - Story 10: Passwortschutz                      |
 | 5   |User - Story 5: Vorhersage nächster Zyklus | User - Story 11: Temperatur erfassen und auswerten   |
-| 6   |User - Story 6: Zyklusdauer Durchschnitt | User - Story 12: Schleim erfassen und auswerten      |
+| 6   |User - Story 6: Zyklusdauer Durchschnitt | User - Story 12: Schleim erfassen       |
 | 7   |                                     | User - Story 13: Easter Egg                          |
 | 8   |                                     | User - Story 14: Graphische Ausgabe                  |
 | 9   | Velocity 34 | Velocity 80                                          |
 
 ---
-# 6) Dokumentation Sprint 1 <a name="paragraph5"></a>
+# 6) Dokumentation Sprint 1 & 2 (inkl. Punkte a-e) <a name="paragraph5"></a>
 
-### a. Taskliste für die Umsetzung der User Story (Schätzung in Stunden) b. Anreicherung der User Stories für die Umsetzung
-### c. UML Package, Klassen- und Sequenzdiagramm
-### d. Dokumentation wichtiger Code Snippets
-### e. Herleitung der Testfälle aus den Akzeptanzkriterien der User Stories
+### a. Taskliste für die Umsetzung der User Story Sprint 1(Schätzung in Stunden) 
+|- | Sprint 1 (7.11.2022) User Story    |Task | geschätzte Anzahl Stunden [in Stunden] |                                     
+|-----|-------------------------------------|------------------------|------------------------------|
+| 1   |  User - Story 1: Eingabe Datum       | [] Datum erfassen            |0.5 |
+| 2   |User - Story 2: Daten Speichern      | [] File einbinden| 1 |
+| 3   |User - Story 3: Daten einlesen       | [] Datum erfassen, und mit gespreicherten Daten aus dem File arbeiten           |0.5 |
+| 4   |User - Story 4: Zyklusdauer ermitteln | [] Recherchieren, Methode schreiben| 1 |
+| 5   |User - Story 5: Vorhersage nächster Zyklus | [] Methode der Zyklusdauer anwenden| 0.5 |
+| 6   |User - Story 6: Zyklusdauer Durchschnitt |  [] Methode der Zyklusdauer anwenden| 0.2 |
 
----
-# 7) Dokumentation Sprint 2 (inkl. Punkte a-e <a name="paragraph6"></a>
+### b. Taskliste für die Umsetzung der User Story Sprint 2 (Schätzung in Stunden)
 
-### a. Taskliste für die Umsetzung der User Story (Schätzung in Stunden) b. Anreicherung der User Stories für die Umsetzung
+| -   | Sprint 2  (18.11.2022) User Story   | Task                                                                                                                                                                                            | geschätzte Anzahl Stunden [in Stunden] |                                     
+|-----|-------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------|
+| 1   |User - Story 7: Blutungszeit ermitteln | [] Methode der Blutungsdauer schreiben                                                                                                                                                          | 0.2                                    |
+| 2   | User - Story 8: Fruchtare Zeit ermitteln             | [] Methode der Zyklusdauer anwenden                                                                                                                                                             | 1                                      |
+| 3   |User - Story 9: Schwangerschafts vs. Verhütungsmodus | [] GUI Methodeanpassen                                                                                                                                                                          | 1                                      |
+| 4   |User - Story 10: Passwortschutz                      | [] Implementation in der Datenbank                                                                                                                                                              | 1                                      |
+| 5   | User - Story 11: Temperatur erfassen und auswerten   | [] Daten auf GUI ebene erfassen, []Ausgabe aus der Daten bank für die GUI Graphikansicht                                                                                                        | 1                                      |
+| 6   |User - Story 12: Schleim erfassen       | []Daten auf GUI ebene erfassen                                                                                                                                                                  | 0.5                                    |
+| 7   |User - Story 13: Easter Egg| [] ein Easter Egg einbauen                                                                                                                                                                      | 1                                      |
+| 8   |User - Story 14: Graphische Ausgabe                  | [] Vorhersage Kreis, [] History Balken, [] Durchschnittliche Länge, [] Vorhersage, [] Temperatur Graph,  [] Eingabemöglichkeit (Mood, Outflow, Eisprung, Temperatur, Blutungsstärke, Kommentare) | 2                                      |
+| 9   | - | [] Menu-Leiste                                                                                                                                                                                  | 3                                      |
+| 10  | - | [] Datenbank SetUp, [] SQLite befehle, [] Datenbank Methoden für ausgaben (Temperatur, History Zyklen, Prediction Zyklen, durchschnittliche Zyklusdauer), [] Datenbank logik                    | 10                                     |
+
+
 ### c. UML Package, Klassen- und Sequenzdiagramm
 
 Flowchart:
