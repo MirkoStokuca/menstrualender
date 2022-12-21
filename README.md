@@ -1,18 +1,18 @@
 # Inhaltsverzeichnis
 1. [Einleitung, Ziele, Randbedingungen](#introduction)
    1. [Einleitung](#subparagraph1)
-   2. [Ziele](#subparagraph1)
-   3. [Randbedingungen](#subparagraph1)
+   2. [Ziele](#subparagraph2)
+   3. [Randbedingungen](#subparagraph3)
 2. [Build-Anleitung (checkout, mvn ...., java -jar xxxxx.jar)](#paragraph1)
 3. [Kurze Bedienungsanleitung](#paragraph2)
 4. [User Stories inkl. Akzeptanzkriterium, Aufwandschätzung in Story-Points und Priorisierung](#paragraph3)
 5. [Releaseplan mit den Ausbaustufen](#paragraph4)
 6. [ Dokumentation Sprint 1 & 2 ](#paragraph5)
-   1. [Taskliste Sprint 1](#paragraph6)
-   2. [Taskliste Sprint 2](#paragraph7)
-   3. [UML Package, Klassen- und Sequenzdiagramm](#subparagraph1)
-   4. [Code Snippets](#subparagraph1)
-   5. [Testfälle aus den Akzeptanzkriterien](#subparagraph1)
+   1. [Taskliste Sprint 1](#subparagraph4)
+   2. [Taskliste Sprint 2](#subparagraph5)
+   3. [UML Package, Klassen- und Sequenzdiagramm](#subparagraph6)
+   4. [Code Snippets](#subparagraph7)
+   5. [Testfälle aus den Akzeptanzkriterien](#subparagraph8)
 
 
 
