@@ -1,5 +1,4 @@
 package com.example.menstrualender.view;
-import com.example.menstrualender.model.Db;
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
@@ -19,14 +18,12 @@ import javafx.util.Duration;
 
 import java.net.URL;
 import java.sql.*;
-import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -51,6 +48,8 @@ public class MensController implements Initializable {
     @FXML
     private DatePicker datePicker;
     @FXML
+    private Label todaysDate;
+    @FXML
     private StackedBarChart stackedBarChart;
     @FXML
     private MensApplication mensApp;
@@ -62,7 +61,7 @@ public class MensController implements Initializable {
     private ToggleButton pregnantMode;
     @FXML
     private AnchorPane slider;
-    public String colorFruchtbar = "SKYBLUE";
+    public String colorFruchtbar = "MEDIUMPURPLE";
     public ObservableList<PieChart.Data> cycleChartData;
 
 
@@ -76,7 +75,7 @@ public class MensController implements Initializable {
      * Starts scene and calls visual output
      * @param mensApp
      */
-    public void setMainApp(MensApplication mensApp) {
+    public void setMainApp(MensApplication mensApp) throws ParseException {
         this.mensApp = mensApp;
         //Init stacked bar chart
         sliderSlide();
@@ -121,13 +120,13 @@ public class MensController implements Initializable {
         }
         //create Series Instances
         XYChart.Series series1 = new XYChart.Series();
-        series1.setName("Blood");
+        series1.setName("Blutung");
         XYChart.Series series2 = new XYChart.Series();
-        series2.setName("Pre-Fertile");
+        series2.setName("Follikelphase");
         XYChart.Series series3 = new XYChart.Series();
-        series3.setName("Fertile");
+        series3.setName("Fruchtbar");
         XYChart.Series series4 = new XYChart.Series();
-        series4.setName("Post-Fertile");
+        series4.setName("Lutealphase");
 
         // delete Data
         if (stackedBarChart != null) {
@@ -147,7 +146,7 @@ public class MensController implements Initializable {
             series4.getData().add(new XYChart.Data(0, placeholder));
         }
 
-        ResultSet rs = this.mensApp.zyklus.getCyclesHitstoryIntervals();
+        ResultSet rs = this.mensApp.zyklus.getCyclesHistoryIntervals();
         int bleeding_days, second_interval, fertility_days, fourth_interval;
         String start_date;
 
@@ -181,7 +180,7 @@ public class MensController implements Initializable {
      */
     private void initLineChart() {
         //change Title
-        lineChart.setTitle("Temperature Curve");
+        lineChart.setTitle("Temperaturkurve");
 
         //defining a series
         XYChart.Series series = new XYChart.Series();
@@ -202,7 +201,7 @@ public class MensController implements Initializable {
     public ArrayList<Float> getArrayListFloatTemperaturData() {
         ArrayList<Float> arrayTemperatur = new ArrayList<>();
         float oneTemperatur;
-        ResultSet rs = mensApp.zyklus.getTemperatur();
+        ResultSet rs = mensApp.zyklus.getTemperature();
         try {
             if (!rs.next()) {
                 System.out.println("keine Temperatur eingaben");
@@ -250,7 +249,7 @@ public class MensController implements Initializable {
      * Init pie chart
      */
 
-    private void initPieChart() {
+    private void initPieChart() throws ParseException {
         // prediction:
         int preSecond_interval = 0;
         int preFertility_days = 0;
@@ -261,7 +260,7 @@ public class MensController implements Initializable {
         int min_cyc_length = 0;
         int max_cyc_length = 0;
 
-        LocalDate start_date, nextCycleStart, fertility_interval_start = null, fertility_interval_end;
+        LocalDate start_date, nextCycleStart, fertility_interval_start = null, fertility_interval_end = null;
         ResultSet rs = mensApp.zyklus.getPredictionCycle();
         try {
             if (!rs.next()) { // false Check! rs.next() == false
@@ -282,13 +281,16 @@ public class MensController implements Initializable {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
+        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+        SimpleDateFormat userValue = new SimpleDateFormat("yyyy-MM-dd");
+        String fertilityEnd = format.format(userValue.parse(String.valueOf(fertility_interval_end)));
+        String fertilityStart = format.format(userValue.parse(String.valueOf(fertility_interval_start)));
        cycleChartData =
                 FXCollections.observableArrayList(
-                        new PieChart.Data("Bleeding", avg_bleeding_length),
-                        new PieChart.Data("Pre Fertile", preSecond_interval),
-                        new PieChart.Data("Fruchtbar "+"\n"+ fertility_interval_start+" - "+ fertility_interval_start, preFertility_days),
-                        new PieChart.Data("PreForth", preFourth_interval));
+                        new PieChart.Data("Blutung", avg_bleeding_length),
+                        new PieChart.Data("Follikelphase", preSecond_interval),
+                        new PieChart.Data("Fruchtbare Zeit "+"\n"+ fertilityStart+" - "+ fertilityEnd, preFertility_days),
+                        new PieChart.Data("Lutealphase", preFourth_interval));
 
         this.cycleGraph.setLabelLineLength(8);
         this.cycleGraph.setLabelsVisible(true);
@@ -299,8 +301,7 @@ public class MensController implements Initializable {
                 "ORCHID",
                 "lightblue",
                 colorFruchtbar,
-                "MEDIUMPURPLE",
-                "teal");
+                "lightblue");
     }
     @FXML
     private void getPregnantMode(){
@@ -313,7 +314,7 @@ public class MensController implements Initializable {
                 "ORCHID",
                 "lightblue",
                 colorFruchtbar,
-                "MEDIUMPURPLE");
+                "lightblue");
     }
 
 
@@ -334,10 +335,12 @@ public class MensController implements Initializable {
      * updates Grafik output
      */
     @FXML
-    public void upDateInfos() {
+    public void upDateInfos() throws ParseException {
         showAverageInterval();
         showNextCycleStart();
         loadStackedBarChart();
+        todaysDate();
+        initPieChart();
 
     }
 
@@ -345,8 +348,8 @@ public class MensController implements Initializable {
      * shows Average Interval on scene
      */
     public void showAverageInterval() {
-        final DecimalFormat avgFormat = new DecimalFormat("0.0");
-        averageInterval.setText(avgFormat.format(Double.parseDouble(this.mensApp.zyklus.getAverageLength()))+" Days");
+        final DecimalFormat avgFormat = new DecimalFormat("0");
+        averageInterval.setText(avgFormat.format(Double.parseDouble(this.mensApp.zyklus.getAverageLength()))+" Tage");
     }
 
     /**
@@ -376,6 +379,14 @@ public class MensController implements Initializable {
         }
     }
 
+    public void todaysDate() throws ParseException {
+        LocalDate dateToday = LocalDate.now();
+        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+        SimpleDateFormat userValue = new SimpleDateFormat("yyyy-MM-dd");
+        String today = format.format(userValue.parse(String.valueOf(dateToday)));
+        todaysDate.setText("Heute ist der: "+ today);
+    }
+
 
     /**
      * calls open LoginWindow
@@ -403,9 +414,9 @@ public class MensController implements Initializable {
             LocalDate myDate = datePicker.getValue();
             myDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.GERMAN));
             this.mensApp.zyklus.addDate(myDate);
-            showButton("Cycle added", Color.GREEN);
+            showButton("Zyklus hinzugefügt", Color.GREEN);
         } catch (NullPointerException e) {
-            showButton("Pick a Date", Color.RED);
+            showButton("Datum wählen", Color.RED);
         }
     }
 
@@ -496,7 +507,7 @@ public class MensController implements Initializable {
         String message = "";
         int bleeding_days, second_interval, fertility_days, fourth_interval;
         LocalDate start_date;
-        ResultSet rs = mensApp.zyklus.getCyclesHitstoryIntervals();
+        ResultSet rs = mensApp.zyklus.getCyclesHistoryIntervals();
         try {
             if (!rs.next()) { // false Check! rs.next() == false
                 message += "None Found!\n\nHow to Add New Cycle:\n1. Choose Date\n2.\"Start new Cycle\"" +

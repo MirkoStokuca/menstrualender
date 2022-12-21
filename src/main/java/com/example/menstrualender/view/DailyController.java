@@ -68,7 +68,7 @@ public class DailyController implements Initializable {
      */
     public void dailySave() {
         //read Input Data by the User
-        System.out.println("Funktion: Save");
+        System.out.println("Funktion: Speichern");
         String outflowChoice = chooseSlime.getValue();
         String moodChoice = chooseMood.getValue();
         String dailyTemp = dailyTemperature.getText();
@@ -101,7 +101,7 @@ public class DailyController implements Initializable {
         if (bloodChoiceInt != 0){
             mensApp.zyklus.addBleeding(bloodChoiceInt);
         }
-        if (eisprung.isSelected()){
+        if (dailyDatePicker != null){
             mensApp.zyklus.addOvulation(dailyDatePicker.getValue());
         }
 

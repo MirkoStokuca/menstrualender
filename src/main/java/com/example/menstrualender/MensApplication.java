@@ -13,6 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.Locale;
 
 public class MensApplication extends Application {
@@ -92,6 +93,8 @@ public class MensApplication extends Application {
 
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
         }
     }
 

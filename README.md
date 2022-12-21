@@ -57,6 +57,42 @@ Das Ziel wird es sein ein Tool zu schaffen, das einfach von Gebrauch ist, aber d
 2) Run program by changing into the folder containing the .jar file and running the following command: <pre><code>java -jar ~/"path to your folder"/menstrualender.jar</code></pre>
 ---
 # 3) Kurze Bedienungsanleitung <a name="paragraph2"></a>
+
+## Anzeigen und Eingabemöglichkeiten:
+### Was auf der Startseite zufinden ist:
+- Rechts ist eine Menuleiste die eingebelndet oder ausgeblendet werden kann.
+- Oben links daneben ist ein Runderkreis. Der veranschaulicht den Aktuell laufenden Zyklus. Der veranschaulicht wie lange die Blutungstage dauern könnten,
+- wann die Fruchtbarentage beginnen könnten und wann sie enden.
+- Links daneben ist eine Vorhersage für den nächsten Zyklusstart, darunter wird die Durchschnittliche Zyklusdauer angezeigt.
+- Die Seite wird optisch durch den Temperaturgraphen geteilt, der sich bei jedem neu Start des Programms aktualisiert.
+- Darunter sind die History-Balken zu erkennen. Diese Dokumentieren aufgrund der Eingaben des Benutzers den Verlauf der vergangenen Zyklen. Dabei wird angenommen das die Fruchtbaren Tage jeweils 7 Tage betragen und diese in der Mitte des Zyklus liegen.
+
+  - In der Menuleiste (von oben nach unten):
+    - Eingabe von weiteren Daten zu dem laufenden Zyklus, über eine Taste, die zu einer neuen Seite führt.
+    - Datumseingabe für den Zyklusstart 
+    - History-Balken aktualisieren
+    - Alle Daten aus der Datenbank löschen
+    - Sich ausloggen
+            
+### Was in den detailierten Infos eingegeben werden kann:
+- Blutungsstärke, eine Eingabe entspricht dabei einem Blutungstag.
+- Morgentliche Vaginal Temperatur
+- Kommentarfeld
+- Schleim Qualität
+- Gemützustand
+- Vermuttetes Eisprungdatum
+
+## Benützung und Ablauf:
+- Bei der ersten Benützung:
+  - dem Benutzer ist es freigestellt ob ein Passwort festgelegt werden soll oder ob die Datenbank unverschlüsselt bleiben soll. 
+  - Setup Daten werden geladen um zuveranschaulichen was die App wo Anzeigt. Über [Delet Data] kann der gesammte inhalt der Datenbank gelöscht werden. 
+  - Anschliessend können eigene Daten erfasst werden.
+- Eigene Daten erfassen:
+    - Neuer Zyklus erfassen, in dem das Datum des ersten Blutungstages eingetragen wird.
+    - Die Idee der Detailierten Daten ist, das an jeden Tag eines Zyklus das eingegeben wird, was zutreffend ist. Eine Eingabe, zum Beispiel einer Blutungsstärke, wird in der Datenbank als einen Tag interpretiert.
+    - Der Temperaturgraph wird bei jedem Neustart des Programms geladen.
+    - Wichtig: Alle detailiereten Daten werden innerhalb eines laufenden Zykluses erfasst und beziehen sich immer auf diesen. Es können auch vergangene Zyklen und Infos erfasst werden, aber es kann nicht zwischen verschiedenen Zyklen gewechselt werden.
+
 ---
 # 4) User Stories inkl. Akzeptanzkriterium, Aufwandschätzung in Story-Points und Priorisierung <a name="paragraph3"></a>
 
@@ -106,8 +142,22 @@ Das Ziel wird es sein ein Tool zu schaffen, das einfach von Gebrauch ist, aber d
 ### a. Taskliste für die Umsetzung der User Story (Schätzung in Stunden) b. Anreicherung der User Stories für die Umsetzung
 ### c. UML Package, Klassen- und Sequenzdiagramm
 
-Klassendiagramm
-![FlowchartMenstrualender](imagesReadme/FlowchartMenstrualender.jpg)
+Flowchart:
+
+<img src="imagesReadme/FlowchartMenstrualender.jpg" width="500">
+
+Package Diagram:
+
+<img src="imagesReadme/PackageDiagram.png" width="200">
+
+Class Diagram:
+
+<img src="imagesReadme/ClassDiagram.png" width="500">
+
+
+Sequence Diagram:
+
+<img src="imagesReadme/SequenceDiagram.png" width="500">
 
 
 ### d. Dokumentation wichtiger Code Snippets

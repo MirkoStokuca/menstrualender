@@ -8,7 +8,7 @@
     -fx-bar-fill:MEDIUMPURPLE;
 }
 .default-color3.chart-bar {
-    -fx-bar-fill: teal;
+    -fx-bar-fill: lightblue;
 }
 
 .default-color4.chart-bar {
@@ -21,7 +21,7 @@
     -fx-bar-fill:MEDIUMPURPLE;
 }
 .default-color7.chart-bar {
-    -fx-bar-fill: teal;
+    -fx-bar-fill: lightblue;
 }
 .stacked-bar-chart {
     -fx-alternative-row-visible: false;
