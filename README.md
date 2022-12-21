@@ -27,34 +27,19 @@ Das Ziel wird es sein ein Tool zu schaffen, das einfach von Gebrauch ist, aber d
 
 ---
 
-# 2) Build-Anleitung (checkout, mvn ...., java -jar xxxxx.jar) <a name="paragraph1"></a>
-1) Install Java
-2) Set java environment variables
-   1) It’s recommended to set an environment variable called JAVA_HOME that stores the path to where Java is installed on your machine.
-   2) For Mac users: <pre><code>export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk-18.jdk/Contents/Home"</code></pre>
-3) Verify Java is installed:
-   <pre><code>java -version</code></pre>
-4) Install Maven
-5) Set Maven environment variables
-   1) Add the executable for Maven to your PATH variable so that your machine can execute Maven commands successfully.
-   2) For Mac users:
-   <pre><code>export MAVEN_ROOT="$HOME/path/to/maven/apache-maven-3.8.5"
-   export PATH="$MAVEN_ROOT/bin:$PATH"</code></pre>
-6) Verify Maven is installed
-   1) For Mac users: <pre><code>mvn --version</code></pre>
-7) Create a new directory, change into it and clone the remote repository with the folllowing command: <code><pre>git clone https://github.com/MirkoStokuca/menstrualender</code></pre>
-8) Generate project using an archetype
-   <pre><code>mvn archetype:generate -DgroupId=ch.trinat.gauss -DartifactId=menstrualender -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false</code></pre>
-9) Specify source and target of Java that is to be used. To do this, add the following properties to the pom.xml file: <pre><code>\<properties>
-   <maven.compiler.source>18</maven.compiler.source>
-   <maven.compiler.target>18</maven.compiler.target>
-   \</properties></code></pre>
-10) To build and test the app, run the following command from the project root directory: <pre><code>mvn clean package</code></pre>
-11) Run the app, by running the following command from the project root directory: <pre><code>java -cp target/classes ch.trinat.gauss.menstrualender</code></pre>
+# 2) Build-Anleitung
+Um das Java-Projekt "Menstrualender" zu builden und auszuführen, müssen folgendende Schritte ausgeführt werden:
 
-### Run JAR file
-1) Download menstrualender.jar
-2) Run program by changing into the folder containing the .jar file and running the following command: <pre><code>java -jar ~/"path to your folder"/menstrualender.jar</code></pre>
+- Stellen Sie sicher, dass Sie Java und Maven auf Ihrem System installiert haben. Sie können prüfen, ob Java installiert ist, indem Sie <code>java -version</code> in der Befehlszeile ausführen, Maven indem Sie <code>mvn --version</code> ausführen. Um Maven zu installieren, können Sie den Installationsanweisungen auf der Maven-Website folgen: https://maven.apache.org/install.html
+- Erstellen Sie ein neues leeres Verzeichnis
+- Navigieren Sie mittels der Kommandozeile in das neue Verzeichnis mithilfe des "Change Directory" Befehles <code>cd</code>
+- Klonen Sie das Repository von GitHub mittels folgendem Befehl: <pre><code>git clone https://github.com/MirkoStokuca/menstrualender.git </code></pre>
+- Um das project von der Kommandozeile auszuführen geben Sie (im Verzeichnis des Projekts) folgenden Befehl ein: <pre><code>mvn clean compile javafx:run </code></pre>
+- Um ein custom image herzustellen, führen Sie folgenden Befehl aus: <pre><code>mvn clean compile javafx:jlink</code></pre>
+- Das custom image lässt sich mit folgendem Befehl ausführen: <pre><code>target/app/bin/java -m com.example.menstrualender/com.example.menstrualender.MensApplication</code></pre>
+
+Alternativ kann das Programm auch von einer IDE ausgeführt werden: navigieren hierzu in den Ordner src/main/java und ins Package com.example.menstrualender und führen Sie die Klasse MensApplication aus
+
 ---
 # 3) Kurze Bedienungsanleitung <a name="paragraph2"></a>
 
@@ -161,7 +146,74 @@ Sequence Diagram:
 
 
 ### d. Dokumentation wichtiger Code Snippets
-### e. Herleitung der Testfälle aus den Akzeptanzkriterien der User Stories
+#### Code Snippet Datenbank:
 
+    public ResultSet getLastBleedingLength(){
+    return this.util.query("""
+        select cycle.cyc_id, cyc_start, count(c_bleeding.cyc_id) as count_bleeding_days
+        from cycle
+        left join c_bleeding
+        on cycle.cyc_id = c_bleeding.cyc_id
+        group by cycle.cyc_id, cyc_start
+        order by cycle.cyc_id desc
+        limit 1 offset 1""");
+    }
+
+Diese Methode, getLastBleedingLength, führt eine Datenbankabfrage aus, um das letzte Menstruationsblutungsdatum und dessen Länge abzufragen.
+
+Die Abfrage gibt die ID des Zyklus (cyc_id), das Startdatum des Zyklus (cyc_start) und die Anzahl der Tage, an denen es während des Zyklus zu Menstruationsblutungen kam (count_bleeding_days) zurück. Die Abfrage greift auf zwei Tabellen zu: cycle und c_bleeding. Die Tabelle cycle enthält Informationen über den Zyklus, während die Tabelle c_bleeding Informationen über die Menstruationsblutungen enthält. Die Abfrage verknüpft diese beiden Tabellen mittels einem left join, wodurch auch Zyklen ohne Menstruationsblutungen berücksichtigt werden. Die Abfrage gruppiert die Ergebnisse nach cyc_id und cyc_start und sortiert sie in absteigender Reihenfolge nach cyc_id. Schließlich wird nur das letzte Ergebnis mithilfe von limit 1 offset 1 zurückgegeben.
+zwischen den Linien "select cycle..." und "limit 1 offset 1" wird SQLite Sprache verwendet.
+
+#### Code Snippet GUI:
+
+    private void initLineChart() {
+        //change Title
+        lineChart.setTitle("Temperaturkurve");
+
+        //defining a series
+        XYChart.Series series = new XYChart.Series();
+
+        //style lineChart
+        lineChart.getStylesheets().add(getClass().getResource("line_chart.css").toExternalForm());
+
+        //add information into series
+        for(int i = 0; i < getArrayListFloatTemperaturData().size(); i++)
+        {
+            series.getData().add(new XYChart.Data(i,getArrayListFloatTemperaturData().get(i)));
+        }
+        //load series into linechart
+        lineChart.getData().addAll(series);
+    }
+
+Die Methode initLineChart wird benutzt, um einen Temperaturverlauf anzuzeigen. Sie führt folgende Schritte aus:
+
+Dabei ausgeführte Schritte:
+
+- setzt den Titel des Linien-Diagramms auf "Temperaturkurve".
+- definiert eine neue Reihe (engl. series) für das Linien-Diagramm.
+- fügt dem Linien-Diagramm ein Stylesheet hinzu.
+- iteriert durch eine Liste von Temperaturdatenwerten, die von der Methode getArrayListFloatTemperaturData() zurückgegeben werden, und fügt jeden Wert der Reihe als neuen Datenpunkt hinzu.
+- fügt die Reihe dem Linien-Diagramm hinzu.
+
+### e. Herleitung der Testfälle aus den Akzeptanzkriterien der User Stories
+1) Testfall 1 --> User Story 1:
+- In der Ersten User Story geht es um die Eingabe von einem Datum in das Programm. Das Akzeptanzkriterium ist es, das die Eingabe vom Datum möglich ist.
+- Wenn wir das Programm öffnen sehen wir, dass es ein Kalender gibt denn man anklicken kann, somit ist diese User Story erfüllt.
+
+2) Testfall 2 --> User Story 4:
+- In der vierten User Story wollen wir testen dass das Programm eine vorhersage macht die uns sagen soll wann die nächste Blutung stattfinden wird.
+- Wenn wir die ersten Kalender Daten eingeben merken wir das es mit den Balken eine Vorhersage macht wann die nächste Blutung stattfinden wird. Wir können also sagen das diese User Story auch erfolgreich erfüllt wurde.
+
+3) Testfall 3 --> User Story 6:
+- In der sechsten User Story wird verlangt, dass man die Durschnittliche Zyklusdauer sieht. Die Akzeptanzkriterien sind das es berechnet und denn dem User angezeigt wird.
+- Wenn wir auf der App daten eingeben sehen wir das diese erfüllt wurde, unter der vorhersage vom Start vom nächsten Zyklus steht die durschnittliche Zyklusdauer.
+
+4) Testfall 4 --> User Story 13:
+- In der Dreizehnten User Story geht es um ein Easteregg, was eine versteckte Funktionalität ist, das Akzeptanzkriterium ist, dass der Kunde überrascht wird.
+- Wenn wir das Panel öffnen, sehen wir nichts spezielles, doch wenn man auf das Menu drückt, rutscht das Menu auf die Seite und wir sehen ein Bild von einem Baby. Das Kriterium ist erfüllt und somit auch die User Story.
+
+5) Testfall 5 --> User Story 14:
+- In dieser User Story wird verlangt das man, eine graphische Ausgabe macht. Damit das verständnis einfacher ist, und nicht alles mit Zahlen geht. Akzeptanz Kriterium ist das die Informationen ansprechend und übersichtlicg angegeben werden.
+- Wenn wir das Panel anschauen sehen wir das die Daten unter verschiedenen einfachen formen dargestellt werden, unter anderem mit Balken oder mit einem Kreis. Somit ist auch diese User Story erfüllt.
 
 --- 
