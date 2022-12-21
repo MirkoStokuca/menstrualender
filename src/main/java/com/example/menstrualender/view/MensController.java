@@ -214,12 +214,10 @@ public class MensController implements Initializable {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        System.out.println("Hole Daten aus der Datenbank");
-        System.out.println(arrayTemperatur);
         return arrayTemperatur;
     }
 
-    /**
+    /*
      * Hier steht die Outflow Arraylist für eine beliebige ausgabe zur verfügung
      * viel spass :)
      *

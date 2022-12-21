@@ -58,7 +58,8 @@ public class LoginController implements Initializable {
      * On first start you can choose a password
      */
     public void displayLogin() {
-        if (!Util.isDbExisting()) {
+        Util util = new Util();
+        if (!util.isDbExisting()) {
             plsSetPw.setTextFill(Color.RED);
             plsSetPw.setText("Wähle ein Passwort");
         } else

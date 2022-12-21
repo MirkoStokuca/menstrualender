@@ -6,13 +6,14 @@ import java.sql.*;
 public class Util {
     Statement statement;
     Connection connection;
+    String dbPath = System.getProperty("user.home") + "\\menstrualender.sqlite";
 
 
     /*
      * checks if Db Exists. returns boolean
      */
-    public static boolean isDbExisting(){
-        File f = new File("sample.sqlite");
+    public boolean isDbExisting(){
+        File f = new File(this.dbPath);
         if (!f.exists()) {          // wenn es die Datenbank noch nicht gibt --> setup
             // noch keine Datenvorhanden, macht Datenbank mit Tabelle verfügbar.
             System.out.println("Noch keine Datenvorhanden!");
@@ -25,7 +26,7 @@ public class Util {
      * Controller if a database is existing
      */
     public boolean setUp(String password){
-        boolean isDbExisting = Util.isDbExisting();
+        boolean isDbExisting = this.isDbExisting();
         boolean succes = this.getConnection(password);
         if(!isDbExisting) {
             Setup setup = new Setup(this);
@@ -46,7 +47,7 @@ public class Util {
             // String password = "test";
             // wenn es die Datenbank noch nicht gibt, legt er sie mit folgender Zeile an. Sonst macht er damit die connection.
             // Hier könnte der Path angegeben werden, wenn der irgenwo anders als im selben Projekt sein soll.
-            this.connection = DriverManager.getConnection("jdbc:sqlite:sample.sqlite", "", password);
+            this.connection = DriverManager.getConnection("jdbc:sqlite:" + this.dbPath, "", password);
             this.statement = this.connection.createStatement();
             this.statement.setQueryTimeout(30);  // set timeout to 30 sec.
         }
