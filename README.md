@@ -163,5 +163,24 @@ Sequence Diagram:
 ### d. Dokumentation wichtiger Code Snippets
 ### e. Herleitung der Testfälle aus den Akzeptanzkriterien der User Stories
 
+1) Testfall 1 --> User Story 1:
+- In der Ersten User Story geht es um die Eingabe von einem Datum in das Programm. Das Akzeptanzkriterium ist es, das die Eingabe vom Datum möglich ist.
+- Wenn wir das Programm öffnen sehen wir, dass es ein Kalender gibt denn man anklicken kann, somit ist diese User Story erfüllt.
+
+2) Testfall 2 --> User Story 4:
+- In der vierten User Story wollen wir testen dass das Programm eine vorhersage macht die uns sagen soll wann die nächste Blutung stattfinden wird.
+- Wenn wir die ersten Kalender Daten eingeben merken wir das es mit den Balken eine Vorhersage macht wann die nächste Blutung stattfinden wird. Wir können also sagen das diese User Story auch erfolgreich erfüllt wurde.
+
+3) Testfall 3 --> User Story 6:
+- In der sechsten User Story wird verlangt, dass man die Durschnittliche Zyklusdauer sieht. Die Akzeptanzkriterien sind das es berechnet und denn dem User angezeigt wird.
+- Wenn wir auf der App daten eingeben sehen wir das diese erfüllt wurde, unter der vorhersage vom Start vom nächsten Zyklus steht die durschnittliche Zyklusdauer.
+
+4) Testfall 4 --> User Story 13:
+- In der Dreizehnten User Story geht es um ein Easteregg, was eine versteckte Funktionalität ist, das Akzeptanzkriterium ist, dass der Kunde überrascht wird.
+- Wenn wir das Panel öffnen, sehen wir nichts spezielles, doch wenn man auf das Menu drückt, rutscht das Menu auf die Seite und wir sehen ein Bild von einem Baby. Das Kriterium ist erfüllt und somit auch die User Story.
+
+5) Testfall 5 --> User Story 14:
+- In dieser User Story wird verlangt das man, eine graphische Ausgabe macht. Damit das verständnis einfacher ist, und nicht alles mit Zahlen geht. Akzeptanz Kriterium ist das die Informationen ansprechend und übersichtlicg angegeben werden.
+- Wenn wir das Panel anschauen sehen wir das die Daten unter verschiedenen einfachen formen dargestellt werden, unter anderem mit Balken oder mit einem Kreis. Somit ist auch diese User Story erfüllt.
 
 --- 
